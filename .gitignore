@@ -1,3 +1,8 @@
+# Additional
+*.DS_Store
+*.ipynb_checkpoints
+*.virtual_documents
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
