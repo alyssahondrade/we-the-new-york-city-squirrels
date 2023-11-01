@@ -23,13 +23,18 @@
     - Finalise visualisations - what is the best way to visualise each concept?
 
 2. Data exploration
-    - Confirm columns available for final views
-    - Merge datasets
+    - Identify minimum requirements for the columns and drop rows which do not satisfy this
+    - Confirm dataset is at least 100 records
+    - Confirm all columns required for each final visualisation is valid
 
 3. Data transformation / cleaning
-    - Drop/Impute missing values
-    - Consistent column names
-    - Data in 2NF
+    - For each dataset:
+        - Drop/Impute missing values
+        - Rename columns to common between datasets, for consistency
+    - Ensure data is in 2NF
+        - For the 2020 dataset, parse the `Activities` column to separate activites, like in 2018 dataset. Parse the `Park Conditions`, `Other Animal Sightings`, `Litter`, `Squirrel Sighter(s)` from the parks dataset.
+    - Convert the datatypes
+    - Merge dataset: confirm squirrel IDs are unique after merge
   
 4. Data loading - MODULE 9 CHALLENGE
     - Choose a database (SQL, MongoDB, SQLite)
