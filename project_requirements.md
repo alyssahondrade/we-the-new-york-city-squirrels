@@ -27,6 +27,11 @@
     - Confirm dataset is at least 100 records.
     - Confirm all columns required for each final visualisation is valid.
 
+> Decision Point - "Other Notes or Observations / Interactions"
+> - 2020 Dataset "Other Notes or Observations": 192 >> 96 rows, with 76 unique
+> - 2018 Dataset "Other Interactions": 1937 >> 170, with 152 unique
+> Can include NaN values, use as an extra point of interest?
+
 3. Data collection
 - Use an API to get weather data for each day in the 2018 dataset.
 
