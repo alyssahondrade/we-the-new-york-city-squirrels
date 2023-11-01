@@ -48,12 +48,25 @@
         - Link to `.js` and `.css` files
     - JS script source code
 
+7. Presentation
+    - Populate README
+    - Create slide deck
+    - Presentation practice
+
 ## Dashboard Views
 
-### View 1 - 
+### View 1 - Park Conditions Map
+- The map will display the number of squirrels sighted per condition - bubble/choropleth?
+- Users can toggle between 2018 and 2020 datasets using a dropdown menu.
+- Users can select park conditions of interest: size, condition, weather.
 
+### View 2 - Pie Charts
+- As the map option is updated, the pie chart values change for:
+    - Primary colour
+    - Squirrel activity
+= Labels appear when the user hovers over the pie chart sections.
 
-### View 2 - 
-
-
-### View 3 - 
+### View 3 - Bar Charts
+- Display comparisons for:
+    - Squirrel ages (adult, juvenile, unknown)
+    - Behaviour towards humans
