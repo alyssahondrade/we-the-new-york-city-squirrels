@@ -23,37 +23,43 @@
     - Finalise visualisations - what is the best way to visualise each concept?
 
 2. Data exploration
-    - Identify minimum requirements for the columns and drop rows which do not satisfy this
-    - Confirm dataset is at least 100 records
-    - Confirm all columns required for each final visualisation is valid
+    - Identify minimum requirements for the columns and drop rows which do not satisfy this.
+    - Confirm dataset is at least 100 records.
+    - Confirm all columns required for each final visualisation is valid.
 
-3. Data transformation / cleaning
+3. Data collection
+- Use an API to get weather data for each day in the 2018 dataset.
+
+4. Data transformation / cleaning
     - For each dataset:
-        - Drop/Impute missing values
-        - Rename columns to common between datasets, for consistency
+        - Drop/Impute missing values.
+        - Rename columns to common between datasets, for consistency.
     - Ensure data is in 2NF
-        - For the 2020 dataset, parse the `Activities` column to separate activites, like in 2018 dataset. Parse the `Park Conditions`, `Other Animal Sightings`, `Litter`, `Squirrel Sighter(s)` from the parks dataset.
+        - For the 2020 dataset, parse the `Activities` column to separate activites, like in 2018 dataset.
+        - Parse the `Park Conditions`, `Other Animal Sightings`, `Litter`, `Squirrel Sighter(s)` from the parks dataset.
     - Convert the datatypes
-    - Merge dataset: confirm squirrel IDs are unique after merge
+    - Merge dataset:
+        - Merge the 2020 squirrel and park datasets.
+        - Confirm squirrel IDs are unique after merge.
   
-4. Data loading - MODULE 9 CHALLENGE
+5. Data loading - MODULE 9 CHALLENGE
     - Choose a database (SQL, MongoDB, SQLite)
     - Create ERD
     - Create Schema
     - Load data to database (test with SELECT *)
 
-5. API - MODULE 10 CHALLENGE
+6. API - MODULE 10 CHALLENGE
     - Create database connection (use: create_engine)
     - Flask setup and define routes
     - Create each route
 
-6. Visualisation - MODULE 14 CHALLENGE
+7. Visualisation - MODULE 14 CHALLENGE
     - Create the `index.html`
         - Import JS libraries
         - Link to `.js` and `.css` files
     - JS script source code
 
-7. Presentation
+8. Presentation
     - Populate README
     - Create slide deck
     - Presentation practice
