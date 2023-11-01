@@ -7,7 +7,7 @@
     - JavaScript
     - At least one database (SQL, MongoDB, SQLite)
 
-2. Track: Dashboard page with multiple charts that update from the same data.
+2. Chosen track: Dashboard page with multiple charts that update from the same data.
 
 3. JS Library: <?>
 
@@ -42,7 +42,7 @@
     - Flask setup and define routes
     - Create each route
 
-6. Visualisation
+6. Visualisation - MODULE 14 CHALLENGE
     - Create the `index.html`
         - Import JS libraries
         - Link to `.js` and `.css` files
