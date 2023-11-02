@@ -35,7 +35,7 @@
 3. Data collection
 - Use an API to get weather data for each day in the 2018 dataset.
 
-4. Data transformation / cleaning
+4. Data transformation / cleaning - Adam, Dom
     - For each dataset:
         - Drop/Impute missing values.
         - Rename columns to common between datasets, for consistency.
@@ -46,27 +46,31 @@
     - Merge dataset:
         - Merge the 2020 squirrel and park datasets.
         - Confirm squirrel IDs are unique after merge.
-  
-5. Data loading - MODULE 9 CHALLENGE
+
+> Decision Point
+> - Remove "Above Ground, etc"
+> - No need to remove null rows for "other observations, etc"
+
+5. Data loading - MODULE 9 CHALLENGE / Project 2 - Dom, Adam
     - Choose a database (SQL, MongoDB, SQLite)
     - Create ERD
-    - Create Schema
+    - Create Schema - Lakna
     - Load data to database (test with SELECT *)
 
-6. API - MODULE 10 CHALLENGE
+6. API - MODULE 10 CHALLENGE - Adam
     - Create database connection (use: create_engine)
     - Flask setup and define routes
     - Create each route
 
-7. Visualisation - MODULE 14 CHALLENGE
+7. Visualisation - MODULE 14 CHALLENGE - Not Adam, Lakna (pie)
     - Create the `index.html`
         - Import JS libraries
         - Link to `.js` and `.css` files
     - JS script source code
 
 8. Presentation
-    - Populate README
-    - Create slide deck
+    - Populate README - Alyssa
+    - Create slide deck - Dom
     - Presentation practice
 
 ## Dashboard Views
