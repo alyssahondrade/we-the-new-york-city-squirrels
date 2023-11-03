@@ -35,7 +35,7 @@
 3. Data collection
 - Use an API to get weather data for each day in the 2018 dataset.
 
-4. Data transformation / cleaning - Adam, Dom
+4. Data transformation / cleaning - Adam, Dom, Alyssa
     - For each dataset:
         - Drop/Impute missing values.
         - Rename columns to common between datasets, for consistency.
