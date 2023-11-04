@@ -9,7 +9,7 @@
 
 2. Chosen track: Dashboard page with multiple charts that update from the same data.
 
-3. JS Library: <?>
+3. JS Library: Chroma.js
 
 4. Dataset with at least 100 records.
 
@@ -27,11 +27,6 @@
     - Confirm dataset is at least 100 records.
     - Confirm all columns required for each final visualisation is valid.
 
-> Decision Point - "Other Notes or Observations / Interactions"
-> - 2020 Dataset "Other Notes or Observations": 192 >> 96 rows, with 76 unique
-> - 2018 Dataset "Other Interactions": 1937 >> 170, with 152 unique
-> Can include NaN values, use as an extra point of interest?
-
 3. Data collection
 - Use an API to get weather data for each day in the 2018 dataset.
 
@@ -47,10 +42,6 @@
         - Merge the 2020 squirrel and park datasets.
         - Confirm squirrel IDs are unique after merge.
 
-> Decision Point
-> - Remove "Above Ground, etc"
-> - No need to remove null rows for "other observations, etc"
-
 5. Data loading - MODULE 9 CHALLENGE / Project 2 - Dom, Adam
     - Choose a database (SQL, MongoDB, SQLite)
     - Create ERD
@@ -64,6 +55,7 @@
 
 7. Visualisation - MODULE 14 CHALLENGE - Not Adam, Lakna (pie)
     - Create the `index.html`
+        - Learn how to use bootstrap library to setup the dashboard layout - Alyssa
         - Import JS libraries
         - Link to `.js` and `.css` files
     - JS script source code
