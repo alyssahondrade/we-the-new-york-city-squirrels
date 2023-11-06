@@ -46,3 +46,5 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 ### Data Cleaning
 - [1] How to add an empty column to a dataframe [https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe](https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe)
+
+- [2] 
