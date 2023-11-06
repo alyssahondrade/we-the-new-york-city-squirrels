@@ -250,9 +250,6 @@ D-22-44,Gray,False,True,False,True
 31A-PM-1017-04,Gray,False,False,False,True
 42G-AM-1018-03,Gray,False,True,False,False
 37E-PM-1006-03,Gray,False,True,False,False
-37E-PM-1006-03,Gray,False,True,False,False
-37E-PM-1006-03,Gray,False,True,False,False
-37E-PM-1006-03,Gray,False,True,False,False
 5C-PM-1010-13,Gray,False,False,False,True
 15I-AM-1008-01,Gray,False,True,False,False
 19B-PM-1018-01,Gray,True,True,False,True
@@ -522,9 +519,6 @@ D-22-44,Gray,False,True,False,True
 35C-PM-1013-02,Gray,False,True,False,False
 37B-PM-1013-05,Gray,False,True,False,False
 41D-PM-1014-03,Gray,False,False,False,True
-7D-PM-1010-01,Gray,False,False,False,True
-7D-PM-1010-01,Gray,False,False,False,True
-7D-PM-1010-01,Gray,False,False,False,True
 7D-PM-1010-01,Gray,False,False,False,True
 8G-PM-1017-01,Gray,False,True,False,True
 4C-PM-1010-06,Gray,False,True,False,False
@@ -1189,9 +1183,6 @@ D-22-44,Gray,False,True,False,True
 10A-PM-1014-03,Gray,True,True,False,True
 10H-AM-1014-01,Gray,False,True,False,False
 40B-AM-1019-06,Gray,False,False,False,True
-40B-AM-1019-06,Gray,False,False,False,True
-40B-AM-1019-06,Gray,False,False,False,True
-40B-AM-1019-06,Gray,False,False,False,True
 13D-PM-1018-04,Gray,False,False,False,True
 31D-PM-1006-03,Gray,False,True,False,False
 18I-PM-1007-07,Gray,False,True,False,False
@@ -1538,9 +1529,6 @@ D-22-44,Gray,False,True,False,True
 35A-AM-1014-07,Gray,False,False,False,True
 14A-AM-1014-01,Gray,False,False,False,True
 1B-AM-1012-05,Gray,False,True,False,False
-4C-PM-1010-05,Gray,False,True,False,False
-4C-PM-1010-05,Gray,False,True,False,False
-4C-PM-1010-05,Gray,False,True,False,False
 4C-PM-1010-05,Gray,False,True,False,False
 14D-AM-1014-02,Gray,False,True,False,True
 10C-PM-1013-03,Gray,False,True,False,False
