@@ -64,4 +64,4 @@ def homepage():
 
 @app.route("/locations")
 def locations_route():
-    
+    return jsonify(output_list)
