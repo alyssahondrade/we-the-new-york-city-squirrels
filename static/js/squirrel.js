@@ -46,11 +46,12 @@
 console.log("Testing HTML");
 
 const url = "http://127.0.0.1:5000/locations";
+// const url = "localhost:8000/locations";
+console.log("HERE??");
 
 d3.json(url).then(function(data) {
     console.log(data);
 });
 
 // let rawdata = require('static/data/locations.json');
-
 // console.log(rawdata);

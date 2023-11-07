@@ -8,6 +8,7 @@ Version: 04 Nov 2023
 # Imports
 #################################################
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 from sqlalchemy.orm import Session, declarative_base
 from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float
@@ -77,6 +78,7 @@ print(endpoint_data['appearance'])
 #################################################
 # Flask Setup
 app = Flask(__name__)
+CORS(app)
 #################################################
 
 #################################################
@@ -94,17 +96,42 @@ def homepage():
     )
 
 @app.route("/locations")
+# @app.route("/locations", methods=['GET'])
 def locations_route():
     return jsonify(endpoint_data['locations'])
+    # response = jsonify(endpoint_data['locations'])
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return response
 
 @app.route("/appearance")
+# @app.route("/appearance", methods=['GET'])
 def appearance_route():
     return jsonify(endpoint_data['appearance'])
+    # response = jsonify(endpoint_data['appearance'])
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return response
 
 @app.route("/activities")
+# @app.route("/activities", methods=['GET'])
 def activities_route():
     return jsonify(endpoint_data['activities'])
+    # response = jsonify(endpoint_data['activities'])
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return response
 
 @app.route("/interactions")
+# @app.route("/interactions", methods=['GET'])
 def interactions_route():
     return jsonify(endpoint_data['interactions'])
+    # response = jsonify(endpoint_data['interactions'])
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    # return response
+
+# @app.route('your route', methods=['GET'])
+# def yourMethod(params):
+#     response = flask.jsonify({'some': 'data'})
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     return response
+
+if __name__ == '__main__':
+    app.run(debug=True)
