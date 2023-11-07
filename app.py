@@ -35,19 +35,21 @@ for table in table_names:
     for col in table_columns:
         col_names.append(col['name'])
 
-    results = engine.execute(f"SELECT * FROM {table}").fetchall()
+    with engine.connect() as conn:
+        results = conn.execute(f"SELECT * FROM {table}")
+        # results = engine.execute(f"SELECT * FROM {table}").fetchall()
 
-    output_list = []
-    for result in results:
-        output_dict = dict()
+        output_list = []
+        for result in results:
+            output_dict = dict()
+    
+            for col in col_names:
+                output_dict[col] = getattr(result, col)
+            output_list.append(output_dict)
+    
+        endpoint_data[table] = output_list
 
-        for col in col_names:
-            output_dict[col] = getattr(result, col)
-        output_list.append(output_dict)
-
-    endpoint_data[table] = output_list
-
-print(endpoint_data['appearance'])
+# print(endpoint_data['appearance'])
 
 
 # # Get column names for 'locations'

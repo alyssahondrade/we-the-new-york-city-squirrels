@@ -45,11 +45,15 @@
 
 console.log("Testing HTML");
 
-const url = "http://127.0.0.1:5000/locations";
+const locations_url = "http://127.0.0.1:5000/locations";
+const appearance_url = "http://127.0.0.1:5000/appearance";
+const activities_url = "http://127.0.0.1:5000/activities";
+const interactions_url = "http://127.0.0.1:5000/activities";
+
 // const url = "localhost:8000/locations";
 console.log("HERE??");
 
-d3.json(url).then(function(data) {
+d3.json(activities_url).then(function(data) {
     console.log(data);
 });
 
