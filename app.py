@@ -11,7 +11,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 from sqlalchemy.orm import Session, declarative_base
-from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float
+from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float, text
 
 #################################################
 # SQLITE CONNECTION
@@ -35,8 +35,10 @@ for table in table_names:
     for col in table_columns:
         col_names.append(col['name'])
 
-    with engine.connect() as conn:
-        results = conn.execute(f"SELECT * FROM {table}")
+    statement = f"SELECT * FROM {table}"
+    with engine.connect() as conn:        
+        results = conn.execute(text(statement))
+        # results = conn.execute(text(f"SELECT * FROM {table}"))
         # results = engine.execute(f"SELECT * FROM {table}").fetchall()
 
         output_list = []
