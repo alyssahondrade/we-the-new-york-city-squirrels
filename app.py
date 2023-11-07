@@ -9,86 +9,45 @@ Version: 04 Nov 2023
 #################################################
 from flask import Flask, jsonify
 
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func, MetaData
-
-# import numpy as np
-# import datetime as dt
-
-from pprint import pprint
-from json import loads, dumps
-
+from sqlalchemy.orm import Session, declarative_base
+from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float
 
 #################################################
 # SQLITE CONNECTION
 #################################################
-# Create an engine for the hawaii.sqlite database
+# Create an engine for the squirrels.sqlite database
 engine = create_engine("sqlite:///squirrels.sqlite")
 
-metadata = MetaData()
-metadata.reflect(bind=engine)
-
-# Reflect the database into ORM classes
-# Base = automap_base()
-# Base.prepare(autoload_with = engine)
-Base = automap_base(metadata=metadata)
-Base.prepare()
-
-# Save references to the respective table
-# locations = Base.classes.locations
-# appearance = Base.classes.appearance
-# activities = Base.classes.activities
-# interactions = Base.classes.interactions
-
-locations = metadata.tables["locations"]
-appearance = metadata.tables["appearance"]
-activities = metadata.tables["activities"]
-interactions = metadata.tables["interactions"]
-
-# Create a database session object
+# Create database session object
 session = Session(bind=engine)
 
-# session.query(locations).fetchall()
-# test = session.query(locations).all()
-# print(test)
+# View all of the classes
+inspector = inspect(engine)
+print(inspector.get_table_names())
 
-# for row in test:
-#     print(row.squirrel_id)
+# Get column names for 'locations'
+locations_cols = inspector.get_columns('locations')
 
-#################################################
-# Flask Setup
-app = Flask(__name__)
-#################################################
+col_names = []
+for col in locations_cols:
+    col_names.append(col['name'])
 
-#################################################
-# Flask Routes
-#################################################
-@app.route("/")
-def homepage():
-    return("Welcome to the NYC Squirrels Dashboard<br/>")
+# Get the dictionary for 'locations'
+results = engine.execute("SELECT * FROM locations").fetchall()
 
+output_list = []
+for result in results:
+    # result_dict = result.__dict__ # This only works in jupyter notebook?
+    output_dict = dict()
 
-@app.route("/locations")
-def locations_route():
-    # data = [row.to_dict() for row in test]  # Convert to a list of dictionaries
-    # data = [dict(list(row)) for row in test]
-
-    test = session.query(locations).all()
-    for row in test
+    # for col in col_names:
+    #     output_dict[col] = result_dict.get(col)
+    # output_list.append(output_dict)
     
-    return jsonify(data)
+    # print(dir(result))
+    for col in col_names:
+        # print(getattr(result, col))
+        output_dict[col] = getattr(result, col)
+    output_list.append(output_dict)
 
-
-
-"""
-justice_league_members = [
-    {"superhero": "Aquaman", "real_name": "Arthur Curry"},
-    {"superhero": "Batman", "real_name": "Bruce Wayne"},
-    {"superhero": "Cyborg", "real_name": "Victor Stone"},
-    {"superhero": "Flash", "real_name": "Barry Allen"},
-    {"superhero": "Green Lantern", "real_name": "Hal Jordan"},
-    {"superhero": "Superman", "real_name": "Clark Kent/Kal-El"},
-    {"superhero": "Wonder Woman", "real_name": "Princess Diana"}
-]
-"""
+print(output_list)
