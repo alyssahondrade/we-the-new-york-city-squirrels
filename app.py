@@ -23,7 +23,10 @@ session = Session(bind=engine)
 
 # View all of the classes
 inspector = inspect(engine)
-print(inspector.get_table_names())
+table_names = inspector.get_table_names()
+
+
+
 
 # Get column names for 'locations'
 locations_cols = inspector.get_columns('locations')

@@ -45,12 +45,12 @@
 
 console.log("Testing HTML");
 
-// const url = "http://127.0.0.1:5000/data/locations";
+const url = "http://127.0.0.1:5000/locations";
 
-// d3.json(url).then(function(data) {
-//     console.log(data);
-// });
+d3.json(url).then(function(data) {
+    console.log(data);
+});
 
 // let rawdata = require('static/data/locations.json');
 
-console.log(rawdata);
+// console.log(rawdata);
