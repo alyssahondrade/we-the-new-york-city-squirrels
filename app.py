@@ -36,7 +36,7 @@ for table in table_names:
         col_names.append(col['name'])
 
     with engine.connect() as conn:
-        results = conn.execute(f"SELECT * FROM {table}")
+        results = conn.execute(text(f"SELECT * FROM {table}"))
         # results = engine.execute(f"SELECT * FROM {table}").fetchall()
 
         output_list = []
