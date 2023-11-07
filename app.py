@@ -50,4 +50,18 @@ for result in results:
         output_dict[col] = getattr(result, col)
     output_list.append(output_dict)
 
-print(output_list)
+#################################################
+# Flask Setup
+app = Flask(__name__)
+#################################################
+
+#################################################
+# Flask Routes
+#################################################
+@app.route("/")
+def homepage():
+    return("Welcome to the NYC Squirrels Dashboard<br/>")
+
+@app.route("/locations")
+def locations_route():
+    
