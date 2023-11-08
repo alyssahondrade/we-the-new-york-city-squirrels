@@ -10,7 +10,8 @@ Version: 04 Nov 2023
 from flask import Flask, jsonify
 from flask_cors import CORS
 
-from sqlalchemy.orm import Session, declarative_base
+from sqlalchemy.orm import Session
+from sqlallchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float, text
 
 #################################################
