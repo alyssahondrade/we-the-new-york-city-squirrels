@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>We, The New York City Squirrels</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    
 </head>
 
 <!-- Image -->
@@ -37,8 +44,16 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
     These include but are not limited to interactions with humans. Age, time spotted. Number of observations per park.<br>
     Insert Bar Chart Here.</p>
 
+    <div id="map"></div>
+
+      <!-- Leaflet JS -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+    
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- <script src="locations.json"></script> -->
+
     <script src="static/js/squirrel.js"></script>
 </body>
 
