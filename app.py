@@ -11,7 +11,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 from sqlalchemy.orm import Session
-from sqlallchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, inspect, Column, String, Boolean, Float, text
 
 #################################################
@@ -94,16 +94,16 @@ def homepage():
     return(
         f"Welcome to the NYC Squirrels Dashboard<br>"
         f"Available routes:<br>"
-        f"/locations<br>"
+        f"/metadata<br>"
         f"/appearance<br>"
         f"/activities<br>"
         f"/interactions<br>"
     )
 
-@app.route("/locations")
+@app.route("/metadata")
 # @app.route("/locations", methods=['GET'])
 def locations_route():
-    return jsonify(endpoint_data['locations'])
+    return jsonify(endpoint_data['metadata'])
     # response = jsonify(endpoint_data['locations'])
     # response.headers.add('Access-Control-Allow-Origin', '*')
     # return response
