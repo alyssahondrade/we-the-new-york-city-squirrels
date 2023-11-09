@@ -4,9 +4,13 @@ const appearance_url = "http://127.0.0.1:5000/appearance";
 const activities_url = "http://127.0.0.1:5000/activities";
 const interactions_url = "http://127.0.0.1:5000/interactions";
 
-// pie chart
 
-// d3.json(interactions_url, function (behaviorData) { 
+// Define the map parameters
+// let map_centre = [40.730610, -73.935242]; // New York City. https://www.latlong.net/place/new-york-city-ny-usa-1848.html
+let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
+let map_zoom = 11;
+
+//-------- PIE CHART --------//
 function create_pie(interactions_data) {
     
     console.log(interactions_data); 
@@ -66,16 +70,197 @@ function create_pie(interactions_data) {
 
 console.log("Testing HTML");
 
-// // Define the URLs for the dataset
-// const metadata_url = "http://127.0.0.1:5000/metadata";
-// const appearance_url = "http://127.0.0.1:5000/appearance";
-// const activities_url = "http://127.0.0.1:5000/activities";
-// const interactions_url = "http://127.0.0.1:5000/interactions";
+function create_bar(metadata_data, activities_data) {
+    console.log(activities_data);
+    console.log(metadata_data);
 
-// Define the map parameters
-// let map_centre = [40.730610, -73.935242]; // New York City. https://www.latlong.net/place/new-york-city-ny-usa-1848.html
-let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
-let map_zoom = 11;
+    // Get the x-values
+    console.log(Object.keys(activities_data[0]));
+    let activities = Object.keys(activities_data[0]);
+    let x_values = activities.slice(0, activities.length-1) // remove squirrel_id
+    let formatted_xvals = x_values.map(word => word[0].toUpperCase()+word.substring(1)); // capitalise each word
+    // console.log(x_values.length);
+
+    // Define lists that will hold the y-values
+    let default_value = 0;
+    let y_values = Object.fromEntries(x_values.map(key => [key, default_value]));
+    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // March
+    let autumn_values = Object.fromEntries(x_values.map(key => [key, default_value])); // October
+    
+
+    console.log(y_values)
+
+    // Get the y-values
+    for (let i=0; i<activities_data.length; i++) {
+        let sighting = activities_data[i];
+        let month = metadata_data[i].month;
+        
+        let num_activities = Object.keys(sighting).length - 1;
+        // console.log(sighting, Object.keys(sighting).length);
+        
+        // for (let j=0; j<x_values.length-1; j++) { // -1 to exclude squirrel_id
+        for (let j=0; j<num_activities; j++) {
+            // console.log(sighting[x_values[j]], x_values[j]);
+
+            if (sighting[x_values[j]]) {
+                y_values[x_values[j]] += 1
+                if (month === 3) {
+                    spring_values[x_values[j]] += 1
+                }
+                else if (month === 10) {
+                    autumn_values[x_values[j]] += 1
+                }
+                
+            }
+            
+        };
+    };
+
+    let sum_spring = Object.values(spring_values).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+
+    let sum_autumn = Object.values(autumn_values).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+    
+
+    let y_spring = Object.values(spring_values).map(function(spring_val) {
+       return Math.round(100 * spring_val / sum_spring);
+    });
+    
+    let y_autumn = Object.values(autumn_values).map(function(autumn_val) {
+        return Math.round(100 * autumn_val / sum_autumn);
+    });
+
+    
+    console.log(y_values);
+    console.log(spring_values);
+    console.log(autumn_values);
+    console.log(y_spring);
+    console.log(y_autumn);
+    console.log(sum_spring);
+    console.log(sum_autumn);
+
+    // Create the traces
+    let spring_trace = {
+        x: formatted_xvals,
+        y: y_spring,
+        type: 'bar',
+        name: "Spring",
+        marker: {
+            color: chroma.lab(80,-20,50).hex()
+        }
+    };
+
+    let autumn_trace = {
+        x: formatted_xvals,
+        y: y_autumn,
+        type: 'bar',
+        name: "Autumn",
+        marker: {
+            color: chroma.temperature(2000).hex()
+        }
+    };
+
+    let bar_data = [spring_trace, autumn_trace];
+
+    let bar_layout = {
+        title: "Squirrel Activity - Spring vs Autumn",
+        xaxis: {
+            title: {text: "Activity"},
+            automargin: true
+        },
+        yaxis: {
+            title: {text: "% of Season Total"},
+            automargin: true
+        }
+    };
+
+    Plotly.newPlot("bar", bar_data, bar_layout);
+};
+
+
+
+function create_colourmap(metadata_data, appearance_data) {
+    console.log(appearance_data);
+    console.log(metadata_data);
+    
+    
+    
+    // Get the unique highlights
+    let remove_keys = function(arr, ...args) {
+        return arr.filter(val => !args.includes(val) )
+    };
+    
+    console.log(Object.keys(appearance_data[0]));
+    let unique_highlights = remove_keys(Object.keys(appearance_data[0]), 'squirrel_id','primary_colour');
+
+    console.log(unique_highlights);
+
+    // Get the primary colours
+    let unique_primary = [];
+    for (let i=0; i<appearance_data.length; i++) {
+        let primary = appearance_data[i].primary_colour;
+        if (!unique_primary.includes(primary)) {
+            unique_primary.push(primary);
+        };
+    };
+    console.log(unique_primary);
+
+    // Define lists that will hold the values
+    let default_value = 0;
+    let primary_values = Object.fromEntries(unique_primary.map(key => [key, default_value]));
+    let highlight_values = Object.fromEntries(unique_highlights.map(key => [key, default_value]));
+
+    console.log(primary_values);
+    console.log("highlight_values", highlight_values);
+
+    // QUESTION: how to account for squirrels with more than one highlight? Put in a separate visualisation?
+    let multi_highlight = 0;
+
+    for (let i=0; i<appearance_data.length; i++) {
+        // console.log(appearance_data[i]);
+
+        let count = 0;
+        console.log(Object.keys(highlight_values).length);
+        
+        for (let j=0; j<Object.keys(highlight_values).length; j++) {
+            console.log(Object.keys(highlight_values)[j]);
+
+            console.log(appearance_data[i][Object.keys(highlight_values)[j]]);
+            let highlight_value = appearance_data[i][Object.keys(highlight_values)[j]];
+
+            if (highlight_value === 1) {
+                count += 1;
+            };
+            // console.log("here", appearance_data[]);
+            // if (appearance_data[i][Object.keys(highlight_values)[j]] === true) {
+            //     console.log("here", appearance_data[i]);
+            // };
+        };
+
+        if (count > 1) {
+            console.log(appearance_data[i]);
+        }
+        else {
+            
+        }
+    };
+    
+    // // Loop through primary then check highlight
+    // for (let i=0; i<appearance_data.length; i++) {
+    //     for (let j=0; j<unique_primary.length; j++) {
+    //         // Check the highlight colours
+    //         for (let k=0; k<unique_highlights.length; k++) {
+                
+    //         };
+    //     };
+    // };
+};
+
+
+
 
 function create_plots(metadata_data, appearance_data, activities_data, interactions_data) {
     console.log("I'm in the function");
@@ -269,7 +454,6 @@ function create_map_markers(metadata_data, appearance_data, activities_data) {
 
 
 
-
 // const url = "localhost:8000/locations";
 console.log("HERE??");
 
@@ -279,7 +463,8 @@ d3.json(metadata_url).then(function(metadata_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 create_map_markers(metadata_data, appearance_data, activities_data);
-                // create_bar(metadata_data, activities_data);
+                create_bar(metadata_data, activities_data);
+                create_colourmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
             });
         });
