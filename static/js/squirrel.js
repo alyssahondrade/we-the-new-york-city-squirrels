@@ -6,9 +6,10 @@ const interactions_url = "http://127.0.0.1:5000/interactions";
 
 // pie chart
 
-d3.json(interactions_url, function (behaviorData) { 
+// d3.json(interactions_url, function (behaviorData) { 
+function create_pie(interactions_data) {
     
-    console.log(behaviorData); 
+    console.log(interactions_data); 
   
   // counts
     let indifferent_count = 0
@@ -16,12 +17,12 @@ d3.json(interactions_url, function (behaviorData) {
     let runsFrom_count = 0
     let watching_count = 0
   
-    for (let i= 0; i < behaviorData.length; i++ ){
+    for (let i= 0; i < interactions_data.length; i++ ){
   
-        let indifferents = behaviorData[i].indifferent;
-        let approach = behaviorData[i].approaches;
-        let runsFrom = behaviorData[i].runs_from;
-        let watch = behaviorData[i].watching;
+        let indifferents = interactions_data[i].indifferent;
+        let approach = interactions_data[i].approaches;
+        let runsFrom = interactions_data[i].runs_from;
+        let watch = interactions_data[i].watching;
         
         if(indifferents == 1){
             indifferent_count += 1
@@ -61,7 +62,7 @@ d3.json(interactions_url, function (behaviorData) {
     // 
     Plotly.newPlot('pie_chart', data, layout);
   
-  });
+  };
 
 console.log("Testing HTML");
 
@@ -278,7 +279,8 @@ d3.json(metadata_url).then(function(metadata_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 create_map_markers(metadata_data, appearance_data, activities_data);
-                create_bar(metadata_data, activities_data);
+                // create_bar(metadata_data, activities_data);
+                create_pie(interactions_data);
             });
         });
     });
