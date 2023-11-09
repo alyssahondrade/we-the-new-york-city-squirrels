@@ -1,190 +1,75 @@
-// d3.json("dcdfdsf", function (behaviorData) { 
-    
-//     console.log(behaviorData); 
-  
-//   // counts
-//     var gray_count=0
-//     var cinnamon_count=0
-  
-//     for (let i= 0; i < behaviorData.length; i++ ){
-  
-//         let primary_color = behaviorData[i].primary_fur_color;
-//         let indifferents = behaviorData[i].indifferent;
-        
-//         if(indifferents=="True" && primary_color=="Cinnamon"){
-//             cinnamon_count+=1
-//         }
-//         else if (indifferents=="True" && primary_color=="Gray") {
-//             gray_count+=1
-//             }
-//     }
-//   //}
-//   // diction
-//     let my_dict = {
-//       "Cinnamon": cinnamon_count,
-//       "Gray": gray_count
-//     };
-//     console.log(my_dict)
-   
-//   // my data
-//     let data = [{
-//       values: [cinnamon_count, gray_count],
-//       labels: ['Cinnamon', 'Gray'],
-//       type: 'pie'
-//     }];
-//     // layout
-//     let layout = {
-//       height: 500,
-//       width: 900
-//     };
-    
-//     // 
-//     Plotly.newPlot('pie_chart', data, layout);
-  
-//   });
-
-console.log("Testing HTML");
-
 // Define the URLs for the dataset
 const metadata_url = "http://127.0.0.1:5000/metadata";
 const appearance_url = "http://127.0.0.1:5000/appearance";
 const activities_url = "http://127.0.0.1:5000/activities";
 const interactions_url = "http://127.0.0.1:5000/interactions";
 
+// pie chart
 
-function create_bar(metadata_data, activities_data) {
-    console.log(activities_data);
-    console.log(metadata_data);
-
-    // Get the x-values
-    console.log(Object.keys(activities_data[0]));
-    let activities = Object.keys(activities_data[0]);
-    let x_values = activities.slice(0, activities.length-1) // remove squirrel_id
-    let formatted_xvals = x_values.map(word => word[0].toUpperCase()+word.substring(1)); // capitalise each word
-    // console.log(x_values.length);
-
-    // Define a list that will hold the y-values
-    // let y_values = [];
-    let default_value = 0;
-    let y_values = Object.fromEntries(x_values.map(key => [key, default_value]));
-    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // March
-    let autumn_values = Object.fromEntries(x_values.map(key => [key, default_value])); // October
+d3.json(interactions_url, function (behaviorData) { 
     
-
-    console.log(y_values)
-
-    // Get the y-values
-    for (let i=0; i<activities_data.length; i++) {
-        let sighting = activities_data[i];
-        let month = metadata_data[i].month;
+    console.log(behaviorData); 
+  
+  // counts
+    let indifferent_count = 0
+    let approaches_count = 0
+    let runsFrom_count = 0
+    let watching_count = 0
+  
+    for (let i= 0; i < behaviorData.length; i++ ){
+  
+        let indifferents = behaviorData[i].indifferent;
+        let approach = behaviorData[i].approaches;
+        let runsFrom = behaviorData[i].runs_from;
+        let watch = behaviorData[i].watching;
         
-        let num_activities = Object.keys(sighting).length - 1;
-        // console.log(sighting, Object.keys(sighting).length);
-        
-        // for (let j=0; j<x_values.length-1; j++) { // -1 to exclude squirrel_id
-        for (let j=0; j<num_activities; j++) {
-            // console.log(sighting[x_values[j]], x_values[j]);
-
-            if (sighting[x_values[j]]) {
-                y_values[x_values[j]] += 1
-                if (month === 3) {
-                    spring_values[x_values[j]] += 1
-                }
-                else if (month === 10) {
-                    autumn_values[x_values[j]] += 1
-                }
-                
-            }
-            
-        };
-    };
-
-    let sum_spring = Object.values(spring_values).reduce((accumulator, value) => {
-        return accumulator + value;
-    }, 0);
-
-    let sum_autumn = Object.values(autumn_values).reduce((accumulator, value) => {
-        return accumulator + value;
-    }, 0);
-    
-
-    let y_spring = Object.values(spring_values).map(function(spring_val) {
-       return Math.round(100 * spring_val / sum_spring);
-    });
-    
-    let y_autumn = Object.values(autumn_values).map(function(autumn_val) {
-        return Math.round(100 * autumn_val / sum_autumn);
-    });
-
-    
-    console.log(y_values);
-    console.log(spring_values);
-    console.log(autumn_values);
-    console.log(y_spring);
-    console.log(y_autumn);
-    console.log(sum_spring);
-    console.log(sum_autumn);
-
-    // Create the traces
-    let spring_trace = {
-        x: formatted_xvals,
-        y: y_spring,
-        type: 'bar',
-        name: "Spring",
-        marker: {
-            color: chroma.lab(80,-20,50).hex()
+        if(indifferents == 1){
+            indifferent_count += 1
         }
-    };
-
-    let autumn_trace = {
-        x: formatted_xvals,
-        y: y_autumn,
-        type: 'bar',
-        name: "Autumn",
-        marker: {
-            color: chroma.temperature(2000).hex()
+        else if (approach == 1) {
+            approaches_count += 1
         }
-    };
-
-    let bar_data = [spring_trace, autumn_trace];
-
-    let bar_layout = {
-        title: "Squirrel Activity - Spring vs Autumn",
-        xaxis: {
-            title: {text: "Activity"},
-            automargin: true
-        },
-        yaxis: {
-            title: {text: "% of Season Total"},
-            automargin: true
+        else if (runsFrom == 1) {
+            runsFrom_count += 1
         }
+        else if (watch == 1) {
+            watching_count += 1
+        }
+    }
+  //}
+  // diction
+    let my_dict = {
+      "Indifferent": indifferent_count,
+      "Approaches": approaches_count,
+      "Runs from": runsFrom_count,
+      "Watching": watching_count
     };
+    console.log(my_dict)
+   
+  // my data
+    let data = [{
+      values: [indifferent_count, approaches_count, runsFrom_count, watching_count],
+      labels: ['Indifferent', 'Approaches', 'Runs from', 'Watching'],
+      type: 'pie'
+    }];
+    // layout
+    let layout = {
+      height: 500,
+      width: 900
+    };
+    
+    // 
+    Plotly.newPlot('pie_chart', data, layout);
+  
+  });
 
-    Plotly.newPlot("bar", bar_data, bar_layout);
-};
+console.log("Testing HTML");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// // Define the URLs for the dataset
+// const metadata_url = "http://127.0.0.1:5000/metadata";
+// const appearance_url = "http://127.0.0.1:5000/appearance";
+// const activities_url = "http://127.0.0.1:5000/activities";
+// const interactions_url = "http://127.0.0.1:5000/interactions";
 
 // Define the map parameters
 // let map_centre = [40.730610, -73.935242]; // New York City. https://www.latlong.net/place/new-york-city-ny-usa-1848.html
