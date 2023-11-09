@@ -52,37 +52,71 @@ const activities_url = "http://127.0.0.1:5000/activities";
 const interactions_url = "http://127.0.0.1:5000/interactions";
 
 
-function create_bar(activities_data) {
+function create_bar(metadata_data, activities_data) {
     console.log(activities_data);
+    console.log(metadata_data);
 
     // Get the x-values
     console.log(Object.keys(activities_data[0]));
-    let x_values = Object.keys(activities_data[0]);
+    let activities = Object.keys(activities_data[0]);
+    let x_values = activities.slice(0, activities.length-1) // remove squirrel_id
+    // console.log(x_values.length);
 
     // Define a list that will hold the y-values
     // let y_values = [];
-    let default_value = 0
-    let y_values = Object.fromEntries(x_values.map(key => [key, default_value]))
+    let default_value = 0;
+    let y_values = Object.fromEntries(x_values.map(key => [key, default_value]));
+    let autumn_values = Object.fromEntries(x_values.map(key => [key, default_value])); // October
+    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // Spring
 
     console.log(y_values)
 
     // Get the y-values
     for (let i=0; i<activities_data.length; i++) {
         let sighting = activities_data[i];
+        let month = metadata_data[i].month;
+        
         let num_activities = Object.keys(sighting).length - 1;
         // console.log(sighting, Object.keys(sighting).length);
         
         // for (let j=0; j<x_values.length-1; j++) { // -1 to exclude squirrel_id
         for (let j=0; j<num_activities; j++) {
-            console.log(sighting[x_values[j]], x_values[j]);
+            // console.log(sighting[x_values[j]], x_values[j]);
 
             if (sighting[x_values[j]]) {
                 y_values[x_values[j]] += 1
+                if (month === 3) {
+                    spring_values[x_values[j]] += 1
+                }
+                else if (month === 10) {
+                    autumn_values[x_values[j]] += 1
+                }
+                
             }
             
         };
     };
     console.log(y_values);
+    console.log(spring_values);
+    console.log(autumn_values);
+
+    // Create the traces
+    let spring_trace = {
+        x: x_values,
+        y: Object.values(spring_values),
+        type: 'bar'
+        // text: spring_values.map(String)
+    };
+
+    let autumn_trace = {
+        x: x_values,
+        y: Object.values(autumn_values),
+        type: 'bar'
+    };
+
+    let bar_data = [spring_trace, autumn_trace];
+
+    Plotly.newPlot("bar", bar_data);
 };
 
 
@@ -315,7 +349,7 @@ d3.json(metadata_url).then(function(metadata_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 create_map_markers(metadata_data, appearance_data, activities_data);
-                create_bar(activities_data);
+                create_bar(metadata_data, activities_data);
             });
         });
     });
