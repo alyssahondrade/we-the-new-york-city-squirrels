@@ -61,3 +61,5 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] Object.keys() [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
 
 - [] Create Object with a list of Keys [https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys](https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys)
+
+- [] JavaScript - Sum the Values of an Object [https://bobbyhadz.com/blog/javascript-sum-values-of-object](https://bobbyhadz.com/blog/javascript-sum-values-of-object)

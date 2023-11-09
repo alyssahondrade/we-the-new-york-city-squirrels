@@ -66,8 +66,9 @@ function create_bar(metadata_data, activities_data) {
     // let y_values = [];
     let default_value = 0;
     let y_values = Object.fromEntries(x_values.map(key => [key, default_value]));
+    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // March
     let autumn_values = Object.fromEntries(x_values.map(key => [key, default_value])); // October
-    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // Spring
+    
 
     console.log(y_values)
 
@@ -96,27 +97,55 @@ function create_bar(metadata_data, activities_data) {
             
         };
     };
+
+    let sum_spring = Object.values(spring_values).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+
+    let sum_autumn = Object.values(autumn_values).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+    
+
+    let y_spring = Object.values(spring_values).map(function(spring_val) {
+       return Math.round(100 * spring_val / sum_spring);
+    });
+    
+    let y_autumn = Object.values(autumn_values).map(function(autumn_val) {
+        return Math.round(100 * autumn_val / sum_autumn);
+    });
+    
     console.log(y_values);
     console.log(spring_values);
     console.log(autumn_values);
+    console.log(y_spring);
+    console.log(y_autumn);
+    console.log(sum_spring);
+    console.log(sum_autumn);
 
     // Create the traces
     let spring_trace = {
         x: x_values,
-        y: Object.values(spring_values),
-        type: 'bar'
+        y: y_spring,
+        type: 'bar',
+        name: "Spring"
         // text: spring_values.map(String)
     };
 
     let autumn_trace = {
         x: x_values,
-        y: Object.values(autumn_values),
-        type: 'bar'
+        y: y_autumn,
+        type: 'bar',
+        name: "Autumn"
     };
 
     let bar_data = [spring_trace, autumn_trace];
 
-    Plotly.newPlot("bar", bar_data);
+    let bar_layout = {
+        title: "Squirrel Activity - Spring vs Autumn"
+    };
+
+    Plotly.newPlot("bar", bar_data, bar_layout);
 };
 
 
