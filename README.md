@@ -65,3 +65,5 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] JavaScript - Sum the Values of an Object [https://bobbyhadz.com/blog/javascript-sum-values-of-object](https://bobbyhadz.com/blog/javascript-sum-values-of-object)
 
 - [] Chroma.js Documentation [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/)
+
+- [] How to Capitalise Words in JavaScript [https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript](https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript)

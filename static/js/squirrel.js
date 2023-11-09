@@ -60,6 +60,7 @@ function create_bar(metadata_data, activities_data) {
     console.log(Object.keys(activities_data[0]));
     let activities = Object.keys(activities_data[0]);
     let x_values = activities.slice(0, activities.length-1) // remove squirrel_id
+    let formatted_xvals = x_values.map(word => word[0].toUpperCase()+word.substring(1)); // capitalise each word
     // console.log(x_values.length);
 
     // Define a list that will hold the y-values
@@ -126,7 +127,7 @@ function create_bar(metadata_data, activities_data) {
 
     // Create the traces
     let spring_trace = {
-        x: x_values,
+        x: formatted_xvals,
         y: y_spring,
         type: 'bar',
         name: "Spring",
@@ -136,7 +137,7 @@ function create_bar(metadata_data, activities_data) {
     };
 
     let autumn_trace = {
-        x: x_values,
+        x: formatted_xvals,
         y: y_autumn,
         type: 'bar',
         name: "Autumn",
