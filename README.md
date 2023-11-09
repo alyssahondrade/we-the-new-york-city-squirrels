@@ -63,3 +63,5 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] Create Object with a list of Keys [https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys](https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys)
 
 - [] JavaScript - Sum the Values of an Object [https://bobbyhadz.com/blog/javascript-sum-values-of-object](https://bobbyhadz.com/blog/javascript-sum-values-of-object)
+
+- [] Chroma.js Documentation [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/)

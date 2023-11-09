@@ -114,6 +114,7 @@ function create_bar(metadata_data, activities_data) {
     let y_autumn = Object.values(autumn_values).map(function(autumn_val) {
         return Math.round(100 * autumn_val / sum_autumn);
     });
+
     
     console.log(y_values);
     console.log(spring_values);
@@ -128,21 +129,34 @@ function create_bar(metadata_data, activities_data) {
         x: x_values,
         y: y_spring,
         type: 'bar',
-        name: "Spring"
-        // text: spring_values.map(String)
+        name: "Spring",
+        marker: {
+            color: chroma.lab(80,-20,50).hex()
+        }
     };
 
     let autumn_trace = {
         x: x_values,
         y: y_autumn,
         type: 'bar',
-        name: "Autumn"
+        name: "Autumn",
+        marker: {
+            color: chroma.temperature(2000).hex()
+        }
     };
 
     let bar_data = [spring_trace, autumn_trace];
 
     let bar_layout = {
-        title: "Squirrel Activity - Spring vs Autumn"
+        title: "Squirrel Activity - Spring vs Autumn",
+        xaxis: {
+            title: {text: "Activity"},
+            automargin: true
+        },
+        yaxis: {
+            title: {text: "% of Season Total"},
+            automargin: true
+        }
     };
 
     Plotly.newPlot("bar", bar_data, bar_layout);
