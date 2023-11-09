@@ -1,47 +1,57 @@
-// d3.json("dcdfdsf", function (behaviorData) { 
+d3.json("interactions_url", function (behaviorData) { 
     
-//     console.log(behaviorData); 
+    console.log(behaviorData); 
   
-//   // counts
-//     var gray_count=0
-//     var cinnamon_count=0
+  // counts
+    let indifferent_count = 0
+    let approaches_count = 0
+    let runsFrom_count = 0
+    let watching_count = 0
   
-//     for (let i= 0; i < behaviorData.length; i++ ){
+    for (let i= 0; i < behaviorData.length; i++ ){
   
-//         let primary_color = behaviorData[i].primary_fur_color;
-//         let indifferents = behaviorData[i].indifferent;
+        let indifferents = behaviorData[i].indifferent;
+        let approach = behaviorData[i].approaches;
+        let runsFrom = behaviorData[i].runs_from;
+        let watch = behaviorData[i].watching;
         
-//         if(indifferents=="True" && primary_color=="Cinnamon"){
-//             cinnamon_count+=1
-//         }
-//         else if (indifferents=="True" && primary_color=="Gray") {
-//             gray_count+=1
-//             }
-//     }
-//   //}
-//   // diction
-//     let my_dict = {
-//       "Cinnamon": cinnamon_count,
-//       "Gray": gray_count
-//     };
-//     console.log(my_dict)
+        if(indifferents == 1){
+            indifferent_count += 1
+        }
+        else if (approach == 1) {
+            approaches_count += 1
+        }
+        else if (runsFrom == 1) {
+            runsFrom_count += 1
+        }
+        else if (watch == 1) {
+            watching_count += 1
+        }
+    }
+  //}
+  // diction
+    let my_dict = {
+      "Cinnamon": cinnamon_count,
+      "Gray": gray_count
+    };
+    console.log(my_dict)
    
-//   // my data
-//     let data = [{
-//       values: [cinnamon_count, gray_count],
-//       labels: ['Cinnamon', 'Gray'],
-//       type: 'pie'
-//     }];
-//     // layout
-//     let layout = {
-//       height: 500,
-//       width: 900
-//     };
+  // my data
+    let data = [{
+      values: [cinnamon_count, gray_count],
+      labels: ['Cinnamon', 'Gray'],
+      type: 'pie'
+    }];
+    // layout
+    let layout = {
+      height: 500,
+      width: 900
+    };
     
-//     // 
-//     Plotly.newPlot('pie_chart', data, layout);
+    // 
+    Plotly.newPlot('pie_chart', data, layout);
   
-//   });
+  });
 
 console.log("Testing HTML");
 
