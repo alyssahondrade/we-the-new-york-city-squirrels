@@ -1,6 +1,7 @@
 # We, The New York Squirrels
 Project 3 - Data Analytics Bootcamp
-
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)\
+**Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe\
 Github repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 
