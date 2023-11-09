@@ -13,7 +13,7 @@ let map_zoom = 11;
 //-------- PIE CHART --------//
 function create_pie(interactions_data) {
     
-    console.log(interactions_data); 
+    // console.log(interactions_data); 
   
   // counts
     let indifferent_count = 0
@@ -49,7 +49,7 @@ function create_pie(interactions_data) {
       "Runs from": runsFrom_count,
       "Watching": watching_count
     };
-    console.log(my_dict)
+    // console.log(my_dict)
    
   // my data
     let data = [{
@@ -206,15 +206,28 @@ function create_colourmap(metadata_data, appearance_data) {
             unique_primary.push(primary);
         };
     };
-    console.log(unique_primary);
+    console.log("unique_primary", unique_primary);
 
     // Define lists that will hold the values
     let default_value = 0;
-    let primary_values = Object.fromEntries(unique_primary.map(key => [key, default_value]));
-    let highlight_values = Object.fromEntries(unique_highlights.map(key => [key, default_value]));
 
-    console.log(primary_values);
-    console.log("highlight_values", highlight_values);
+
+    // Create an object with each combination
+    let colourmap_values = [];
+    for (let i=0; i<unique_primary.length; i++) {
+        for (let j=0; j<unique_highlights.length; j++) {
+            
+            console.log(unique_primary[i], unique_highlights[j]);
+
+            let combination = {};
+            combination['x'] = unique_primary[i];
+            combination['y'] = unique_highlights[j];
+            combination['value'] = default_value;
+            colourmap_values.push(combination);
+        };
+    };
+
+    console.log(colourmap_values);
 
     // QUESTION: how to account for squirrels with more than one highlight? Put in a separate visualisation?
     let multi_highlight = 0;
@@ -223,31 +236,73 @@ function create_colourmap(metadata_data, appearance_data) {
         // console.log(appearance_data[i]);
 
         let count = 0;
-        console.log(Object.keys(highlight_values).length);
+        // console.log(Object.keys(highlight_values).length);
         
-        for (let j=0; j<Object.keys(highlight_values).length; j++) {
-            console.log(Object.keys(highlight_values)[j]);
+        for (let j=0; j<unique_highlights.length; j++) {
+            // console.log(Object.keys(highlight_values)[j]);
+            // console.log(appearance_data[i][Object.keys(highlight_values)[j]]);
+            let highlight_value = appearance_data[i][unique_highlights[j]];
 
-            console.log(appearance_data[i][Object.keys(highlight_values)[j]]);
-            let highlight_value = appearance_data[i][Object.keys(highlight_values)[j]];
-
+            // Use count to identify squirrels with more than one highlight
             if (highlight_value === 1) {
                 count += 1;
             };
-            // console.log("here", appearance_data[]);
-            // if (appearance_data[i][Object.keys(highlight_values)[j]] === true) {
-            //     console.log("here", appearance_data[i]);
-            // };
         };
 
         if (count > 1) {
-            console.log(appearance_data[i]);
+            // console.log(appearance_data[i]);
+            console.log("More than one highlight");
         }
         else {
-            
+            // Loop over the unique_primary
+            for (let j=0; j<unique_primary.length; j++) {
+                for (let k=0; k<unique_highlights.length; k++) {
+                    for (let m=0; m<colourmap_values.length; m++) {
+                        if (colourmap_values[m].x === unique_primary[j] // match primary to the colourmap
+                            && colourmap_values[m].y === unique_highlights[k] // match highlight to the colourmap
+                            && appearance_data[i].primary_colour === unique_primary[j] // match the sighting to the primary
+                           ) {
+                            if (appearance_data[i][unique_highlights[k]]) {
+                                console.log("Here");
+                                console.log(appearance_data[i], colourmap_values[m], unique_primary[j], unique_highlights[k]);
+                                colourmap_values[m].value += 1;
+                            };
+                            
+                            // console.log(appearance_data[i], colourmap_values[m], unique_primary[j], unique_highlights[k]);
+                            // check the value of the primary_colour
+                            // if (appearance_data[i][unique_primary[j]]) {}
+                        };
+                    };
+                };
+            };
         }
     };
+    console.log(colourmap_values);
+
+    // Flatten colourmap_values
+    let condense_values = {};
     
+    // Loop through each row of colourmap_values
+    Object.values(colourmap_values).forEach(item => {
+        // Get the x-value and the value at each row
+        let key = item.x;
+        let value = item.value;
+
+        // While same x-value, push to that value
+        if (condense_values[key]) {
+            condense_values[key].push(value);
+        }
+        // Otherwise create a list with the value
+        else {
+            condense_values[key] = [value];
+        };
+    });
+    
+    let colourmap_zval = Object.values(condense_values);
+    let colourmap_xval = Object.keys(condense_values);
+    let colourmap_yval = unique_highlights;
+
+    console.log(colourmap_zval, colourmap_yval, colourmap_xval);
     // // Loop through primary then check highlight
     // for (let i=0; i<appearance_data.length; i++) {
     //     for (let j=0; j<unique_primary.length; j++) {
@@ -257,6 +312,25 @@ function create_colourmap(metadata_data, appearance_data) {
     //         };
     //     };
     // };
+
+    let heat_data = [{
+        z: colourmap_zval,
+        x: colourmap_yval,
+        y: colourmap_xval,
+        type: 'heatmap',
+        colorscale: chroma.brewer.YlGnBu
+    }];
+    // var data = [
+    //     {
+    //     z: [[1, null, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
+    //     x: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    //     y: ['Morning', 'Afternoon', 'Evening'],
+    //     type: 'heatmap',
+    //     hoverongaps: false
+    //     }
+    //     ];
+        
+    Plotly.newPlot("colour_heatmap", heat_data);
 };
 
 
