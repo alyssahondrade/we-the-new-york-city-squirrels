@@ -299,8 +299,9 @@ function create_colourmap(metadata_data, appearance_data) {
     });
     
     let colourmap_zval = Object.values(condense_values);
-    let colourmap_xval = Object.keys(condense_values);
-    let colourmap_yval = unique_highlights;
+    let colourmap_yval = Object.keys(condense_values);
+    let colourmap_xval = unique_highlights;
+    let formatted_xvals = colourmap_xval.map(word => word[0].toUpperCase()+word.substring(1)); // capitalise each word
 
     console.log(colourmap_zval, colourmap_yval, colourmap_xval);
     // // Loop through primary then check highlight
@@ -313,24 +314,45 @@ function create_colourmap(metadata_data, appearance_data) {
     //     };
     // };
 
+    // let colour_scale = chroma.scale([chroma.lab(80,-20,50).hex(), chroma.temperature(2000).hex()]).colours(5);
+
+    var colorscaleValue = [
+        // [0, chroma.lab(80,-20,50).hex()],
+        // [1, chroma.temperature(2000).hex()]
+        // [0, "#1b9e77"],
+        [0, "#7570b3"],
+        [1, "#d95f02"]
+    ];
     let heat_data = [{
         z: colourmap_zval,
-        x: colourmap_yval,
-        y: colourmap_xval,
+        x: formatted_xvals,
+        y: colourmap_yval,
         type: 'heatmap',
-        colorscale: chroma.brewer.YlGnBu
+        // colorscale: chroma.brewer.YlGnBu
+        // colorscale: chroma.scale([chroma.lab(80,-20,50), chroma.temperature(2000)])
+        // colorscale: chroma.scale('BuPu')
+        // colorscale: chroma.scale(["peachpuff", "rebeccapurple"])
+        colorscale: colorscaleValue
     }];
-    // var data = [
-    //     {
-    //     z: [[1, null, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
-    //     x: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    //     y: ['Morning', 'Afternoon', 'Evening'],
-    //     type: 'heatmap',
-    //     hoverongaps: false
-    //     }
-    //     ];
-        
-    Plotly.newPlot("colour_heatmap", heat_data);
+
+    let heat_layout = {
+        title: "Primary vs (Single) Highlight Distribution",
+        xaxis: {
+            title: {
+                text: "Highlight Colour"
+            },
+            automargin: true
+        },
+        yaxis: {
+            title: {
+                text: "Primary Colour",
+                standoff: 10
+            },
+            automargin: true
+        },
+        margin: {t: 30}
+    };
+    Plotly.newPlot("colour_heatmap", heat_data, heat_layout);
 };
 
 
