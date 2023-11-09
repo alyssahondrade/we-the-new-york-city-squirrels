@@ -51,6 +51,63 @@ const appearance_url = "http://127.0.0.1:5000/appearance";
 const activities_url = "http://127.0.0.1:5000/activities";
 const interactions_url = "http://127.0.0.1:5000/interactions";
 
+
+function create_bar(activities_data) {
+    console.log(activities_data);
+
+    // Get the x-values
+    console.log(Object.keys(activities_data[0]));
+    let x_values = Object.keys(activities_data[0]);
+
+    // Define a list that will hold the y-values
+    // let y_values = [];
+    let default_value = 0
+    let y_values = Object.fromEntries(x_values.map(key => [key, default_value]))
+
+    console.log(y_values)
+
+    // Get the y-values
+    for (let i=0; i<activities_data.length; i++) {
+        let sighting = activities_data[i];
+        let num_activities = Object.keys(sighting).length - 1;
+        // console.log(sighting, Object.keys(sighting).length);
+        
+        // for (let j=0; j<x_values.length-1; j++) { // -1 to exclude squirrel_id
+        for (let j=0; j<num_activities; j++) {
+            console.log(sighting[x_values[j]], x_values[j]);
+
+            if (sighting[x_values[j]]) {
+                y_values[x_values[j]] += 1
+            }
+            
+        };
+    };
+    console.log(y_values);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Define the map parameters
 // let map_centre = [40.730610, -73.935242]; // New York City. https://www.latlong.net/place/new-york-city-ny-usa-1848.html
 let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
@@ -67,7 +124,10 @@ function create_plots(metadata_data, appearance_data, activities_data, interacti
 function create_map(
     autumn_layer, spring_layer,
     heat_layer, autumn_heat, spring_heat,
-    primary_black_layer, primary_cinnamon_layer, primary_gray_layer) {
+    primary_black_layer, primary_cinnamon_layer, primary_gray_layer,
+    chasing_layer, climbing_layer, digging_layer, eating_layer,
+    foraging_layer, running_layer, shouting_layer, sitting_layer
+) {
     // Create the street tile layer
     let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy;\
@@ -92,7 +152,15 @@ function create_map(
         Spring_Heatmap: spring_heat,
         Primary_Black: primary_black_layer,
         Primary_Cinnamon: primary_cinnamon_layer,
-        Primary_Gray: primary_gray_layer
+        Primary_Gray: primary_gray_layer,
+        Chasing: chasing_layer,
+        Climbing: climbing_layer,
+        Digging: digging_layer,
+        Eating: eating_layer,
+        Foraging: foraging_layer,
+        Running: running_layer,
+        Shouting: shouting_layer,
+        Sitting: sitting_layer
     };
 
     // Create the map
@@ -108,7 +176,7 @@ function create_map(
     
 };
 
-function create_map_markers(metadata_data, appearance_data) {
+function create_map_markers(metadata_data, appearance_data, activities_data) {
     // console.log(location_data)
 
     let autumn_markers = [];
@@ -120,10 +188,19 @@ function create_map_markers(metadata_data, appearance_data) {
     let primary_black = [];
     let primary_cinnamon = [];
     let primary_gray = [];
+
+    let chasing = [];
+    let climbing = [];
+    let digging = [];
+    let eating = [];
+    let foraging = [];
+    let running = [];
+    let shouting = [];
+    let sitting = [];
     
     for (let i=0; i<metadata_data.length; i++) {
         
-        console.log(appearance_data[i]);
+        // console.log(activities_data[i]);
         
         let latitude = metadata_data[i].latitude
         let longitude = metadata_data[i].longitude
@@ -156,6 +233,32 @@ function create_map_markers(metadata_data, appearance_data) {
         else if (primary_colour === "Gray") {
             primary_gray.push(marker);
         }
+
+        //-------- ACTIVITIES --------//
+        if (activities_data[i].chasing) {
+            chasing.push(marker);
+        }
+        if (activities_data[i].climbing) {
+            climbing.push(marker);
+        }
+        if (activities_data[i].digging) {
+            digging.push(marker);
+        }
+        if (activities_data[i].eating) {
+            eating.push(marker);
+        }
+        if (activities_data[i].foraging) {
+            foraging.push(marker);
+        }
+        if (activities_data[i].running) {
+            running.push(marker);
+        }
+        if (activities_data[i].shouting) {
+            shouting.push(marker);
+        }
+        if (activities_data[i].sitting) {
+            sitting.push(marker);
+        }
         
     };
 
@@ -181,13 +284,24 @@ function create_map_markers(metadata_data, appearance_data) {
     let primary_black_layer = L.layerGroup(primary_black);
     let primary_cinnamon_layer = L.layerGroup(primary_cinnamon);
     let primary_gray_layer = L.layerGroup(primary_gray);
+
+    let chasing_layer = L.layerGroup(chasing);
+    let climbing_layer = L.layerGroup(climbing);
+    let digging_layer = L.layerGroup(digging);
+    let eating_layer = L.layerGroup(eating);
+    let foraging_layer = L.layerGroup(foraging);
+    let running_layer = L.layerGroup(running);
+    let shouting_layer = L.layerGroup(shouting);
+    let sitting_layer = L.layerGroup(sitting);
     
     create_map(
         autumn_layer, spring_layer,
         heat_layer, autumn_heat, spring_heat,
-        primary_black_layer, primary_cinnamon_layer, primary_gray_layer);
+        primary_black_layer, primary_cinnamon_layer, primary_gray_layer,
+        chasing_layer, climbing_layer, digging_layer, eating_layer,
+        foraging_layer, running_layer, shouting_layer, sitting_layer
+    );
 };
-
 
 
 
@@ -200,7 +314,8 @@ d3.json(metadata_url).then(function(metadata_data) {
         d3.json(activities_url).then(function(activities_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
-                create_map_markers(metadata_data, appearance_data);
+                create_map_markers(metadata_data, appearance_data, activities_data);
+                create_bar(activities_data);
             });
         });
     });
