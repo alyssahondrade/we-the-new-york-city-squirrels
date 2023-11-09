@@ -67,3 +67,7 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] Chroma.js Documentation [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/)
 
 - [] How to Capitalise Words in JavaScript [https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript](https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript)
+
+- [] JavaScript Array Includes [https://www.w3schools.com/jsref/jsref_includes_array.asp](https://www.w3schools.com/jsref/jsref_includes_array.asp)
+
+- [] Remove Multiple Elements from an Array [https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array](https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array)
