@@ -1,4 +1,12 @@
-d3.json("interactions_url", function (behaviorData) { 
+// Define the URLs for the dataset
+const metadata_url = "http://127.0.0.1:5000/metadata";
+const appearance_url = "http://127.0.0.1:5000/appearance";
+const activities_url = "http://127.0.0.1:5000/activities";
+const interactions_url = "http://127.0.0.1:5000/interactions";
+
+// pie chart
+
+d3.json(interactions_url, function (behaviorData) { 
     
     console.log(behaviorData); 
   
@@ -31,15 +39,17 @@ d3.json("interactions_url", function (behaviorData) {
   //}
   // diction
     let my_dict = {
-      "Cinnamon": cinnamon_count,
-      "Gray": gray_count
+      "Indifferent": indifferent_count,
+      "Approaches": approaches_count,
+      "Runs from": runsFrom_count,
+      "Watching": watching_count
     };
     console.log(my_dict)
    
   // my data
     let data = [{
-      values: [cinnamon_count, gray_count],
-      labels: ['Cinnamon', 'Gray'],
+      values: [indifferent_count, approaches_count, runsFrom_count, watching_count],
+      labels: ['Indifferent', 'Approaches', 'Runs from', 'Watching'],
       type: 'pie'
     }];
     // layout
@@ -55,11 +65,11 @@ d3.json("interactions_url", function (behaviorData) {
 
 console.log("Testing HTML");
 
-// Define the URLs for the dataset
-const metadata_url = "http://127.0.0.1:5000/metadata";
-const appearance_url = "http://127.0.0.1:5000/appearance";
-const activities_url = "http://127.0.0.1:5000/activities";
-const interactions_url = "http://127.0.0.1:5000/interactions";
+// // Define the URLs for the dataset
+// const metadata_url = "http://127.0.0.1:5000/metadata";
+// const appearance_url = "http://127.0.0.1:5000/appearance";
+// const activities_url = "http://127.0.0.1:5000/activities";
+// const interactions_url = "http://127.0.0.1:5000/interactions";
 
 // Define the map parameters
 // let map_centre = [40.730610, -73.935242]; // New York City. https://www.latlong.net/place/new-york-city-ny-usa-1848.html
