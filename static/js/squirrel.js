@@ -446,22 +446,9 @@ function build_layer_groups(feature, dataset, metadata) {
         let latitude = metadata[i].latitude;
         let longitude = metadata[i].longitude;
 
-        // for (let item of layer_options) {
-        //     console.log("IN ITEM", dataset[i][item]);
-        //     if (dataset[i][item]) {
-        //         let marker = L.circleMarker([latitude, longitude], {
-        //             radius: 5,
-        //             fillColor: colour_scale[0],
-        //             fillOpacity: 0.5,
-        //             color: colour_scale[0]
-        //         });
-        //         layer_arrays[item].push(marker);
-        //     };
-        // };
-
         for (let j=0; j<layer_options.length; j++) {
             let item = layer_options[j];
-            console.log("IN LOOP", dataset[i][item]);
+            // console.log("IN LOOP", dataset[i][item]);
             if (dataset[i][item]) {
                 let marker = L.circleMarker([latitude, longitude], {
                     radius: 10,
@@ -524,15 +511,6 @@ function build_layer_groups(feature, dataset, metadata) {
 
 
 
-
-
-
-
-
-
-
-
-
 function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
     let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
@@ -540,6 +518,7 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
     // Define the seasonal markers
     let spring_markers = [];
     let autumn_markers = [];
+    let both_markers = [];
 
     //-------- DEFINE THE SEASONAL vs FEATURE DATASETS --------//
     // Define the seasonal vs feature datasets
@@ -593,34 +572,25 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
             else if (metadata_data[j].month === 10) { // Autumn
                 autumn_markers.push(marker);
             }
+
+            both_markers.push(marker);
         };
     };
 
     //-------- CREATE LAYERS --------//
     let spring_layer = L.layerGroup(spring_markers);
     let autumn_layer = L.layerGroup(autumn_markers);
+    let both_layer = L.layerGroup(both_markers);
 
     //-------- CHECK USER SELECTION --------//
     let chosen_dataset;
-    
-    d3.select("#data_spring").on("click", function() {
-        let selected_button = d3.select(this);
-        build_interactive_map(spring_layer);
-        console.log("SPRING BUTTON PUSHED");
-        chosen_dataset = "spring";
-    });
 
-    d3.select("#data_autumn").on("click", function() {
+    d3.selectAll("#data_options button").on("click", function() {
         let selected_button = d3.select(this);
-        build_interactive_map(autumn_layer);
-        console.log("AUTUMN BUTTON PUSHED");
-        chosen_dataset = "autumn";
-    });
-
-    d3.select("#data_both").on("click", function() {
-        let selected_button = d3.select(this);
-        // build_interactive_map(autumn_layer);
-        console.log("BOTH DATASET BUTTON PUSHED");
+        let dataset_type = selected_button.attr("id").replace("data_", "");
+        // build_interactive_map(eval(`${dataset_type}_layer`));
+        console.log(`${dataset_type} PUSHED`);
+        chosen_dataset = dataset_type;
     });
 
     let feature_options = ["activities", "appearance", "interactions"];
@@ -628,16 +598,10 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
 
     d3.selectAll("#feature_options button").on("click", function() {
         let selected_option = d3.select(this).attr('id');
-        // console.log(selected_option);
-        // console.log("chosen_dataset", chosen_dataset);
+
         for (let i=0; i<feature_options.length; i++) {
             if (selected_option === feature_options[i]) {
-                // console.log("Chosen button: ", relevant_dataset[i]);
-                // build_layer_groups(feature_options[i], relevant_dataset[i], metadata_data)
                 let chosen_feature = feature_options[i]
-                // console.log("feature_options", chosen_feature);
-                // console.log("season_feature", season_feature[chosen_dataset][chosen_feature]);
-                // build_layer_groups(feature_options[i], season_feature[chosen_dataset][feature_options[i]], season_feature[chosen_dataset]["metadata"]);
 
                 build_layer_groups(
                     feature_options[i],
@@ -646,10 +610,7 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
             };
         };
     });
-
 };
-
-
 
 
 
