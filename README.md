@@ -2,7 +2,13 @@
 Project 3 - Data Analytics Bootcamp
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
 
+
+**Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe
+
+GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+
 Github repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+
 
 
 ## Table of Contents
@@ -14,6 +20,7 @@ Github repository at: [https://github.com/alyssahondrade/Project3.git](https://g
 3. [Future Research]
 4. [References]
     1. [Data Cleaning]
+    2. [Data Visualisation]
 
 
 ## Introduction
@@ -33,7 +40,9 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 
 ### Dataset
-
+Retrieved data from the following two websites:
+- [`The Squirrel Census`](https://www.thesquirrelcensus.com/data)
+- [`2018 Central Park Squirrel Census - Squirrel Data`](https://data.cityofnewyork.us/Environment/2018-Central-Park-Squirrel-Census-Squirrel-Data/vfnx-vebw)
 
 ## Scope
 
