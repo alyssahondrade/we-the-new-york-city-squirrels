@@ -68,6 +68,14 @@ The heatmap displays the frequency of squirrels based on fur colour. Cinnamon is
 
 **Pie chart for Interaction**
 
+The pie chart illustrates four categories of squirrel behaviour, with the percentage of squirrels engaging in each behaviour. The largest category is "indifferent."
+
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/fda1888b-0022-405d-91dc-622dc5f9a39a)
+
+**Comparison of the interactions using a radar plot**
+
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/340ea3e9-557a-46fb-ab70-98879956f7cf)
+
 ### Limitation
 - Squirrels were not counted more than once, the scientific advisor onsite.
 - 2020 data was limited to one day, whereas 2018 data was collected over a period
