@@ -5,18 +5,19 @@ Project 3 - Data Analytics Bootcamp
 
 **Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe
 
-GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+GitHub repository at [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 ## Table of Contents
 1. [Introduction](https://github.com/alyssahondrade/Project3#introduction)
     1. [Research Questions](https://github.com/alyssahondrade/Project3#research-questions)
-    2. [Repository Structure]
-    3. [Dataset]
-2. [Scope]
-3. [Future Research]
-4. [References]
-    1. [Data Cleaning]
-    2. [Data Visualisation]
+    2. [Repository Structure](https://github.com/alyssahondrade/Project3#repository-structure)
+    3. [Dataset](https://github.com/alyssahondrade/Project3#dataset)
+2. [Scope](https://github.com/alyssahondrade/Project3#scope)
+3. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
+4. [References](https://github.com/alyssahondrade/Project3#references)
+    1. [Data Cleaning](https://github.com/alyssahondrade/Project3#data-cleaning)
+    2. [Data Visualisation](https://github.com/alyssahondrade/Project3#data-visualisation)
+    3. [Interactivity](https://github.com/alyssahondrade/Project3#interactivity)
 
 
 ## Introduction
