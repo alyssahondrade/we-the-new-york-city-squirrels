@@ -79,9 +79,23 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
 
     <div id="interaction_radar"></div>
 
-    <button id="data_spring" type="button" class="btn btn-primary">Spring Dataset</button>
-    <button id="data_autumn" type="button" class="btn btn-primary">Autumn Dataset</button>
+    <div class="text-center">
+        <div id="data_options" class="btn-group" data-toggle="buttons-radio">
+            <button id="data_spring" type="button" class="btn btn-primary">Spring Dataset</button>
+            <button id="data_autumn" type="button" class="btn btn-primary">Autumn Dataset</button>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div id="feature_options" class="btn-group" data-toggle="buttons-radio">
+            <button id="activities" type="button" class="btn btn-primary">Activities</button>
+            <button id="appearance" type="button" class="btn btn-primary">Appearance</button>
+            <button id="interactions" type="button" class="btn btn-primary">Interactions</button>
+        </div>
+    </div>
+
     <div id="interactive_map"></div>
+
 
     <!-- Leaflet JS -->
     <script

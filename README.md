@@ -76,6 +76,8 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 - [] Plotly Heatmaps [https://plotly.com/javascript/heatmaps/](https://plotly.com/javascript/heatmaps/)
 
+- [] Radar Chart [https://plotly.com/javascript/radar-chart/](https://plotly.com/javascript/radar-chart/)
+
 - [] UNPKG [https://unpkg.com](https://unpkg.com)
 
 - [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
@@ -84,3 +86,9 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] Stack Overflow - Map container is already initialised [https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized](https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized)
 
 - [] Github - Map container is already initialised [https://github.com/Leaflet/Leaflet/issues/3962](https://github.com/Leaflet/Leaflet/issues/3962)
+
+- [] CSS Centering Things [https://www.w3.org/Style/Examples/007/center.en.html](https://www.w3.org/Style/Examples/007/center.en.html)
+
+- [] CSS Borders [https://blog.hubspot.com/website/css-border](https://blog.hubspot.com/website/css-border)
+
+- [] Interactivity Button [https://d3-graph-gallery.com/graph/interactivity_button.html](https://d3-graph-gallery.com/graph/interactivity_button.html)

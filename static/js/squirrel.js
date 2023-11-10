@@ -362,21 +362,25 @@ function create_radar(metadata_data, interactions_data) {
 };
 
 
-// Declare the map for initialisation
-let my_map;
+//---------------- DECLARE THE INITIAL MAP ----------------//
+// Create the initial map
+let my_map = L.map("interactive_map", {
+    center: map_centre,
+    zoom: map_zoom
+});
+
+// Create the street tile layer
+let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy;\
+        <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>\
+        contributors &copy;\
+        <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20
+}).addTo(my_map);
 
 //---------------- FUNCTION: CREATE THE INTERACTIVE MAP ----------------//
 function build_interactive_map(layer) {
-    // Create the street tile layer
-    let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy;\
-            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>\
-            contributors &copy;\
-            <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
-    });
-
     // Create the base maps object
     let base_maps = {
         Street: street_tiles
@@ -400,13 +404,11 @@ function build_interactive_map(layer) {
         worldCopyJump: true
     });
 
-
-
     // Create the layer control and add to the map
     L.control.layers(base_maps, overlay_maps).addTo(my_map);
 };
 
-function interactive_markers(metadata_data, activities_data) {
+function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
     let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
 
@@ -450,6 +452,19 @@ function interactive_markers(metadata_data, activities_data) {
         let selected_button = d3.select(this);
         build_interactive_map(autumn_layer);
         console.log("AUTUMN BUTTON PUSHED");
+    });
+
+    let feature_options = ["activities", "appearance", "interactions"];
+    let relevant_dataset = [activities_data, appearance_data, interactions_data];
+    // d3.selectAll("#feature_options").on("click", function() {
+    d3.selectAll("#feature_options button").on("click", function() {
+        let selected_option = d3.select(this).attr('id');
+        console.log(selected_option);
+        for (let i=0; i<feature_options.length; i++) {
+            if (selected_option === feature_options[i]) {
+                console.log("Chosen button: ", relevant_dataset[i]);
+            };
+        };
     });
 
 };
@@ -671,7 +686,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 create_colourmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data);
-                interactive_markers(metadata_data, activities_data);
+                interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
             });
         });
     });
