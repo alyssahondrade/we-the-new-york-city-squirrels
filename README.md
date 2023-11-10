@@ -79,3 +79,8 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] UNPKG [https://unpkg.com](https://unpkg.com)
 
 - [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
+
+## Interactivity
+- [] Stack Overflow - Map container is already initialised [https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized](https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized)
+
+- [] Github - Map container is already initialised [https://github.com/Leaflet/Leaflet/issues/3962](https://github.com/Leaflet/Leaflet/issues/3962)

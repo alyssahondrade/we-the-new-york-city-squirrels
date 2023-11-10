@@ -3,8 +3,14 @@ body {
   margin: 0;
 }
 
-#map,
+#testmap,
 body,
 html {
   height: 80%;
+}
+
+#interactive_map,
+body,
+html {
+    height: 80%;
 }

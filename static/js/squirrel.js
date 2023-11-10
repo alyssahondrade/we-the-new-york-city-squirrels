@@ -362,6 +362,97 @@ function create_radar(metadata_data, interactions_data) {
 };
 
 
+// Declare the map for initialisation
+let my_map;
+
+//---------------- FUNCTION: CREATE THE INTERACTIVE MAP ----------------//
+function build_interactive_map(layer) {
+    // Create the street tile layer
+    let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy;\
+            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>\
+            contributors &copy;\
+            <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    });
+
+    // Create the base maps object
+    let base_maps = {
+        Street: street_tiles
+    };
+
+    // Create overlay maps object
+    let overlay_maps = {
+        Data: layer
+    };
+
+    // Remove map if it already exists
+    if (my_map) {
+        my_map.remove();
+    };
+    
+    // Create the map
+    my_map = L.map("interactive_map", {
+        center: map_centre,
+        zoom: map_zoom,
+        layers: [street_tiles, layer],
+        worldCopyJump: true
+    });
+
+
+
+    // Create the layer control and add to the map
+    L.control.layers(base_maps, overlay_maps).addTo(my_map);
+};
+
+function interactive_markers(metadata_data, activities_data) {
+    // Get the unique activities
+    let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
+
+    // Define the seasonal dataset
+    let spring_markers = [];
+    let autumn_markers = [];
+    
+    for (let i=0; i<unique_activities.length; i++) {
+        for (let j=0; j<metadata_data.length; j++) {
+            let latitude = metadata_data[j].latitude;
+            let longitude = metadata_data[j].longitude;
+            let month = metadata_data[j].month;
+
+            //-------- CREATE MARKER --------//
+            let marker = L.circleMarker([latitude, longitude], {
+                radius: 10
+            });
+
+            //-------- SEPARATE BY SEASON --------//
+            if (metadata_data[j].month === 3) { // Spring
+                spring_markers.push(marker);
+            }
+            else if (metadata_data[j].month === 10) { // Autumn
+                autumn_markers.push(marker);
+            }
+        };
+    };
+
+    //-------- CREATE LAYERS --------//
+    let spring_layer = L.layerGroup(spring_markers);
+    let autumn_layer = L.layerGroup(autumn_markers);
+
+    //-------- CHECK USER SELECTION --------//   
+    d3.select("#data_spring").on("click", function() {
+        let selected_button = d3.select(this);
+        build_interactive_map(spring_layer);
+        console.log("SPRING BUTTON PUSHED");
+    });
+
+    d3.select("#data_autumn").on("click", function() {
+        let selected_button = d3.select(this);
+        build_interactive_map(autumn_layer);
+        console.log("AUTUMN BUTTON PUSHED");
+    });
+
+};
 
 
 
@@ -369,7 +460,21 @@ function create_radar(metadata_data, interactions_data) {
 
 
 
-function create_map(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function create_testmap(
     autumn_layer, spring_layer,
     heat_layer, autumn_heat, spring_heat,
     primary_black_layer, primary_cinnamon_layer, primary_gray_layer,
@@ -412,7 +517,7 @@ function create_map(
     };
 
     // Create the map
-    let my_map = L.map("map", {
+    let my_map = L.map("testmap", {
         center: map_centre,
         zoom: map_zoom,
         layers: [street_tiles],
@@ -542,7 +647,7 @@ function create_map_markers(metadata_data, appearance_data, activities_data) {
     let shouting_layer = L.layerGroup(shouting);
     let sitting_layer = L.layerGroup(sitting);
     
-    create_map(
+    create_testmap(
         autumn_layer, spring_layer,
         heat_layer, autumn_heat, spring_heat,
         primary_black_layer, primary_cinnamon_layer, primary_gray_layer,
@@ -566,6 +671,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 create_colourmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data);
+                interactive_markers(metadata_data, activities_data);
             });
         });
     });
