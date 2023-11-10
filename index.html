@@ -28,12 +28,21 @@
             <h1>New York City Squirrels</h1>
         </div>
     </div>
-    <img
-src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
- alt="Squirrels playing" title="Squirrels playing" />
+
+    <div class="text-center">
+        <img
+            src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
+            alt="Squirrels playing"
+            title="Squirrels playing"/>
+        <!-- <div class="row">
+            <div class="col-md-2">
+                <h1>Overview of the data</h1>
+            </div>
+        </div> -->
+    </div>
 <br />
     
-    <h1>  Overview of the data</h1>
+    <h1>Overview of the data</h1>
    <p> The data is relevant to the years 2018 and 2020 and is from the Squirrel census and these datasets can be found at the following       website: https://www.thesquirrelcensus.com/<br>
     The datafrom 2018 was collected over a two-week period in October comparatively the 2020 data was collected on a single day (01 March     2020)This can also be considered as seasonal data with the data being collected in different months/seasons.<br></p>
     
@@ -61,8 +70,8 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
     The map can be used to highlight the various different areas in which squirrels where sighted in either autumn or spring.
     Important to note it can also be used to highlight the locations of all the squirrel activities can also be <br>
         </p>
-    <div id="map"></div>
-    <button type="button" class="btn btn-primary">Activities</button>
+    <div id="testmap"></div>
+
     
     <h1>Pie Charts of Squirrels</h1>
     <p>The pie chart below displays the interactitons/ behaviours squirrels had with/displayed towards humans and other wildlife in % of           overall number of interaction sightings.<br>
@@ -78,7 +87,64 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
     <div id="colour_heatmap"></div>
 
     <div id="interaction_radar"></div>
-    
+
+    <div class="text-center">
+        <div id="data_options" class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 10px;">
+            <button id="data_spring" type="button" class="btn btn-primary">Spring Dataset</button>
+            <button id="data_autumn" type="button" class="btn btn-primary">Autumn Dataset</button>
+            <button id="data_both" type="button" class="btn btn-primary">Both Datasets</button>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div id="feature_options" class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 10px;">
+            <button id="activities" type="button" class="btn btn-primary">Activities</button>
+            <button id="appearance" type="button" class="btn btn-primary">Appearance</button>
+            <button id="interactions" type="button" class="btn btn-primary">Interactions</button>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="margin-bottom: 20px;">
+        <div class="row">
+            <div class="col">
+                <div id="interactive_map" style="height: 60vh;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 map-container">
+        <table class="table table-striped" style="width: 350px; border: 1px solid #dee2e6;">
+            <thead>
+                <tr>
+                    <th scope="col" style="text-align: center;">Key</th>
+                    <th scope="col" style="text-align: center;">Value</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr>
+                    <td>Squirrel ID</td>
+                    <td id="meta_id">-</td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td id="meta_date">-</td>
+                </tr>
+                <tr>
+                    <td>Coordinates</td>
+                    <td id="meta_coords">-</td>
+                </tr>
+                <tr>
+                    <td>Primary Colour</td>
+                    <td id="meta_primary">-</td>
+                </tr>
+                <tr>
+                    <td>Highlights</td>
+                    <td id="meta_highlights">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <!-- Leaflet JS -->
     <script
@@ -101,6 +167,7 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
     <script src="static/js/squirrel.js"></script>
+
 </body>
 
 </html>

@@ -2,9 +2,13 @@
 Project 3 - Data Analytics Bootcamp
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
 
+
 **Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe
 
 GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+
+Github repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+
 
 
 ## Table of Contents
@@ -84,6 +88,19 @@ Retrieved data from the following two websites:
 
 - [] Plotly Heatmaps [https://plotly.com/javascript/heatmaps/](https://plotly.com/javascript/heatmaps/)
 
+- [] Radar Chart [https://plotly.com/javascript/radar-chart/](https://plotly.com/javascript/radar-chart/)
+
 - [] UNPKG [https://unpkg.com](https://unpkg.com)
 
 - [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
+
+## Interactivity
+- [] Stack Overflow - Map container is already initialised [https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized](https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized)
+
+- [] Github - Map container is already initialised [https://github.com/Leaflet/Leaflet/issues/3962](https://github.com/Leaflet/Leaflet/issues/3962)
+
+- [] CSS Centering Things [https://www.w3.org/Style/Examples/007/center.en.html](https://www.w3.org/Style/Examples/007/center.en.html)
+
+- [] CSS Borders [https://blog.hubspot.com/website/css-border](https://blog.hubspot.com/website/css-border)
+
+- [] Interactivity Button [https://d3-graph-gallery.com/graph/interactivity_button.html](https://d3-graph-gallery.com/graph/interactivity_button.html)
