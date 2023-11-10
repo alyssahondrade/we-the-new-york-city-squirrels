@@ -413,12 +413,12 @@ function build_interactive_map(layer_array, layer_labels) {
     my_map = L.map("interactive_map", {
         center: map_centre,
         zoom: map_zoom,
-        layers: [street_tiles],
+        layers: [street_tiles, layer_array[0]], // set the first overlay as default
         worldCopyJump: true
     });
 
     // Create the layer control and add to the map
-    L.control.layers(base_maps, overlay_maps).addTo(my_map);
+    L.control.layers(base_maps, overlay_maps, {collapsed: false}).addTo(my_map);
 };
 
 
