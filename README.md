@@ -13,8 +13,11 @@ GitHub repository at [https://github.com/alyssahondrade/Project3.git](https://gi
     2. [Repository Structure](https://github.com/alyssahondrade/Project3#repository-structure)
     3. [Dataset](https://github.com/alyssahondrade/Project3#dataset)
 2. [Scope](https://github.com/alyssahondrade/Project3#scope)
-3. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
-4. [References](https://github.com/alyssahondrade/Project3#references)
+3. [Analysis]
+    1. [Reuslts](https://github.com/alyssahondrade/Project3#reuslts)
+    2. [Limitation](https://github.com/alyssahondrade/Project3#limitation)
+5. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
+6. [References](https://github.com/alyssahondrade/Project3#references)
     1. [Data Cleaning](https://github.com/alyssahondrade/Project3#data-cleaning)
     2. [Data Visualisation](https://github.com/alyssahondrade/Project3#data-visualisation)
     3. [Interactivity](https://github.com/alyssahondrade/Project3#interactivity)
@@ -43,7 +46,32 @@ Retrieved data from the following two websites:
 
 ## Scope
 
+## Analysis
+### Results
+**Heatmap of Squirrels in New York 2018 and 2020**
 
+The map below has various toggling layers that the user can drive to set specific parameters. The map can be used to highlight the various areas in which squirrels were sighted in either autumn or spring. It is important to note it can also be used to highlight the locations of all the squirrel activities can also be
+
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/bf2665a9-6305-402a-bdf2-ae38cd16cca4)
+
+**Bar Charts of Squirrels**
+
+The bar chart displays Squirrel activity during Spring and autumn. The data is displayed as a percentage figure of total activities during the season.
+
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/f72b318d-61f2-4903-84ae-5a9254364a6a)
+
+**Heat Map for Appearance of Squirrels** 
+
+The heatmap displays the frequency of squirrels based on fur colour. Cinnamon is the most common highlighted colour and grey is the primary colour. 
+
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/0912d79c-d84b-4669-9a2a-dfb65707e036)
+
+**Pie chart for Interaction**
+
+### Limitation
+- Squirrels were not counted more than once, the scientific advisor onsite.
+- 2020 data was limited to one day, whereas 2018 data was collected over a period
+- 2018 data is limited to “Central Park”
 
 ## Future Research
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
