@@ -591,6 +591,12 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
         // build_interactive_map(eval(`${dataset_type}_layer`));
         console.log(`${dataset_type} PUSHED`);
         chosen_dataset = dataset_type;
+
+        // Remove the bootstrap "btn-primary"
+        d3.selectAll("#data_options button").classed("btn-primary", false);
+
+        // Reapply for clicked button only
+        d3.select(this).classed("btn-primary", true);
     });
 
     let feature_options = ["activities", "appearance", "interactions"];
@@ -609,6 +615,11 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                     season_feature[chosen_dataset]["metadata"]);
             };
         };
+        // Remove the bootstrap "btn-primary"
+        d3.selectAll("#feature_options button").classed("btn-primary", false);
+
+        // Reapply for clicked button only
+        d3.select(this).classed("btn-primary", true);
     });
 };
 
