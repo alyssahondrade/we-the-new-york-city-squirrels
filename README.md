@@ -1,6 +1,7 @@
 # We, The New York Squirrels
 Project 3 - Data Analytics Bootcamp
-
+![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)\
+**Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe\
 Github repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 
@@ -47,6 +48,8 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 ### Data Cleaning
 - [1] How to add an empty column to a dataframe [https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe](https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe)
 
+
+- [2] 
 - []
 
 - [] Declarative Tables [https://docs.sqlalchemy.org/en/14/orm/declarative_tables.html](https://docs.sqlalchemy.org/en/14/orm/declarative_tables.html)
