@@ -408,13 +408,85 @@ function build_interactive_map(layer) {
     L.control.layers(base_maps, overlay_maps).addTo(my_map);
 };
 
+
+
+
+
+function build_layer_groups(feature, dataset, metadata) {
+    let layer_group = new L.layerGroup();
+
+    // feature options: "activities", "appearance", "interactions"
+    switch(feature) {
+        case "activities":
+            console.log(feature, dataset);
+            break;
+            
+        case "appearance":
+            console.log(feature, dataset);
+            break;
+            
+        case "interactions":
+            console.log(feature, dataset);
+
+            break;
+    };
+};
+
+
+function season_filter(data, season) {
+    return data.filter(sighting => {
+        if (season === "spring") {
+            return sighting.month === 3;
+        }
+        else if (season === "autumn") {
+            return sighting.month === 10;
+        }
+    });
+};
+
+
+
 function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
     let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
 
-    // Define the seasonal dataset
+    // Define the seasonal markers
     let spring_markers = [];
     let autumn_markers = [];
+
+    //-------- DEFINE THE SEASONAL vs FEATURE DATASETS --------//
+    // Define the seasonal vs feature datasets
+    let season_feature = {};
+    
+    let seasons = ["spring", "autumn", "both"];
+    let features = ["activities", "appearance", "interactions", "metadata"];
+
+    // Build seasonal_feature
+    seasons.forEach(season => {
+        season_feature[season] = {};
+        features.forEach(feature => {
+            season_feature[season][feature] = [];
+        });
+    });
+
+    // Populate seasonal_feature
+    for (let i=0; i<metadata_data.length; i++) {
+        for (let j=0; j<features.length; j++) {
+            // Spring dataset
+            if (metadata_data[i].month === 3) {
+                // console.log(eval(`${features[j]}_data`)[i]);
+                season_feature["spring"][features[j]].push(eval(`${features[j]}_data`)[i]);
+            }
+            // Autumn dataset
+            else if (metadata_data[i].month === 10) {
+                season_feature["autumn"][features[j]].push(eval(`${features[j]}_data`)[i]);
+            }
+            // All data
+            season_feature["both"][features[j]].push(eval(`${features[j]}_data`)[i]);
+        };
+    };
+
+    console.log(season_feature);
     
     for (let i=0; i<unique_activities.length; i++) {
         for (let j=0; j<metadata_data.length; j++) {
@@ -441,28 +513,49 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
     let spring_layer = L.layerGroup(spring_markers);
     let autumn_layer = L.layerGroup(autumn_markers);
 
-    //-------- CHECK USER SELECTION --------//   
+    //-------- CHECK USER SELECTION --------//
+    let chosen_dataset;
+    
     d3.select("#data_spring").on("click", function() {
         let selected_button = d3.select(this);
         build_interactive_map(spring_layer);
         console.log("SPRING BUTTON PUSHED");
+        chosen_dataset = "spring";
     });
 
     d3.select("#data_autumn").on("click", function() {
         let selected_button = d3.select(this);
         build_interactive_map(autumn_layer);
         console.log("AUTUMN BUTTON PUSHED");
+        chosen_dataset = "autumn";
+    });
+
+    d3.select("#data_both").on("click", function() {
+        let selected_button = d3.select(this);
+        // build_interactive_map(autumn_layer);
+        console.log("BOTH DATASET BUTTON PUSHED");
     });
 
     let feature_options = ["activities", "appearance", "interactions"];
     let relevant_dataset = [activities_data, appearance_data, interactions_data];
-    // d3.selectAll("#feature_options").on("click", function() {
+
     d3.selectAll("#feature_options button").on("click", function() {
         let selected_option = d3.select(this).attr('id');
         console.log(selected_option);
+        console.log("chosen_dataset", chosen_dataset);
         for (let i=0; i<feature_options.length; i++) {
             if (selected_option === feature_options[i]) {
-                console.log("Chosen button: ", relevant_dataset[i]);
+                // console.log("Chosen button: ", relevant_dataset[i]);
+                // build_layer_groups(feature_options[i], relevant_dataset[i], metadata_data)
+                let chosen_feature = feature_options[i]
+                // console.log("feature_options", chosen_feature);
+                // console.log("season_feature", season_feature[chosen_dataset][chosen_feature]);
+                // build_layer_groups(feature_options[i], season_feature[chosen_dataset][feature_options[i]], season_feature[chosen_dataset]["metadata"]);
+
+                build_layer_groups(
+                    feature_options[i],
+                    season_feature[chosen_dataset][chosen_feature],
+                    season_feature[chosen_dataset]["metadata"]);
             };
         };
     });
