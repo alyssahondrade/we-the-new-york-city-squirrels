@@ -439,16 +439,42 @@ function build_layer_groups(feature, dataset, metadata) {
     });
     console.log(layer_arrays);
 
+    // Create a chroma.scale array
+    let colour_scale = chroma.scale(chroma.brewer.Dark2).colors(layer_options.length);
+
     for (let i=0; i<metadata.length; i++) {
         let latitude = metadata[i].latitude;
         let longitude = metadata[i].longitude;
 
-        for (let item of layer_options) {
-            // console.log(dataset[i][item]);
+        // for (let item of layer_options) {
+        //     console.log("IN ITEM", dataset[i][item]);
+        //     if (dataset[i][item]) {
+        //         let marker = L.circleMarker([latitude, longitude], {
+        //             radius: 5,
+        //             fillColor: colour_scale[0],
+        //             fillOpacity: 0.5,
+        //             color: colour_scale[0]
+        //         });
+        //         layer_arrays[item].push(marker);
+        //     };
+        // };
+
+        for (let j=0; j<layer_options.length; j++) {
+            let item = layer_options[j];
+            console.log("IN LOOP", dataset[i][item]);
             if (dataset[i][item]) {
                 let marker = L.circleMarker([latitude, longitude], {
-                    radius: 10
+                    radius: 10,
+                    fillColor: colour_scale[0],
+                    fillOpacity: 0.5,
+                    color: colour_scale[0],
+                    weight: 1
                 });
+                // Adjust the marker colour
+                marker.options.fillColor = colour_scale[j];
+                marker.options.color = colour_scale[j];
+
+                // Push to the correct list
                 layer_arrays[item].push(marker);
             };
         };
@@ -456,45 +482,54 @@ function build_layer_groups(feature, dataset, metadata) {
 
     // WRITE CODE SO THE USER KNOWS WHAT THE OPTIONS ARE CURRENTLY SELECTED?
     // feature options: "activities", "appearance", "interactions"
-    let function_params = [];
-    for (let item of Object.values(layer_arrays)) {
-        function_params.push(L.layerGroup(item));
+
+    
+    switch(feature) {
+        // case "activities":
+        //     console.log(layer_arrays);
+        //     for (let item of Object.values(layer_arrays)) {
+        //         function_params.push(L.layerGroup(item));
+        //     };
+        //     build_interactive_map(function_params, layer_options);
+        //     break;
+            
+        // case "appearance":
+        //     console.log(feature, dataset);
+        //     break;
+            
+        // case "interactions":
+        //     console.log(feature, dataset);
+
+        //     break;
+        default:
+            let function_params = [];
+            for (let item of Object.values(layer_arrays)) {
+                function_params.push(L.layerGroup(item));
+            };
+            build_interactive_map(function_params, layer_options);
     };
-    build_interactive_map(function_params, layer_options);
-    // switch(feature) {
-    //     case "activities":
-    //         console.log(layer_arrays);
-    //         for (let item of Object.values(layer_arrays)) {
-    //             function_params.push(L.layerGroup(item));
-    //         };
-    //         build_interactive_map(function_params, layer_options);
-    //         break;
-            
-    //     case "appearance":
-    //         console.log(feature, dataset);
-    //         break;
-            
-    //     case "interactions":
-    //         console.log(feature, dataset);
-
-    //         break;
-    // };
-        
-
-
 };
 
 
-function season_filter(data, season) {
-    return data.filter(sighting => {
-        if (season === "spring") {
-            return sighting.month === 3;
-        }
-        else if (season === "autumn") {
-            return sighting.month === 10;
-        }
-    });
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
