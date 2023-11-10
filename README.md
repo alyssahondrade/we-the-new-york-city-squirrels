@@ -71,3 +71,11 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 - [] JavaScript Array Includes [https://www.w3schools.com/jsref/jsref_includes_array.asp](https://www.w3schools.com/jsref/jsref_includes_array.asp)
 
 - [] Remove Multiple Elements from an Array [https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array](https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array)
+
+- [] Interactive Heatmaps JavaScript [https://www.freecodecamp.org/news/interactive-heatmap-in-javascript/](https://www.freecodecamp.org/news/interactive-heatmap-in-javascript/)
+
+- [] Plotly Heatmaps [https://plotly.com/javascript/heatmaps/](https://plotly.com/javascript/heatmaps/)
+
+- [] UNPKG [https://unpkg.com](https://unpkg.com)
+
+- [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)

@@ -299,8 +299,9 @@ function create_colourmap(metadata_data, appearance_data) {
     });
     
     let colourmap_zval = Object.values(condense_values);
-    let colourmap_xval = Object.keys(condense_values);
-    let colourmap_yval = unique_highlights;
+    let colourmap_yval = Object.keys(condense_values);
+    let colourmap_xval = unique_highlights;
+    let formatted_xvals = colourmap_xval.map(word => word[0].toUpperCase()+word.substring(1)); // capitalise each word
 
     console.log(colourmap_zval, colourmap_yval, colourmap_xval);
     // // Loop through primary then check highlight
@@ -313,25 +314,155 @@ function create_colourmap(metadata_data, appearance_data) {
     //     };
     // };
 
+    // let colour_scale = chroma.scale([chroma.lab(80,-20,50).hex(), chroma.temperature(2000).hex()]).colours(5);
+
+    var colorscaleValue = [
+        // [0, chroma.lab(80,-20,50).hex()],
+        // [1, chroma.temperature(2000).hex()]
+        // [0, "#1b9e77"],
+        [0, "#7570b3"],
+        [1, "#d95f02"]
+    ];
     let heat_data = [{
         z: colourmap_zval,
-        x: colourmap_yval,
-        y: colourmap_xval,
+        x: formatted_xvals,
+        y: colourmap_yval,
         type: 'heatmap',
-        colorscale: chroma.brewer.YlGnBu
+        // colorscale: chroma.brewer.YlGnBu
+        // colorscale: chroma.scale([chroma.lab(80,-20,50), chroma.temperature(2000)])
+        // colorscale: chroma.scale('BuPu')
+        // colorscale: chroma.scale(["peachpuff", "rebeccapurple"])
+        colorscale: colorscaleValue
     }];
-    // var data = [
-    //     {
-    //     z: [[1, null, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
-    //     x: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    //     y: ['Morning', 'Afternoon', 'Evening'],
-    //     type: 'heatmap',
-    //     hoverongaps: false
-    //     }
-    //     ];
-        
-    Plotly.newPlot("colour_heatmap", heat_data);
+
+    let heat_layout = {
+        title: "Primary vs (Single) Highlight Distribution",
+        xaxis: {
+            title: {
+                text: "Highlight Colour"
+            },
+            automargin: true
+        },
+        yaxis: {
+            title: {
+                text: "Primary Colour",
+                standoff: 10
+            },
+            automargin: true
+        },
+        margin: {t: 30}
+    };
+    Plotly.newPlot("colour_heatmap", heat_data, heat_layout);
 };
+
+
+
+
+function create_radar(metadata_data, interactions_data) {
+    console.log(interactions_data);
+
+    // Get the unique interactions
+    let remove_keys = function(arr, ...args) {
+        return arr.filter(val => !args.includes(val) )
+    };
+    
+    let unique_interactions = remove_keys(Object.keys(interactions_data[0]), 'squirrel_id');
+    console.log(unique_interactions);
+    
+    // Initialise objects to hold the values
+    let default_value = 0;
+    let spring_interactions = Object.fromEntries(unique_interactions.map(key => [key, default_value])); // March
+    let autumn_interactions = Object.fromEntries(unique_interactions.map(key => [key, default_value])); // October
+    
+    for (let i=0; i<unique_interactions.length; i++) {
+        // console.log(metadata_data[i].month);
+
+        for (let j=0; j<interactions_data.length; j++) {
+            if (interactions_data[j][unique_interactions[i]]) {
+                if (metadata_data[j].month === 3) { // Spring
+                    spring_interactions[unique_interactions[i]] += 1;
+                }
+                else if (metadata_data[j].month === 10) { // Autumn
+                    autumn_interactions[unique_interactions[i]] += 1;
+                }
+            }
+        };
+
+        
+    };
+
+    console.log(spring_interactions, autumn_interactions);
+
+    let sum_spring = Object.values(spring_interactions).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+
+    let sum_autumn = Object.values(autumn_interactions).reduce((accumulator, value) => {
+        return accumulator + value;
+    }, 0);
+    
+
+    // import percentRound from "percent-round";
+    
+    // console.log(sum_spring, sum_autumn);
+    // let r_spring = Object.values(spring_interactions).map(function(spring_val) {
+    //     return Math.round(100 * spring_val / sum_spring);
+    // });
+    
+    // let r_autumn = Object.values(autumn_interactions).map(function(autumn_val) {
+    //     return Math.round(100 * autumn_val / sum_autumn);
+    // });
+
+    
+
+    let r_spring = percentRound(Object.values(spring_interactions));
+    let r_autumn = percentRound(Object.values(autumn_interactions));
+
+    // console.log(typeof r_spring, r_autumn);
+
+    let spring_trace = {
+        r: r_spring,
+        theta: unique_interactions,
+        fill: 'toself',
+        name: "Spring",
+        type: 'scatterpolar'
+    };
+
+    let autumn_trace = {
+        r: r_autumn,
+        theta: unique_interactions,
+        fill: 'toself',
+        name: "Autumn",
+        type: 'scatterpolar'
+    };
+
+    let radar_data = [spring_trace, autumn_trace];
+
+    let radar_layout = {
+        legend: {
+            x: 0.7,
+            y: 0.9
+        },
+    };
+
+    Plotly.newPlot("interaction_radar", radar_data, radar_layout);
+    
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -540,6 +671,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 create_bar(metadata_data, activities_data);
                 create_colourmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
+                create_radar(metadata_data, interactions_data);
             });
         });
     });
