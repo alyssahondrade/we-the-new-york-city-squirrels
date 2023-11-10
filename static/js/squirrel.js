@@ -380,15 +380,28 @@ let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
 }).addTo(my_map);
 
 //---------------- FUNCTION: CREATE THE INTERACTIVE MAP ----------------//
-function build_interactive_map(layer) {
+function build_interactive_map(layer_array, layer_labels) {
     // Create the base maps object
     let base_maps = {
         Street: street_tiles
     };
 
     // Create overlay maps object
-    let overlay_maps = {
-        Data: layer
+    // let overlay_maps = {
+    //     Data: layer
+    // };
+
+    // layer_array.forEach(item => {
+    //     c
+    // });
+    // let overlay_maps = {layer_array};
+    // console.log(layer_array, layer_labels);
+
+    let overlay_maps = {};
+    for (let i=0; i<layer_array.length; i++) {
+        let layer_name = layer_labels[i];
+        let layer_value = layer_array[i];
+        overlay_maps[layer_name] = layer_value;
     };
 
     // Remove map if it already exists
@@ -400,7 +413,7 @@ function build_interactive_map(layer) {
     my_map = L.map("interactive_map", {
         center: map_centre,
         zoom: map_zoom,
-        layers: [street_tiles, layer],
+        layers: [street_tiles],
         worldCopyJump: true
     });
 
@@ -413,23 +426,62 @@ function build_interactive_map(layer) {
 
 
 function build_layer_groups(feature, dataset, metadata) {
-    let layer_group = new L.layerGroup();
+    // let layer_group = new L.layerGroup();
 
-    // feature options: "activities", "appearance", "interactions"
-    switch(feature) {
-        case "activities":
-            console.log(feature, dataset);
-            break;
-            
-        case "appearance":
-            console.log(feature, dataset);
-            break;
-            
-        case "interactions":
-            console.log(feature, dataset);
+    // Get the layer options per feature
+    let layer_options = remove_keys(Object.keys(dataset[0]), 'squirrel_id');
+    console.log(layer_options);
 
-            break;
+    // Create an array for each layer item - push markers to
+    let layer_arrays = {};
+    layer_options.forEach(option => {
+        layer_arrays[option] = [];
+    });
+    console.log(layer_arrays);
+
+    for (let i=0; i<metadata.length; i++) {
+        let latitude = metadata[i].latitude;
+        let longitude = metadata[i].longitude;
+
+        for (let item of layer_options) {
+            // console.log(dataset[i][item]);
+            if (dataset[i][item]) {
+                let marker = L.circleMarker([latitude, longitude], {
+                    radius: 10
+                });
+                layer_arrays[item].push(marker);
+            };
+        };
     };
+
+    // WRITE CODE SO THE USER KNOWS WHAT THE OPTIONS ARE CURRENTLY SELECTED?
+    // feature options: "activities", "appearance", "interactions"
+    let function_params = [];
+    for (let item of Object.values(layer_arrays)) {
+        function_params.push(L.layerGroup(item));
+    };
+    build_interactive_map(function_params, layer_options);
+    // switch(feature) {
+    //     case "activities":
+    //         console.log(layer_arrays);
+    //         for (let item of Object.values(layer_arrays)) {
+    //             function_params.push(L.layerGroup(item));
+    //         };
+    //         build_interactive_map(function_params, layer_options);
+    //         break;
+            
+    //     case "appearance":
+    //         console.log(feature, dataset);
+    //         break;
+            
+    //     case "interactions":
+    //         console.log(feature, dataset);
+
+    //         break;
+    // };
+        
+
+
 };
 
 
@@ -541,8 +593,8 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
 
     d3.selectAll("#feature_options button").on("click", function() {
         let selected_option = d3.select(this).attr('id');
-        console.log(selected_option);
-        console.log("chosen_dataset", chosen_dataset);
+        // console.log(selected_option);
+        // console.log("chosen_dataset", chosen_dataset);
         for (let i=0; i<feature_options.length; i++) {
             if (selected_option === feature_options[i]) {
                 // console.log("Chosen button: ", relevant_dataset[i]);
@@ -754,6 +806,8 @@ function create_map_markers(metadata_data, appearance_data, activities_data) {
     let running_layer = L.layerGroup(running);
     let shouting_layer = L.layerGroup(shouting);
     let sitting_layer = L.layerGroup(sitting);
+
+    console.log("sitting_layer", sitting_layer);
     
     create_testmap(
         autumn_layer, spring_layer,
