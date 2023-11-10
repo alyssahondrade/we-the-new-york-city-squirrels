@@ -48,4 +48,37 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 ### Data Cleaning
 - [1] How to add an empty column to a dataframe [https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe](https://stackoverflow.com/questions/16327055/how-to-add-an-empty-column-to-a-dataframe)
 
+
 - [2] 
+- []
+
+- [] Declarative Tables [https://docs.sqlalchemy.org/en/14/orm/declarative_tables.html](https://docs.sqlalchemy.org/en/14/orm/declarative_tables.html)
+
+- [] Python Get All Attributes [https://blog.enterprisedna.co/python-get-all-attributes/](https://blog.enterprisedna.co/python-get-all-attributes/)
+
+- [] Solve CORS with Flask [https://stackoverflow.com/questions/26980713/solve-cross-origin-resource-sharing-with-flask](https://stackoverflow.com/questions/26980713/solve-cross-origin-resource-sharing-with-flask)
+
+- [] How to add separate templates for separate pages in flask [https://kanchanardj.medium.com/how-to-add-separate-templates-for-separate-pages-in-flask-ca699c29a4e1](https://kanchanardj.medium.com/how-to-add-separate-templates-for-separate-pages-in-flask-ca699c29a4e1)
+
+### Data Visualisation
+- [] Object.keys() [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
+
+- [] Create Object with a list of Keys [https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys](https://stackoverflow.com/questions/62406909/create-object-with-list-of-keys)
+
+- [] JavaScript - Sum the Values of an Object [https://bobbyhadz.com/blog/javascript-sum-values-of-object](https://bobbyhadz.com/blog/javascript-sum-values-of-object)
+
+- [] Chroma.js Documentation [https://gka.github.io/chroma.js/](https://gka.github.io/chroma.js/)
+
+- [] How to Capitalise Words in JavaScript [https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript](https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript)
+
+- [] JavaScript Array Includes [https://www.w3schools.com/jsref/jsref_includes_array.asp](https://www.w3schools.com/jsref/jsref_includes_array.asp)
+
+- [] Remove Multiple Elements from an Array [https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array](https://stackoverflow.com/questions/71534020/how-do-i-remove-multiple-elements-from-an-array)
+
+- [] Interactive Heatmaps JavaScript [https://www.freecodecamp.org/news/interactive-heatmap-in-javascript/](https://www.freecodecamp.org/news/interactive-heatmap-in-javascript/)
+
+- [] Plotly Heatmaps [https://plotly.com/javascript/heatmaps/](https://plotly.com/javascript/heatmaps/)
+
+- [] UNPKG [https://unpkg.com](https://unpkg.com)
+
+- [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
