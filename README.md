@@ -8,8 +8,8 @@ Project 3 - Data Analytics Bootcamp
 GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 ## Table of Contents
-1. [Introduction]
-    1. [Research Questions]
+1. [Introduction](https://github.com/alyssahondrade/Project1#introduction)
+    1. [Research Questions](https://github.com/alyssahondrade/Project1#research-questions)
     2. [Repository Structure]
     3. [Dataset]
 2. [Scope]
