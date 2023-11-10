@@ -24,7 +24,7 @@ GitHub repository at [https://github.com/alyssahondrade/Project3.git](https://gi
 
 
 ## Introduction
-The project will create an interactive visualisation of a squirrel’s day-to-day life in New York City. The project is based on the 2018 and 2020 Squirrel Census, where the data from 2018 was collected over a two-week period and the data for 2020 was collected on a single day (01 March 2020) but simplified for the project as autumn and spring.
+The project will create an interactive visualisation of a squirrel’s day-to-day life in New York City. The project is based on the 2018 and 2020 Squirrel Census, where the data from 2018 was collected over a two-week period and the data for 2020 was collected on a single day (01 March 2020) but simplified for the project as autumn and spring.[`Weather in New York`](https://www.newyork.com.au/travel-season-new-york/)
 
 The project singles in on a specific animal but can be scaled to any wildlife and its interactions/ behaviours in similar metropolitan areas.
 
