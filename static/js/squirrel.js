@@ -425,9 +425,28 @@ function build_interactive_map(layer_array, layer_labels) {
 
 
 
-function build_layer_groups(feature, dataset, metadata) {
-    // let layer_group = new L.layerGroup();
+function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
+    // Need to return another function, otherwise called straight away
+    return function() {
+        console.log("MARKER HAS BEEN CLICKED", squirrel_id);
+        // console.log(dataset, metadata, appearance_data);
 
+        // Use filter to find the correct squirrel_id
+        function find_id(sighting) {
+            return(sighting.squirrel_id === squirrel_id);
+        };
+
+        // Get the squirrel specifics
+        let squirrel_metadata = metadata.filter(find_id)[0];
+        let squirrel_appearance = appearance_data.filter(find_id)[0];
+        console.log(squirrel_metadata, squirrel_appearance);
+    };
+    
+};
+
+
+
+function build_layer_groups(feature, dataset, metadata, appearance_data) {
     // Get the layer options per feature
     let layer_options = remove_keys(Object.keys(dataset[0]), 'squirrel_id');
     console.log(layer_options);
@@ -437,7 +456,6 @@ function build_layer_groups(feature, dataset, metadata) {
     layer_options.forEach(option => {
         layer_arrays[option] = [];
     });
-    console.log(layer_arrays);
 
     // Create a chroma.scale array
     let colour_scale = chroma.scale(chroma.brewer.Dark2).colors(layer_options.length);
@@ -445,32 +463,38 @@ function build_layer_groups(feature, dataset, metadata) {
     for (let i=0; i<metadata.length; i++) {
         let latitude = metadata[i].latitude;
         let longitude = metadata[i].longitude;
+        let squirrel_id = metadata[i].squirrel_id;
 
         for (let j=0; j<layer_options.length; j++) {
             let item = layer_options[j];
-            // console.log("IN LOOP", dataset[i][item]);
+
             if (dataset[i][item]) {
-                let marker = L.circleMarker([latitude, longitude], {
+                var marker = L.circleMarker([latitude, longitude], {
                     radius: 10,
                     fillColor: colour_scale[0],
                     fillOpacity: 0.5,
                     color: colour_scale[0],
                     weight: 1
                 });
+                
                 // Adjust the marker colour
                 marker.options.fillColor = colour_scale[j];
                 marker.options.color = colour_scale[j];
 
+                // Add bindPopup to marker
+                marker.bindPopup(squirrel_id);
+
+                // Add a click event listener to the marker
+                marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
+                
                 // Push to the correct list
                 layer_arrays[item].push(marker);
             };
         };
     };
 
-    // WRITE CODE SO THE USER KNOWS WHAT THE OPTIONS ARE CURRENTLY SELECTED?
-    // feature options: "activities", "appearance", "interactions"
 
-    
+    // feature options: "activities", "appearance", "interactions"
     switch(feature) {
         // case "activities":
         //     console.log(layer_arrays);
@@ -481,7 +505,7 @@ function build_layer_groups(feature, dataset, metadata) {
         //     break;
             
         // case "appearance":
-        //     console.log(feature, dataset);
+        //     console.log(layer_arrays.primary_colour);
         //     break;
             
         // case "interactions":
@@ -496,14 +520,6 @@ function build_layer_groups(feature, dataset, metadata) {
             build_interactive_map(function_params, layer_options);
     };
 };
-
-
-
-
-
-
-
-
 
 
 
@@ -595,6 +611,9 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
         // Remove the bootstrap "btn-primary"
         d3.selectAll("#data_options button").classed("btn-primary", false);
 
+        // Reset the feature button to force user to select a feature
+        d3.selectAll("#feature_options button").classed("btn-primary", false);
+
         // Reapply for clicked button only
         d3.select(this).classed("btn-primary", true);
     });
@@ -612,7 +631,8 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                 build_layer_groups(
                     feature_options[i],
                     season_feature[chosen_dataset][chosen_feature],
-                    season_feature[chosen_dataset]["metadata"]);
+                    season_feature[chosen_dataset]["metadata"],
+                    season_feature[chosen_dataset]["appearance"]);
             };
         };
         // Remove the bootstrap "btn-primary"
@@ -622,8 +642,6 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
         d3.select(this).classed("btn-primary", true);
     });
 };
-
-
 
 
 
@@ -841,6 +859,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data);
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
+                sighting_metadata((metadata_data, activities_data, appearance_data, interactions_data));
             });
         });
     });

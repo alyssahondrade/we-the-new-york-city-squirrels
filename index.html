@@ -28,12 +28,21 @@
             <h1>New York City Squirrels</h1>
         </div>
     </div>
-    <img
-src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
- alt="Squirrels playing" title="Squirrels playing" />
+
+    <div class="text-center">
+        <img
+            src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
+            alt="Squirrels playing"
+            title="Squirrels playing"/>
+        <!-- <div class="row">
+            <div class="col-md-2">
+                <h1>Overview of the data</h1>
+            </div>
+        </div> -->
+    </div>
 <br />
     
-    <h1>  Overview of the data</h1>
+    <h1>Overview of the data</h1>
    <p> The data is relevant to the years 2018 and 2020 and is from the Squirrel census and these datasets can be found at the following       website: https://www.thesquirrelcensus.com/<br>
     The datafrom 2018 was collected over a two-week period in October comparatively the 2020 data was collected on a single day (01 March     2020)This can also be considered as seasonal data with the data being collected in different months/seasons.<br></p>
     
@@ -95,7 +104,22 @@ src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
         </div>
     </div>
 
-    <div id="interactive_map"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div id="interactive_map" style="height: 60vh;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!-- Your panel content goes here -->
+                <div class="panel">
+                    <!-- Panel content -->
+                    <div id="sample-metadata" class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Leaflet JS -->
