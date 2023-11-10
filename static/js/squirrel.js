@@ -367,7 +367,8 @@ function create_radar(metadata_data, interactions_data) {
     };
     
     let unique_interactions = remove_keys(Object.keys(interactions_data[0]), 'squirrel_id');
-    console.log(unique_interactions);
+    let formatted_interactions = unique_interactions.map(word => word[0].toUpperCase()+word.substring(1).replace("_", " ")); // capitalise each word
+    console.log(formatted_interactions);
     
     // Initialise objects to hold the values
     let default_value = 0;
@@ -422,7 +423,7 @@ function create_radar(metadata_data, interactions_data) {
 
     let spring_trace = {
         r: r_spring,
-        theta: unique_interactions,
+        theta: formatted_interactions,
         fill: 'toself',
         name: "Spring",
         type: 'scatterpolar'
@@ -430,7 +431,7 @@ function create_radar(metadata_data, interactions_data) {
 
     let autumn_trace = {
         r: r_autumn,
-        theta: unique_interactions,
+        theta: formatted_interactions,
         fill: 'toself',
         name: "Autumn",
         type: 'scatterpolar'
@@ -439,10 +440,14 @@ function create_radar(metadata_data, interactions_data) {
     let radar_data = [spring_trace, autumn_trace];
 
     let radar_layout = {
+        title: "Squirrel Behaviour - Interactions<br>(Percentage of Season Total)",
         legend: {
             x: 0.7,
             y: 0.9
         },
+        margin: {
+            t: 120
+        }
     };
 
     Plotly.newPlot("interaction_radar", radar_data, radar_layout);
