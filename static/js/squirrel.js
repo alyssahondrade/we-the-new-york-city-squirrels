@@ -90,26 +90,35 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
             let item = layer_options[j];
 
             if (dataset[i][item]) {
-                var marker = L.circleMarker([latitude, longitude], {
-                    radius: 10,
-                    fillColor: colour_scale[0],
-                    fillOpacity: 0.5,
-                    color: colour_scale[0],
-                    weight: 1
-                });
-                
-                // Adjust the marker colour
-                marker.options.fillColor = colour_scale[j];
-                marker.options.color = colour_scale[j];
-
-                // Add bindPopup to marker
-                marker.bindPopup(squirrel_id);
-
-                // Add a click event listener to the marker
-                marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
-                
-                // Push to the correct list
-                layer_arrays[item].push(marker);
+                if (feature === "appearance") {
+                    console.log(dataset[i].primary_colour);
+                    
+                    // Get the primary colours
+                    let unique_primary = _.uniq(_.map(appearance_data, 'primary_colour'));
+                    console.log("build layer groups", unique_primary);
+                }
+                else {
+                    var marker = L.circleMarker([latitude, longitude], {
+                        radius: 10,
+                        fillColor: colour_scale[0],
+                        fillOpacity: 0.5,
+                        color: colour_scale[0],
+                        weight: 1
+                    });
+                    
+                    // Adjust the marker colour
+                    marker.options.fillColor = colour_scale[j];
+                    marker.options.color = colour_scale[j];
+    
+                    // Add bindPopup to marker
+                    marker.bindPopup(squirrel_id);
+    
+                    // Add a click event listener to the marker
+                    marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
+                    
+                    // Push to the correct list
+                    layer_arrays[item].push(marker);
+                }
             };
         };
     };
@@ -125,9 +134,14 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         //     build_interactive_map(function_params, layer_options);
         //     break;
             
-        // case "appearance":
-        //     console.log(layer_arrays.primary_colour);
-        //     break;
+        case "appearance":
+            // console.log(layer_arrays.primary_colour);
+
+            // console.log("build layer groups", dataset, appearance_data);
+            // if (dataset === appearance_data) {
+            //     console.log("THIS ONE");
+            // };
+            break;
             
         // case "interactions":
         //     console.log(feature, dataset);

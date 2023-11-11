@@ -4,17 +4,8 @@ function databuild_heatmap(metadata_data, appearance_data) {
     let unique_highlights = _.pull(Object.keys(appearance_data[0]), 'squirrel_id', 'primary_colour');
 
     // Get the primary colours
-    let unique_primary = [];
-    for (let i=0; i<appearance_data.length; i++) {
-        // Check the value for each sighting
-        let primary = appearance_data[i].primary_colour;
-
-        // Append if not in the list
-        if (!unique_primary.includes(primary)) {
-            unique_primary.push(primary);
-        };
-    };
-
+    let unique_primary = _.uniq(_.map(appearance_data, 'primary_colour'));
+    
     // Define the objects that will hold the y-values
     let default_value = 0;
     let colourmap_values = [];
