@@ -34,7 +34,7 @@ function databuild_radar(metadata_data, interactions_data) {
 
 
 //---------------- CREATE THE RADAR PLOT ----------------//
-function create_radar(metadata_data, interactions_data) {
+function create_radar(metadata_data, interactions_data, plot_div) {
     // Call the data build function
     let data = databuild_radar(metadata_data, interactions_data);
 
@@ -73,5 +73,5 @@ function create_radar(metadata_data, interactions_data) {
     };
 
     // Create the plot
-    Plotly.newPlot("interaction_radar", radar_data, radar_layout);
+    Plotly.newPlot(plot_div, radar_data, radar_layout);
 };

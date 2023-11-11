@@ -165,7 +165,7 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
     // Call the function to build the interactive map
     let my_map = build_interactive_map(function_params, layer_options);
-    console.log(my_map);
+    // console.log(my_map);
 
     // Return the updated layer control
     let layer_control = my_map._controlContainer.querySelector('.leaflet-control-layers');
@@ -193,8 +193,8 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
             _.pull(selected_checkboxes, box_index);
         }
 
-        console.log("selected_checkboxes", selected_checkboxes);
-        console.log(layer_arrays);
+        // console.log("selected_checkboxes", selected_checkboxes);
+        // console.log(layer_arrays);
 
 
     });
@@ -247,8 +247,6 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
             season_feature["both"][features[j]].push(eval(`${features[j]}_data`)[i]);
         };
     };
-
-    console.log(season_feature);
     
     for (let i=0; i<unique_activities.length; i++) {
         for (let j=0; j<metadata_data.length; j++) {
@@ -511,8 +509,6 @@ function create_map_markers(metadata_data, appearance_data, activities_data) {
     let running_layer = L.layerGroup(running);
     let shouting_layer = L.layerGroup(shouting);
     let sitting_layer = L.layerGroup(sitting);
-
-    console.log("sitting_layer", sitting_layer);
     
     create_testmap(
         autumn_layer, spring_layer,
@@ -533,9 +529,10 @@ d3.json(metadata_url).then(function(metadata_data) {
                 create_bar(metadata_data, activities_data);
                 create_heatmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
-                create_radar(metadata_data, interactions_data);
+                create_radar(metadata_data, interactions_data, "interaction_radar");
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
-                sighting_metadata((metadata_data, activities_data, appearance_data, interactions_data));
+                sighting_metadata(metadata_data, activities_data, appearance_data, interactions_data);
+                slider(metadata_data, activities_data, appearance_data, interactions_data);
             });
         });
     });
