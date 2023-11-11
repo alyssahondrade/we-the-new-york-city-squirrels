@@ -2,9 +2,6 @@
 Project 3 - Data Analytics Bootcamp
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
 
-
-**Members**: Alyssa Hondrade, Adam Mayer, Dominique Spencer, Lakna Premasinghe
-
 GitHub repository at [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 ## Table of Contents
@@ -126,6 +123,8 @@ The pie chart illustrates four categories of squirrel behaviour, with the percen
 - [] UNPKG [https://unpkg.com](https://unpkg.com)
 
 - [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
+
+- [] Lodash [https://www.jsdelivr.com/package/npm/lodash](https://www.jsdelivr.com/package/npm/lodash)
 
 ## Interactivity
 - [] Stack Overflow - Map container is already initialised [https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized](https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized)

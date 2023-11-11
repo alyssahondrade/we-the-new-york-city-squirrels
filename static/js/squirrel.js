@@ -74,8 +74,8 @@ function create_pie(interactions_data) {
 console.log("Testing HTML");
 
 
-//---------------- FUNCTION: CREATE THE BAR ----------------//
-function create_bar(metadata_data, activities_data) {
+//---------------- BUILD THE DATA FOR THE BAR CHART ----------------//
+function databuild_bar(metadata_data, activities_data) {
     // Get the x-values
     let x_values = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
     let formatted_xvals = x_values.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
@@ -115,7 +115,20 @@ function create_bar(metadata_data, activities_data) {
     let y_spring = percentRound(Object.values(spring_values));
     let y_autumn = percentRound(Object.values(autumn_values));
 
-    //-------- CREATE THE BAR CHART --------//
+    return [formatted_xvals, y_spring, y_autumn];
+};
+
+
+
+//---------------- CREATE THE BAR CHART ----------------//
+function create_bar(metadata_data, activities_data) {
+    // Call the data build function
+    let data = databuild_bar(metadata_data, activities_data);
+    let formatted_xvals = data[0];
+    let y_spring = data[1];
+    let y_autumn = data[2];
+
+    
     // Create the traces
     let spring_trace = {
         x: formatted_xvals,
@@ -387,16 +400,6 @@ function build_interactive_map(layer_array, layer_labels) {
     };
 
     // Create overlay maps object
-    // let overlay_maps = {
-    //     Data: layer
-    // };
-
-    // layer_array.forEach(item => {
-    //     c
-    // });
-    // let overlay_maps = {layer_array};
-    // console.log(layer_array, layer_labels);
-
     let overlay_maps = {};
     for (let i=0; i<layer_array.length; i++) {
         let layer_name = layer_labels[i];
@@ -429,7 +432,6 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
     // Need to return another function, otherwise called straight away
     return function() {
         console.log("MARKER HAS BEEN CLICKED", squirrel_id);
-        // console.log(dataset, metadata, appearance_data);
 
         // Use filter to find the correct squirrel_id
         function find_id(sighting) {
@@ -439,8 +441,6 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
         // Get the squirrel specifics
         let squirrel_metadata = metadata.filter(find_id)[0];
         let squirrel_appearance = appearance_data.filter(find_id)[0];
-        
-        console.log(squirrel_metadata, squirrel_appearance);
 
         // Get the squirrel highlights
         let highlight_options = remove_keys(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
