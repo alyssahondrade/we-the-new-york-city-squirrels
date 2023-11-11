@@ -57,12 +57,15 @@ function build_interactive_map(layer_array, layer_labels) {
     my_map = L.map("interactive_map", {
         center: map_centre,
         zoom: map_zoom,
-        layers: [street_tiles, layer_array[0]], // set the first overlay as default
+        // layers: [street_tiles, layer_array[0]], // set the first overlay as default
+        layers: [street_tiles],
         worldCopyJump: true
     });
 
     // Create the layer control and add to the map
     L.control.layers(base_maps, overlay_maps, {collapsed: false}).addTo(my_map);
+
+    return my_map;
 };
 
 
@@ -96,7 +99,6 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
         for (let j=0; j<Object.keys(layer_arrays).length; j++) {
             let item = Object.keys(layer_arrays)[j];
-            console.log("ITEM IS: ", item);
 
             if (dataset[i][item]) {
                 var marker = L.circleMarker([latitude, longitude], {
@@ -153,6 +155,7 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         // Capitalise each word for the dropdown option
         layer_options = layer_options.map(option => _.capitalize(option).replace("_", " "));
     }
+    
 
     // Create a list of layer groups to pass as a single argument
     let function_params = [];
@@ -161,7 +164,40 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
     };
 
     // Call the function to build the interactive map
-    build_interactive_map(function_params, layer_options);
+    let my_map = build_interactive_map(function_params, layer_options);
+    console.log(my_map);
+
+    // Return the updated layer control
+    let layer_control = my_map._controlContainer.querySelector('.leaflet-control-layers');
+    let checkboxes = layer_control.querySelectorAll('input[type="checkbox"]');
+
+    // Assign an id to each checkbox
+    checkboxes.forEach((checkbox, index) => {
+        let item_id = `checkbox_${index}`;
+        checkbox.setAttribute('id', item_id);
+    });
+
+    // Event listener to identify which boxes have been selected
+    let selected_checkboxes = [];
+    d3.selectAll(".leaflet-control-layers-selector").on("change", function() {
+        let selected_option = d3.select(this).attr("id");
+        let is_checked = this.checked;
+
+        let box_text = d3.select(this.parentNode).select("span").text();
+        let box_index = _.indexOf(layer_options, box_text.trim()); // Trim otherwise won't recognise
+
+        if (is_checked && _.indexOf(selected_checkboxes, box_index) === -1) {
+            selected_checkboxes.push(box_index);
+        }
+        else {
+            _.pull(selected_checkboxes, box_index);
+        }
+
+        console.log("selected_checkboxes", selected_checkboxes);
+        console.log(layer_arrays);
+
+
+    });
 
 };
 
