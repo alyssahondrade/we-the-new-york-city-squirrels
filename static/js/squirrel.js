@@ -120,6 +120,8 @@ function databuild_bar(metadata_data, activities_data) {
 function create_bar(metadata_data, activities_data) {
     // Call the data build function
     let data = databuild_bar(metadata_data, activities_data);
+
+    // Parse the results
     let formatted_xvals = data[0];
     let y_spring = data[1];
     let y_autumn = data[2];
@@ -160,11 +162,9 @@ function create_bar(metadata_data, activities_data) {
     Plotly.newPlot("bar", bar_data, bar_layout);
 };
 
-
-//---------------- FUNCTION: CREATE THE HEAT MAP ----------------//
-function create_colourmap(metadata_data, appearance_data) {
+//---------------- BUILD THE DATA FOR THE HEAT MAP ----------------//
+function databuild_heatmap(metadata_data, appearance_data) {
     // Get the unique highlights
-    // let unique_highlights = remove_keys(Object.keys(appearance_data[0]), 'squirrel_id','primary_colour');
     let unique_highlights = _.pull(Object.keys(appearance_data[0]), 'squirrel_id', 'primary_colour');
 
     // Get the primary colours
@@ -265,6 +265,19 @@ function create_colourmap(metadata_data, appearance_data) {
     // Capitalise the x-values
     let formatted_xvals = colourmap_xval.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
 
+    return [formatted_xvals, colourmap_yval, colourmap_zval];
+};
+
+//---------------- FUNCTION: CREATE THE HEAT MAP ----------------//
+function create_colourmap(metadata_data, appearance_data) {
+    // Call the data build function
+    let data = databuild_heatmap(metadata_data, appearance_data);
+
+    // Parse the results
+    let formatted_xvals = data[0];
+    let colourmap_yval = data[1];
+    let colourmap_zval = data[2];
+    
     // Define the colour scale
     let colorscaleValue = [
         [0, "#7570b3"],
@@ -308,7 +321,6 @@ function create_colourmap(metadata_data, appearance_data) {
 //---------------- FUNCTION: CREATE THE RADAR PLOT ----------------//
 function create_radar(metadata_data, interactions_data) {
     // Get the unique interactions    
-    // let unique_interactions = remove_keys(, 'squirrel_id');
     let unique_interactions = _.pull(Object.keys(interactions_data[0]), 'squirrel_id')
 
     // Capitalise each word and replace underscores with spaces
@@ -440,7 +452,6 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
         let squirrel_appearance = appearance_data.filter(find_id)[0];
 
         // Get the squirrel highlights
-        // let highlight_options = remove_keys(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
         let highlight_options = _.pull(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
 
         let squirrel_highlights = [];
@@ -474,9 +485,7 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
 
 function build_layer_groups(feature, dataset, metadata, appearance_data) {
     // Get the layer options per feature
-    // let layer_options = remove_keys(Object.keys(dataset[0]), 'squirrel_id');
     let layer_options = _.pull(Object.keys(dataset[0]), 'squirrel_id');
-    console.log(layer_options);
 
     // Create an array for each layer item - push markers to
     let layer_arrays = {};
@@ -556,7 +565,6 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
 function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
-    // let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
     let unique_activities = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
 
     // Define the seasonal markers
