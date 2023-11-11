@@ -8,380 +8,10 @@ const interactions_url = "http://127.0.0.1:5000/interactions";
 let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
 let map_zoom = 11;
 
-//-------- PIE CHART --------//
-function create_pie(interactions_data) {
-    
-    // console.log(interactions_data); 
-  
-  // counts
-    let indifferent_count = 0
-    let approaches_count = 0
-    let runsFrom_count = 0
-    let watching_count = 0
-  
-    for (let i= 0; i < interactions_data.length; i++ ){
-  
-        let indifferents = interactions_data[i].indifferent;
-        let approach = interactions_data[i].approaches;
-        let runsFrom = interactions_data[i].runs_from;
-        let watch = interactions_data[i].watching;
-        
-        if(indifferents == 1){
-            indifferent_count += 1
-        }
-        else if (approach == 1) {
-            approaches_count += 1
-        }
-        else if (runsFrom == 1) {
-            runsFrom_count += 1
-        }
-        else if (watch == 1) {
-            watching_count += 1
-        }
-    }
-  //}
-  // diction
-    let my_dict = {
-      "Indifferent": indifferent_count,
-      "Approaches": approaches_count,
-      "Runs from": runsFrom_count,
-      "Watching": watching_count
-    };
-    // console.log(my_dict)
-   
-  // my data
-    let data = [{
-      values: [indifferent_count, approaches_count, runsFrom_count, watching_count],
-      labels: ['Indifferent', 'Approaches', 'Runs from', 'Watching'],
-      type: 'pie'
-    }];
-    // layout
-    let layout = {
-      height: 500,
-      width: 900
-    };
-    
-    // 
-    Plotly.newPlot('pie_chart', data, layout);
-  
-  };
+
 
 console.log("Testing HTML");
 
-
-//---------------- BUILD THE DATA FOR THE BAR CHART ----------------//
-function databuild_bar(metadata_data, activities_data) {
-    // Get the x-values
-    let x_values = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
-    console.log("databuild_bar", x_values);
-    let formatted_xvals = x_values.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
-
-    // Define the objects that will hold the y-values
-    let default_value = 0;
-    let combined_values = Object.fromEntries(x_values.map(key => [key, default_value]));
-    let spring_values = Object.fromEntries(x_values.map(key => [key, default_value])); // March / Spring
-    let autumn_values = Object.fromEntries(x_values.map(key => [key, default_value])); // October / Autumn
-
-    // Get the y-values
-    for (let i=0; i<activities_data.length; i++) {
-        let sighting = activities_data[i];
-        let month = metadata_data[i].month;
-        let num_activities = Object.keys(sighting).length - 1;
-
-        // Loop through the different activities
-        for (let j=0; j<num_activities; j++) {
-            // Check if the sighting equivalent is true
-            if (sighting[x_values[j]]) {
-                // Increment the combined values
-                combined_values[x_values[j]] += 1;
-
-                // Increment spring_values if March / Spring
-                if (month === 3) {
-                    spring_values[x_values[j]] += 1;
-                }
-                // Increment autumn_values if October / Autumn
-                else if (month === 10) {
-                    autumn_values[x_values[j]] += 1;
-                }
-            }
-        };
-    };
-
-    // Convert the y-values to a percentage of the season total
-    let y_spring = percentRound(Object.values(spring_values));
-    let y_autumn = percentRound(Object.values(autumn_values));
-
-    return [formatted_xvals, y_spring, y_autumn];
-};
-
-
-
-//---------------- CREATE THE BAR CHART ----------------//
-function create_bar(metadata_data, activities_data) {
-    // Call the data build function
-    let data = databuild_bar(metadata_data, activities_data);
-
-    // Parse the results
-    let formatted_xvals = data[0];
-    let y_spring = data[1];
-    let y_autumn = data[2];
-    
-    // Create the traces
-    let spring_trace = {
-        x: formatted_xvals,
-        y: y_spring,
-        type: 'bar',
-        name: "Spring",
-        marker: {color: chroma.lab(80,-20,50).hex()}
-    };
-    let autumn_trace = {
-        x: formatted_xvals,
-        y: y_autumn,
-        type: 'bar',
-        name: "Autumn",
-        marker: {color: chroma.temperature(2000).hex()}
-    };
-
-    // Create a list of the traces
-    let bar_data = [spring_trace, autumn_trace];
-
-    // Define the plot layout
-    let bar_layout = {
-        title: "Squirrel Activity - Spring vs Autumn",
-        xaxis: {
-            title: {text: "Activity"},
-            automargin: true
-        },
-        yaxis: {
-            title: {text: "% of Season Total"},
-            automargin: true
-        }
-    };
-
-    // Create the plot
-    Plotly.newPlot("bar", bar_data, bar_layout);
-};
-
-//---------------- BUILD THE DATA FOR THE HEAT MAP ----------------//
-function databuild_heatmap(metadata_data, appearance_data) {
-    // Get the unique highlights
-    let unique_highlights = _.pull(Object.keys(appearance_data[0]), 'squirrel_id', 'primary_colour');
-
-    // Get the primary colours
-    let unique_primary = [];
-    for (let i=0; i<appearance_data.length; i++) {
-        // Check the value for each sighting
-        let primary = appearance_data[i].primary_colour;
-
-        // Append if not in the list
-        if (!unique_primary.includes(primary)) {
-            unique_primary.push(primary);
-        };
-    };
-
-    // Define the objects that will hold the y-values
-    let default_value = 0;
-    let colourmap_values = [];
-    
-    for (let i=0; i<unique_primary.length; i++) {
-        for (let j=0; j<unique_highlights.length; j++) {
-            // Create an object that will hold the x, y, and value
-            let combination = {};
-            combination['x'] = unique_primary[i];
-            combination['y'] = unique_highlights[j];
-            combination['value'] = default_value;
-            colourmap_values.push(combination);
-        };
-    };
-
-    // Use a counter to account for squirrels with more than one highlight
-    let multi_highlight = 0;
-
-    for (let i=0; i<appearance_data.length; i++) {
-        // Reset the counter for each sighting
-        let count = 0;        
-        for (let j=0; j<unique_highlights.length; j++) {
-            let highlight_value = appearance_data[i][unique_highlights[j]];
-
-            // Increment the counter for each highlight
-            if (highlight_value === 1) {
-                count += 1;
-            };
-        };
-
-        //-------- SQUIRRELS WITH MORE THAN ONE HIGHLIGHT --------//
-        if (count > 1) {
-            console.log("More than one highlight");
-        }
-            
-        //-------- SQUIRRELS WITH WITH ONLY ONE HIGHLIGHT --------//
-        else {
-            // Loop over the unique_primary, unique_highlights, and the colourmap_values
-            for (let j=0; j<unique_primary.length; j++) {
-                for (let k=0; k<unique_highlights.length; k++) {
-                    for (let m=0; m<colourmap_values.length; m++) {
-
-                        // Check multiple conditions to increment the correct value
-                        if (colourmap_values[m].x === unique_primary[j] // match primary to the colourmap
-                            && colourmap_values[m].y === unique_highlights[k] // match highlight to the colourmap
-                            && appearance_data[i].primary_colour === unique_primary[j] // match the sighting to the primary
-                           ) {
-                            // Increment the value
-                            if (appearance_data[i][unique_highlights[k]]) {
-                                colourmap_values[m].value += 1;
-                            };
-                        };
-                    };
-                };
-            };
-        }
-    };
-
-    //-------- PARSE THE PARAMETERS FOR PLOTTING --------//
-    // Flatten colourmap_values
-    let condense_values = {};
-    
-    // Loop through each row of colourmap_values
-    Object.values(colourmap_values).forEach(item => {
-        // Get the x-value and the value at each row
-        let key = item.x;
-        let value = item.value;
-
-        // While same x-value, push to that value
-        if (condense_values[key]) {
-            condense_values[key].push(value);
-        }
-        // Otherwise create a list with the value
-        else {
-            condense_values[key] = [value];
-        };
-    });
-
-    // Define the values to use in the plot
-    let colourmap_xval = unique_highlights;
-    let colourmap_yval = Object.keys(condense_values);
-    let colourmap_zval = Object.values(condense_values);    
-
-    // Capitalise the x-values
-    let formatted_xvals = colourmap_xval.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
-
-    return [formatted_xvals, colourmap_yval, colourmap_zval];
-};
-
-//---------------- FUNCTION: CREATE THE HEAT MAP ----------------//
-function create_colourmap(metadata_data, appearance_data) {
-    // Call the data build function
-    let data = databuild_heatmap(metadata_data, appearance_data);
-
-    // Parse the results
-    let formatted_xvals = data[0];
-    let colourmap_yval = data[1];
-    let colourmap_zval = data[2];
-    
-    // Define the colour scale
-    let colorscaleValue = [
-        [0, "#7570b3"],
-        [1, "#d95f02"]
-    ];
-    
-    //-------- CREATE THE HEAT MAP --------//
-    // Create the trace
-    let heat_data = [{
-        x: formatted_xvals,
-        y: colourmap_yval,
-        z: colourmap_zval,
-        type: 'heatmap',
-        colorscale: colorscaleValue
-    }];
-
-    // Define the plot layout
-    let heat_layout = {
-        title: "Primary vs (Single) Highlight Distribution",
-        xaxis: {
-            title: {
-                text: "Highlight Colour"
-            },
-            automargin: true
-        },
-        yaxis: {
-            title: {
-                text: "Primary Colour",
-                standoff: 10
-            },
-            automargin: true
-        },
-        margin: {t: 30}
-    };
-
-    // Create the plot
-    Plotly.newPlot("colour_heatmap", heat_data, heat_layout);
-};
-
-
-//---------------- FUNCTION: CREATE THE RADAR PLOT ----------------//
-function create_radar(metadata_data, interactions_data) {
-    // Get the unique interactions    
-    let unique_interactions = _.pull(Object.keys(interactions_data[0]), 'squirrel_id')
-
-    // Capitalise each word and replace underscores with spaces
-    let formatted_interactions = unique_interactions.map(word => word[0].toUpperCase() + word.substring(1).replace("_", " "));
-    
-    // Initialise objects to hold the values
-    let default_value = 0;
-    let spring_interactions = Object.fromEntries(unique_interactions.map(key => [key, default_value])); // March / Spring
-    let autumn_interactions = Object.fromEntries(unique_interactions.map(key => [key, default_value])); // October / Autumn
-
-    // Separate the interactions by month and type
-    for (let i=0; i<unique_interactions.length; i++) {
-        for (let j=0; j<interactions_data.length; j++) {
-            if (interactions_data[j][unique_interactions[i]]) {
-                if (metadata_data[j].month === 3) { // Spring
-                    spring_interactions[unique_interactions[i]] += 1;
-                }
-                else if (metadata_data[j].month === 10) { // Autumn
-                    autumn_interactions[unique_interactions[i]] += 1;
-                }
-            }
-        };
-    };
-
-    // Convert the y-values to a percentage of the season total
-    let r_spring = percentRound(Object.values(spring_interactions));
-    let r_autumn = percentRound(Object.values(autumn_interactions));
-
-    //-------- CREATE THE RADAR PLOT --------//
-    // Create the traces
-    let spring_trace = {
-        r: r_spring,
-        theta: formatted_interactions,
-        fill: 'toself',
-        name: "Spring",
-        type: 'scatterpolar'
-    };
-    let autumn_trace = {
-        r: r_autumn,
-        theta: formatted_interactions,
-        fill: 'toself',
-        name: "Autumn",
-        type: 'scatterpolar'
-    };
-
-    // Create a list of the traces
-    let radar_data = [spring_trace, autumn_trace];
-
-    // Define the plot layout
-    let radar_layout = {
-        title: "Squirrel Behaviour - Interactions<br>(Percentage of Season Total)",
-        legend: {
-            x: 0.7,
-            y: 0.9
-        },
-        margin: {t: 120}
-    };
-
-    // Create the plot
-    Plotly.newPlot("interaction_radar", radar_data, radar_layout);
-};
 
 
 //---------------- DECLARE THE INITIAL MAP ----------------//
@@ -401,7 +31,9 @@ let street_tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/
     maxZoom: 20
 }).addTo(my_map);
 
-//---------------- FUNCTION: CREATE THE INTERACTIVE MAP ----------------//
+
+
+//---------------- CREATE THE INTERACTIVE MAP ----------------//
 function build_interactive_map(layer_array, layer_labels) {
     // Create the base maps object
     let base_maps = {
@@ -435,54 +67,7 @@ function build_interactive_map(layer_array, layer_labels) {
 
 
 
-
-
-function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
-    // Need to return another function, otherwise called straight away
-    return function() {
-        console.log("MARKER HAS BEEN CLICKED", squirrel_id);
-
-        // Use filter to find the correct squirrel_id
-        function find_id(sighting) {
-            return(sighting.squirrel_id === squirrel_id);
-        };
-
-        // Get the squirrel specifics
-        let squirrel_metadata = metadata.filter(find_id)[0];
-        let squirrel_appearance = appearance_data.filter(find_id)[0];
-
-        // Get the squirrel highlights
-        let highlight_options = _.pull(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
-
-        let squirrel_highlights = [];
-        for (let i=0; i<highlight_options.length; i++) {
-            if (squirrel_appearance[highlight_options[i]]) {
-                squirrel_highlights.push(highlight_options[i])
-            };
-        };
-
-        // Format the highlights list
-        let formatted_highlights = squirrel_highlights.map(word => word[0].toUpperCase() + word.substring(1));
-
-        // Update the table
-        let info_id = d3.select("#meta_id").text(squirrel_id);
-        
-        let info_date = d3.select("#meta_date").text(
-            `${squirrel_metadata.day}-${squirrel_metadata.month}-${squirrel_metadata.year}`);
-        
-        let info_coords = d3.select("#meta_coords").text(
-            `[${squirrel_metadata.latitude.toFixed(6)}, ${squirrel_metadata.longitude.toFixed(6)}]`);
-        
-        let info_primary = d3.select("#meta_primary").text(`${squirrel_appearance.primary_colour}`);
-
-        let info_highlights = d3.select("#meta_highlights").text(formatted_highlights.join(", "));
-
-    };
-    
-};
-
-
-
+//---------------- BUILD THE LAYER GROUPS FOR THE INTERACTIVE MAP ----------------//
 function build_layer_groups(feature, dataset, metadata, appearance_data) {
     // Get the layer options per feature
     let layer_options = _.pull(Object.keys(dataset[0]), 'squirrel_id');
@@ -562,7 +147,7 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
 
 
-
+//---------------- BUILD THE MARKERS FOR THE INTERACTIVE MAP ----------------//
 function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
     let unique_activities = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
@@ -880,10 +465,6 @@ function create_map_markers(metadata_data, appearance_data, activities_data) {
 };
 
 
-
-// const url = "localhost:8000/locations";
-console.log("HERE??");
-
 d3.json(metadata_url).then(function(metadata_data) {
     d3.json(appearance_url).then(function(appearance_data) {
         d3.json(activities_url).then(function(activities_data) {
@@ -891,7 +472,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 create_map_markers(metadata_data, appearance_data, activities_data);
                 create_bar(metadata_data, activities_data);
-                create_colourmap(metadata_data, appearance_data);
+                create_heatmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data);
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
@@ -900,6 +481,3 @@ d3.json(metadata_url).then(function(metadata_data) {
         });
     });
 });
-
-// let rawdata = require('static/data/locations.json');
-// console.log(rawdata);
