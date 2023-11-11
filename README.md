@@ -45,33 +45,6 @@ Retrieved data from the following two websites:
 
 ## Analysis
 ### Results
-**Heatmap of Squirrels in New York 2018 and 2020**
-
-The map below has various toggling layers that the user can drive to set specific parameters. The map can be used to highlight the various areas in which squirrels were sighted in either autumn or spring. It is important to note it can also be used to highlight the locations of all the squirrel activities can also be
-
-![image](https://github.com/alyssahondrade/Project3/assets/138610916/bf2665a9-6305-402a-bdf2-ae38cd16cca4)
-
-**Bar Charts of Squirrels**
-
-The bar chart displays Squirrel activity during Spring and autumn. The data is displayed as a percentage figure of total activities during the season.
-
-![image](https://github.com/alyssahondrade/Project3/assets/138610916/f72b318d-61f2-4903-84ae-5a9254364a6a)
-
-**Heat Map for Appearance of Squirrels** 
-
-The heatmap displays the frequency of squirrels based on fur colour. Cinnamon is the most common highlighted colour and grey is the primary colour. 
-
-![image](https://github.com/alyssahondrade/Project3/assets/138610916/0912d79c-d84b-4669-9a2a-dfb65707e036)
-
-**Pie chart for Interaction**
-
-The pie chart illustrates four categories of squirrel behaviour, with the percentage of squirrels engaging in each behaviour. The largest category is "indifferent."
-
-![image](https://github.com/alyssahondrade/Project3/assets/138610916/fda1888b-0022-405d-91dc-622dc5f9a39a)
-
-**Comparison of the interactions using a radar plot**
-
-![image](https://github.com/alyssahondrade/Project3/assets/138610916/340ea3e9-557a-46fb-ab70-98879956f7cf)
 
 ### Limitation
 - Squirrels were not counted more than once, the scientific advisor onsite.
