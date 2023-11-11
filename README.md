@@ -124,7 +124,9 @@ The pie chart illustrates four categories of squirrel behaviour, with the percen
 
 - [] percent-round Package [https://github.com/super-ienien/percent-round](https://github.com/super-ienien/percent-round)
 
-- [] Lodash [https://www.jsdelivr.com/package/npm/lodash](https://www.jsdelivr.com/package/npm/lodash)
+- [] Lodash CDN [https://www.jsdelivr.com/package/npm/lodash](https://www.jsdelivr.com/package/npm/lodash)
+
+- [] Lodash Documentation [https://lodash.com/docs/4.17.15](https://lodash.com/docs/4.17.15)
 
 ## Interactivity
 - [] Stack Overflow - Map container is already initialised [https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized](https://stackoverflow.com/questions/19186428/refresh-leaflet-map-map-container-is-already-initialized)

@@ -72,9 +72,17 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
     // Get the layer options per feature
     let layer_options = _.pull(Object.keys(dataset[0]), 'squirrel_id');
 
+    if (feature === "appearance") {
+        var unique_primary = _.uniq(_.map(appearance_data, 'primary_colour'));
+        unique_primary.forEach(colour => layer_options.push(`${colour}`));
+    };
+
     // Create an array for each layer item - push markers to
     let layer_arrays = {};
     layer_options.forEach(option => {
+        // if (option != 'primary_colour') {
+        //     layer_arrays[option] = [];
+        // };
         layer_arrays[option] = [];
     });
 
@@ -86,43 +94,89 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         let longitude = metadata[i].longitude;
         let squirrel_id = metadata[i].squirrel_id;
 
-        for (let j=0; j<layer_options.length; j++) {
-            let item = layer_options[j];
+        // let option = Object.keys(layer_arrays);
+        // for (let j=0; j<option.length; j++) {
+        //     // console.log(option[j], dataset[i][option[j]]);
+
+        //     // console.log("OVER HERE", dataset[i].primary_colour, unique_primary, _.includes(unique_primary, dataset[i].primary_colour));
+        //     if (feature === "appearance") {
+        //         console.log(dataset[i], option[j]);
+                
+        //         var marker = L.circleMarker([latitude, longitude], {
+        //             radius: 10,
+        //             fillColor: colour_scale[0],
+        //             fillOpacity: 0.5,
+        //             color: colour_scale[0],
+        //             weight: 1
+        //         });
+                
+        //         // Adjust the marker colour
+        //         marker.options.fillColor = colour_scale[j];
+        //         marker.options.color = colour_scale[j];
+
+        //         // Add bindPopup to marker
+        //         marker.bindPopup(squirrel_id);
+
+        //         // Add a click event listener to the marker
+        //         marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
+                
+        //         // Push to the correct list
+        //         layer_arrays[option[j]].push(marker);
+                
+        //     }
+        // };
+
+        for (let j=0; j<Object.keys(layer_arrays).length; j++) {
+            let item = Object.keys(layer_arrays)[j];
 
             if (dataset[i][item]) {
-                if (feature === "appearance") {
-                    console.log(dataset[i].primary_colour);
-                    
-                    // Get the primary colours
-                    let unique_primary = _.uniq(_.map(appearance_data, 'primary_colour'));
-                    console.log("build layer groups", unique_primary);
+                var marker = L.circleMarker([latitude, longitude], {
+                    radius: 10,
+                    fillColor: colour_scale[0],
+                    fillOpacity: 0.5,
+                    color: colour_scale[0],
+                    weight: 1
+                });
+                
+                // Adjust the marker colour
+                marker.options.fillColor = colour_scale[j];
+                marker.options.color = colour_scale[j];
+
+                // Add bindPopup to marker
+                marker.bindPopup(squirrel_id);
+
+                // Add a click event listener to the marker
+                marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
+                
+                // Push to the correct list
+                if (item === "primary_colour") {
+                    layer_arrays[dataset[i].primary_colour].push(marker);
+                    // console.log("in the if block:", dataset[i].primary_colour, layer_arrays);
                 }
                 else {
-                    var marker = L.circleMarker([latitude, longitude], {
-                        radius: 10,
-                        fillColor: colour_scale[0],
-                        fillOpacity: 0.5,
-                        color: colour_scale[0],
-                        weight: 1
-                    });
-                    
-                    // Adjust the marker colour
-                    marker.options.fillColor = colour_scale[j];
-                    marker.options.color = colour_scale[j];
-    
-                    // Add bindPopup to marker
-                    marker.bindPopup(squirrel_id);
-    
-                    // Add a click event listener to the marker
-                    marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
-                    
-                    // Push to the correct list
                     layer_arrays[item].push(marker);
                 }
             };
+
+            // console.log(item, dataset[i][item]); // IF data... in unique_primary, write the code for adding the primary markers. then change the names to highlihgt - black, primary - cinnamon, etc.
         };
     };
 
+    // Drop primary_colour
+    if (feature === "appearance") {
+        layer_arrays = _.omit(layer_arrays, "primary_colour");
+        layer_options = _.without(layer_options, "primary_colour");
+        
+        // Append "Highlight - " to the highlight colours
+        let highlight_options = layer_options.slice(0,4).map(option => `Highlight - ${_.capitalize(option)}`);
+        let primary_options = layer_options.slice(4,9).map(option => `Primary - ${option}`);
+
+        // Recombine the layer_options
+        layer_options = _.concat(highlight_options, primary_options);
+    }
+    
+    // updated_arrays = _.omit(layer_arrays, "primary_colour");
+    // updated_options = _.without(layer_options, "primary_colour");
 
     // feature options: "activities", "appearance", "interactions"
     switch(feature) {
@@ -134,14 +188,14 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         //     build_interactive_map(function_params, layer_options);
         //     break;
             
-        case "appearance":
-            // console.log(layer_arrays.primary_colour);
+        // case "appearance":
+        //     // console.log(layer_arrays.primary_colour);
 
-            // console.log("build layer groups", dataset, appearance_data);
-            // if (dataset === appearance_data) {
-            //     console.log("THIS ONE");
-            // };
-            break;
+        //     // console.log("build layer groups", dataset, appearance_data);
+        //     // if (dataset === appearance_data) {
+        //     //     console.log("THIS ONE");
+        //     // };
+        //     break;
             
         // case "interactions":
         //     console.log(feature, dataset);
