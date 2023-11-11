@@ -8,11 +8,6 @@ const interactions_url = "http://127.0.0.1:5000/interactions";
 let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
 let map_zoom = 11;
 
-// Filter function to remove keys from an Object
-let remove_keys = function(arr, ...args) {
-    return arr.filter(val => !args.includes(val) )
-};
-
 //-------- PIE CHART --------//
 function create_pie(interactions_data) {
     
@@ -77,7 +72,8 @@ console.log("Testing HTML");
 //---------------- BUILD THE DATA FOR THE BAR CHART ----------------//
 function databuild_bar(metadata_data, activities_data) {
     // Get the x-values
-    let x_values = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
+    let x_values = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
+    console.log("databuild_bar", x_values);
     let formatted_xvals = x_values.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
 
     // Define the objects that will hold the y-values
@@ -127,7 +123,6 @@ function create_bar(metadata_data, activities_data) {
     let formatted_xvals = data[0];
     let y_spring = data[1];
     let y_autumn = data[2];
-
     
     // Create the traces
     let spring_trace = {
@@ -169,7 +164,8 @@ function create_bar(metadata_data, activities_data) {
 //---------------- FUNCTION: CREATE THE HEAT MAP ----------------//
 function create_colourmap(metadata_data, appearance_data) {
     // Get the unique highlights
-    let unique_highlights = remove_keys(Object.keys(appearance_data[0]), 'squirrel_id','primary_colour');
+    // let unique_highlights = remove_keys(Object.keys(appearance_data[0]), 'squirrel_id','primary_colour');
+    let unique_highlights = _.pull(Object.keys(appearance_data[0]), 'squirrel_id', 'primary_colour');
 
     // Get the primary colours
     let unique_primary = [];
@@ -312,7 +308,8 @@ function create_colourmap(metadata_data, appearance_data) {
 //---------------- FUNCTION: CREATE THE RADAR PLOT ----------------//
 function create_radar(metadata_data, interactions_data) {
     // Get the unique interactions    
-    let unique_interactions = remove_keys(Object.keys(interactions_data[0]), 'squirrel_id');
+    // let unique_interactions = remove_keys(, 'squirrel_id');
+    let unique_interactions = _.pull(Object.keys(interactions_data[0]), 'squirrel_id')
 
     // Capitalise each word and replace underscores with spaces
     let formatted_interactions = unique_interactions.map(word => word[0].toUpperCase() + word.substring(1).replace("_", " "));
@@ -443,7 +440,8 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
         let squirrel_appearance = appearance_data.filter(find_id)[0];
 
         // Get the squirrel highlights
-        let highlight_options = remove_keys(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
+        // let highlight_options = remove_keys(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
+        let highlight_options = _.pull(Object.keys(squirrel_appearance), 'squirrel_id', 'primary_colour');
 
         let squirrel_highlights = [];
         for (let i=0; i<highlight_options.length; i++) {
@@ -476,7 +474,8 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
 
 function build_layer_groups(feature, dataset, metadata, appearance_data) {
     // Get the layer options per feature
-    let layer_options = remove_keys(Object.keys(dataset[0]), 'squirrel_id');
+    // let layer_options = remove_keys(Object.keys(dataset[0]), 'squirrel_id');
+    let layer_options = _.pull(Object.keys(dataset[0]), 'squirrel_id');
     console.log(layer_options);
 
     // Create an array for each layer item - push markers to
@@ -557,7 +556,8 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
 function interactive_markers(metadata_data, activities_data, appearance_data, interactions_data) {
     // Get the unique activities
-    let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
+    // let unique_activities = remove_keys(Object.keys(activities_data[0]), 'squirrel_id');
+    let unique_activities = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
 
     // Define the seasonal markers
     let spring_markers = [];
