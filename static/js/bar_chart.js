@@ -2,8 +2,7 @@
 function databuild_bar(metadata_data, activities_data) {
     // Get the x-values
     let x_values = _.pull(Object.keys(activities_data[0]), 'squirrel_id');
-    console.log("databuild_bar", x_values);
-    let formatted_xvals = x_values.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
+    let formatted_xvals = x_values.map(word => _.capitalize(word));
 
     // Define the objects that will hold the y-values
     let default_value = 0;

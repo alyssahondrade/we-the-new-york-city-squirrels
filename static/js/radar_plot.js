@@ -4,7 +4,7 @@ function databuild_radar(metadata_data, interactions_data) {
     let unique_interactions = _.pull(Object.keys(interactions_data[0]), 'squirrel_id')
 
     // Capitalise each word and replace underscores with spaces
-    let formatted_interactions = unique_interactions.map(word => word[0].toUpperCase() + word.substring(1).replace("_", " "));
+    let formatted_interactions = unique_interactions.map(word => _.capitalize(word).replace("_", " "));
     
     // Initialise objects to hold the values
     let default_value = 0;

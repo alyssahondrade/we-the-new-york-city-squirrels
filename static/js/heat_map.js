@@ -99,7 +99,7 @@ function databuild_heatmap(metadata_data, appearance_data) {
     let colourmap_zval = Object.values(condense_values);    
 
     // Capitalise the x-values
-    let formatted_xvals = colourmap_xval.map(word => word[0].toUpperCase() + word.substring(1)); // capitalise each word
+    let formatted_xvals = colourmap_xval.map(word => _.capitalize(word));
 
     return [formatted_xvals, colourmap_yval, colourmap_zval];
 };
