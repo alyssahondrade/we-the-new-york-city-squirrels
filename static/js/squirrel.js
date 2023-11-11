@@ -94,38 +94,6 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         let longitude = metadata[i].longitude;
         let squirrel_id = metadata[i].squirrel_id;
 
-        // let option = Object.keys(layer_arrays);
-        // for (let j=0; j<option.length; j++) {
-        //     // console.log(option[j], dataset[i][option[j]]);
-
-        //     // console.log("OVER HERE", dataset[i].primary_colour, unique_primary, _.includes(unique_primary, dataset[i].primary_colour));
-        //     if (feature === "appearance") {
-        //         console.log(dataset[i], option[j]);
-                
-        //         var marker = L.circleMarker([latitude, longitude], {
-        //             radius: 10,
-        //             fillColor: colour_scale[0],
-        //             fillOpacity: 0.5,
-        //             color: colour_scale[0],
-        //             weight: 1
-        //         });
-                
-        //         // Adjust the marker colour
-        //         marker.options.fillColor = colour_scale[j];
-        //         marker.options.color = colour_scale[j];
-
-        //         // Add bindPopup to marker
-        //         marker.bindPopup(squirrel_id);
-
-        //         // Add a click event listener to the marker
-        //         marker.on("click", sighting_metadata(dataset, metadata, squirrel_id, appearance_data))
-                
-        //         // Push to the correct list
-        //         layer_arrays[option[j]].push(marker);
-                
-        //     }
-        // };
-
         for (let j=0; j<Object.keys(layer_arrays).length; j++) {
             let item = Object.keys(layer_arrays)[j];
 
@@ -157,12 +125,10 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
                     layer_arrays[item].push(marker);
                 }
             };
-
-            // console.log(item, dataset[i][item]); // IF data... in unique_primary, write the code for adding the primary markers. then change the names to highlihgt - black, primary - cinnamon, etc.
         };
     };
 
-    // Drop primary_colour
+    // Edit the layer arrays and options if "appearance"
     if (feature === "appearance") {
         layer_arrays = _.omit(layer_arrays, "primary_colour");
         layer_options = _.without(layer_options, "primary_colour");
@@ -174,40 +140,16 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         // Recombine the layer_options
         layer_options = _.concat(highlight_options, primary_options);
     }
-    
-    // updated_arrays = _.omit(layer_arrays, "primary_colour");
-    // updated_options = _.without(layer_options, "primary_colour");
 
-    // feature options: "activities", "appearance", "interactions"
-    switch(feature) {
-        // case "activities":
-        //     console.log(layer_arrays);
-        //     for (let item of Object.values(layer_arrays)) {
-        //         function_params.push(L.layerGroup(item));
-        //     };
-        //     build_interactive_map(function_params, layer_options);
-        //     break;
-            
-        // case "appearance":
-        //     // console.log(layer_arrays.primary_colour);
-
-        //     // console.log("build layer groups", dataset, appearance_data);
-        //     // if (dataset === appearance_data) {
-        //     //     console.log("THIS ONE");
-        //     // };
-        //     break;
-            
-        // case "interactions":
-        //     console.log(feature, dataset);
-
-        //     break;
-        default:
-            let function_params = [];
-            for (let item of Object.values(layer_arrays)) {
-                function_params.push(L.layerGroup(item));
-            };
-            build_interactive_map(function_params, layer_options);
+    // Create a list of layer groups to pass as a single argument
+    let function_params = [];
+    for (let item of Object.values(layer_arrays)) {
+        function_params.push(L.layerGroup(item));
     };
+
+    // Call the function to build the interactive map
+    build_interactive_map(function_params, layer_options);
+
 };
 
 
