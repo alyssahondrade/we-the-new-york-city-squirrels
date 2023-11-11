@@ -140,6 +140,10 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
         // Recombine the layer_options
         layer_options = _.concat(highlight_options, primary_options);
     }
+    else {
+        // Capitalise each word for the dropdown option
+        layer_options = layer_options.map(option => _.capitalize(option).replace("_", " "));
+    }
 
     // Create a list of layer groups to pass as a single argument
     let function_params = [];
