@@ -96,6 +96,7 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
 
         for (let j=0; j<Object.keys(layer_arrays).length; j++) {
             let item = Object.keys(layer_arrays)[j];
+            console.log("ITEM IS: ", item);
 
             if (dataset[i][item]) {
                 var marker = L.circleMarker([latitude, longitude], {
@@ -118,8 +119,16 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
                 
                 // Push to the correct list
                 if (item === "primary_colour") {
-                    layer_arrays[dataset[i].primary_colour].push(marker);
-                    // console.log("in the if block:", dataset[i].primary_colour, layer_arrays);
+                    let colour_value = dataset[i].primary_colour;
+                    
+                    layer_arrays[colour_value].push(marker);
+
+                    // Get the index of the colour in options
+                    let colour_index = _.indexOf(layer_options, colour_value);
+                    
+                    // Adjust the marker colour
+                    marker.options.fillColor = colour_scale[colour_index];
+                    marker.options.color = colour_scale[colour_index];
                 }
                 else {
                     layer_arrays[item].push(marker);
