@@ -86,7 +86,7 @@ function databuild_bar(metadata_data, activities_data) {
 
 
 //---------------- CREATE THE BAR CHART ----------------//
-function create_bar(metadata_data, activities_data, plot_div) {
+function create_bar(feature, metadata_data, activities_data, plot_div) {
     // Call the data build function
     let data = databuild_bar(metadata_data, activities_data);
 
@@ -113,7 +113,7 @@ function create_bar(metadata_data, activities_data, plot_div) {
 
     // Define the plot layout
     let bar_layout = {
-        title: "Squirrel Activity - Spring vs Autumn",
+        title: `Squirrel ${_.capitalize(feature)} - Spring vs Autumn`,
         xaxis: {
             title: {text: "Activity"},
             automargin: true
@@ -133,11 +133,11 @@ function create_bar(metadata_data, activities_data, plot_div) {
     let bar_data;
     if (checksum_autumn === 0) {
         bar_data = [spring_trace];
-        bar_layout.title = "Squirrel Activity - Spring";
+        bar_layout.title = `Squirrel ${_.capitalize(feature)} - Spring`;
     }
     else if (checksum_spring === 0) {
         bar_data = [autumn_trace];
-        bar_layout.title = "Squirrel Activity - Autumn";
+        bar_layout.title = `Squirrel ${_.capitalize(feature)} - Autumn`;
     }
     else {
         bar_data = [spring_trace, autumn_trace];

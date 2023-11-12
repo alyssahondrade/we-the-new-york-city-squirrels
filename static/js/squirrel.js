@@ -313,7 +313,13 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                     season_feature[chosen_dataset]["appearance"]);
 
                 console.log(chosen_dataset, chosen_feature);
-                create_bar(season_feature[chosen_dataset]["metadata"], season_feature[chosen_dataset][chosen_feature], "index_bar");
+                if (chosen_feature === "appearance") {
+                    console.log("Need to parse primary colour first");
+                }
+                else {
+                    create_bar(chosen_feature, season_feature[chosen_dataset]["metadata"], season_feature[chosen_dataset][chosen_feature], "index_bar");
+                }
+                
             };
         };
         // Remove the bootstrap "btn-primary"
