@@ -151,9 +151,9 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
         sliders: [{
             pad: {t: 30},
             currentvalue: {
-                xanchor: "right",
-                prefix: "Total Sightings: ",
-                suffix: " sightings",
+                xanchor: "right"
+                // prefix: "Total Sightings: ",
+                // suffix: " sightings",
             },
             steps: unique_dates.map((date, index) => ({
                 label: date,

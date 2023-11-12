@@ -7,7 +7,7 @@ Version: 04 Nov 2023
 #################################################
 # Imports
 #################################################
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 
 from sqlalchemy.orm import Session
@@ -76,15 +76,15 @@ CORS(app)
 #################################################
 @app.route("/")
 def homepage():
-    return(
-        f"Welcome to the NYC Squirrels Dashboard<br>"
-        f"Available routes:<br>"
-        f"/metadata<br>"
-        f"/appearance<br>"
-        f"/activities<br>"
-        f"/interactions<br>"
-    )
-    # return render_template("index.html")
+    # return(
+    #     f"Welcome to the NYC Squirrels Dashboard<br>"
+    #     f"Available routes:<br>"
+    #     f"/metadata<br>"
+    #     f"/appearance<br>"
+    #     f"/activities<br>"
+    #     f"/interactions<br>"
+    # )
+    return render_template("index.html")
 
 @app.route("/metadata")
 def locations_route():
@@ -101,6 +101,10 @@ def activities_route():
 @app.route("/interactions")
 def interactions_route():
     return jsonify(endpoint_data['interactions'])
+
+@app.route("/overview")
+def overview():
+    return render_template("overview.html")
 
 
 if __name__ == '__main__':

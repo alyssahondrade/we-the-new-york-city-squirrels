@@ -525,7 +525,7 @@ d3.json(metadata_url).then(function(metadata_data) {
         d3.json(activities_url).then(function(activities_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
-                create_map_markers(metadata_data, appearance_data, activities_data);
+                // create_map_markers(metadata_data, appearance_data, activities_data);
                 create_bar(metadata_data, activities_data);
                 create_heatmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
