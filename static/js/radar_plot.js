@@ -65,8 +65,8 @@ function create_radar(feature, metadata_data, interactions_data, plot_div) {
     let radar_layout = {
         title: `Squirrel Behaviour - ${_.capitalize(feature)}<br>(Percentage of Season Total)`,
         legend: {
-            x: 0.7,
-            y: 0.9
+            x: 1,
+            y: 1
         },
         margin: {t: 120}
     };
