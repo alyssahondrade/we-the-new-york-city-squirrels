@@ -313,7 +313,7 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                     season_feature[chosen_dataset]["appearance"]);
 
                 console.log(chosen_dataset, chosen_feature);
-                create_bar(season_feature[chosen_dataset]["metadata"], season_feature[chosen_dataset][chosen_feature], "index_bar");
+                create_bar(chosen_dataset, chosen_feature, "index_bar");
             };
         };
         // Remove the bootstrap "btn-primary"
@@ -529,7 +529,7 @@ d3.json(metadata_url).then(function(metadata_data) {
             d3.json(interactions_url).then(function(interactions_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 // create_map_markers(metadata_data, appearance_data, activities_data);
-                // create_bar(metadata_data, activities_data, "overview_bar");
+                create_bar(metadata_data, activities_data, "overview_bar");
                 create_heatmap(metadata_data, appearance_data);
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data, "interaction_radar");
