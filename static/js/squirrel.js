@@ -65,6 +65,84 @@ function build_interactive_map(layer_array, layer_labels) {
     // Create the layer control and add to the map
     L.control.layers(base_maps, overlay_maps, {collapsed: false}).addTo(my_map);
 
+    // Return the updated layer control
+    let layer_control = my_map._controlContainer.querySelector('.leaflet-control-layers');
+    let checkboxes = layer_control.querySelectorAll('input[type="checkbox"]');
+
+    // Assign an id to each checkbox
+    checkboxes.forEach((checkbox, index) => {
+        let item_id = `checkbox_${index}`;
+        checkbox.setAttribute('id', item_id);
+    });
+
+    // Function to filter markers
+    function filter_markers(common_markers) {
+        // layer_array.forEach(marker => marker.removeFrom(my_map));
+        // layer_array.length = 0;
+
+        common_markers.forEach(marker => {
+            // console.log("HERE", marker, marker.getLatLng());
+            let new_marker = L.marker([marker.getLatLng().lat, marker.getLatLng().lng]).addTo(my_map);
+            layer_array.push(new_marker);
+        });
+        // selected_checkboxes = [];
+    };
+
+    function find_common_markers(layers) {
+        // Initialise the first layer
+        let common_markers = layers[0].getLayers();
+        
+        for (let i=1; i<layers.length; i++) { // start at 1 since 0 is initialised
+            let current_layer = layers[i];
+            common_markers.filter(marker => {
+                let lat_long = marker.getLatLng();
+                // console.log(lat_long);
+                return current_layer.hasLayer(marker) && current_layer.getLayers().some(layer_marker => layer_marker.getLatLng().equals(lat_long));
+            });
+        }
+        return(common_markers);
+    }
+    
+    // Event listener to identify which boxes have been selected
+    let selected_checkboxes = [];
+    d3.selectAll(".leaflet-control-layers-selector").on("change", function() {
+        let selected_option = d3.select(this).attr("id");
+        let is_checked = this.checked;
+
+        let box_text = d3.select(this.parentNode).select("span").text();
+        let box_index = _.indexOf(layer_labels, box_text.trim()); // Trim otherwise won't recognise
+
+        if (is_checked && _.indexOf(selected_checkboxes, box_index) === -1) {
+            selected_checkboxes.push(box_index);
+        }
+        else {
+            _.pull(selected_checkboxes, box_index);
+        }
+
+        if (selected_checkboxes.length > 1) {
+            // filter_markers();
+            console.log(selected_checkboxes);
+
+            let compare_layers = [];
+            for (let item in selected_checkboxes) {
+                console.log(selected_checkboxes[item]);
+                compare_layers.push(layer_array[selected_checkboxes[item]]);
+            };
+            let common = find_common_markers(compare_layers);
+            filter_markers(common);
+            
+            // for (let item in selected_checkboxes) {
+            //     console.log(layer_array[item]);
+            // }
+            
+        }
+
+        // console.log("selected_checkboxes", selected_checkboxes);
+        // console.log(layer_arrays);
+
+
+    });
+
     return my_map;
 };
 
@@ -167,37 +245,6 @@ function build_layer_groups(feature, dataset, metadata, appearance_data) {
     let my_map = build_interactive_map(function_params, layer_options);
     // console.log(my_map);
 
-    // Return the updated layer control
-    let layer_control = my_map._controlContainer.querySelector('.leaflet-control-layers');
-    let checkboxes = layer_control.querySelectorAll('input[type="checkbox"]');
-
-    // Assign an id to each checkbox
-    checkboxes.forEach((checkbox, index) => {
-        let item_id = `checkbox_${index}`;
-        checkbox.setAttribute('id', item_id);
-    });
-
-    // Event listener to identify which boxes have been selected
-    let selected_checkboxes = [];
-    d3.selectAll(".leaflet-control-layers-selector").on("change", function() {
-        let selected_option = d3.select(this).attr("id");
-        let is_checked = this.checked;
-
-        let box_text = d3.select(this.parentNode).select("span").text();
-        let box_index = _.indexOf(layer_options, box_text.trim()); // Trim otherwise won't recognise
-
-        if (is_checked && _.indexOf(selected_checkboxes, box_index) === -1) {
-            selected_checkboxes.push(box_index);
-        }
-        else {
-            _.pull(selected_checkboxes, box_index);
-        }
-
-        // console.log("selected_checkboxes", selected_checkboxes);
-        // console.log(layer_arrays);
-
-
-    });
 
 };
 
