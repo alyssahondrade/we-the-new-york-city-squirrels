@@ -26,7 +26,7 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
         // Format the highlights list
         let formatted_highlights = squirrel_highlights.map(word => word[0].toUpperCase() + word.substring(1));
 
-        // Update the table
+        //-------- UPDATE THE TABLE --------//
         let info_id = d3.select("#meta_id").text(squirrel_id);
         
         let info_date = d3.select("#meta_date").text(

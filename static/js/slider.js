@@ -5,7 +5,6 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
 
     let all_dates = metadata_data.map(row => `${row.day}-${row.month}-${row.year}`);
     let unique_dates = _.uniq(all_dates);
-    // console.log(unique_dates);
 
     // Use filter to isolate the correct dates
     function filter_rows(data, dates) {
@@ -20,32 +19,18 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
         metadata_output[item] = filter_rows(metadata_data, item);
     });
 
-    // let test_date = "8-10-2018";
-    // let squirrel_ids = metadata_output[test_date].map(row => row.squirrel_id);
 
     function filter_squirrels(data, squirrels) {
         return data.filter(row => squirrels.includes(row.squirrel_id));
     };
     
-    // console.log(squirrel_ids);
-    // let interactions_output = filter_squirrels(interactions_data, squirrel_ids);
-
-    // NEED TO FILTER THE METADATA_OUTPUT FOR THE SQUIRREL_ID AND USE THAT!
-    
-    // console.log(interactions_output);
-    // create_radar(metadata_output[test_date], interactions_output, "test_radar");
-
-    // console.log(metadata_output);
-    
     let activity_by_date = {};
 
     for (let item in metadata_output) {
-        // console.log(item);
         activity_by_date[item] = filter_squirrels(activities_data, metadata_output[item].map(row => row.squirrel_id));
     };
 
-
-
+    
     let output = [];
     for (let item in activity_by_date) {
         // console.log(activity_by_date[item]);
@@ -67,14 +52,10 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
         });
         output.push(total_counts);
     };
-
-    // console.log(output);
     
     let labels = Object.keys(output[0]).map(label => _.capitalize(label));
-    // console.log("labels", labels);
 
     let output_arrays = output.map(obj => Object.values(obj));
-    // console.log(output_arrays);
 
     let pairs = unique_dates.map((date, index) => ({
         date: new Date(

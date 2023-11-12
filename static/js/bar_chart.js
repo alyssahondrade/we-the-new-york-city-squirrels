@@ -39,42 +39,51 @@ function databuild_bar(metadata_data, activities_data) {
     let y_spring = percentRound(Object.values(spring_values));
     let y_autumn = percentRound(Object.values(autumn_values));
 
-    // Sort the y-values depending on selected
+    // Sort the y-values depending on selected dataset
     let checksum_autumn = _.sum(y_autumn);
     let checksum_spring = _.sum(y_spring);
 
     let combined;
-    if (checksum_autumn === 0) {
+    if (checksum_autumn === 0) { // Spring Dataset selected
+        // Combine the two arrays for sorting
         combined = y_spring.map((value, index) => ({
             value,
             formatted_xvals: formatted_xvals[index]
         }));
-        
+
+        // Sort
         combined.sort((a, b) => b.value - a.value);
-        
+
+        // Separate into useable arrays again
         y_spring = combined.map(data => data.value);
         formatted_xvals = combined.map(data => data.formatted_xvals);
     }
-    else if (checksum_spring === 0) {
+    else if (checksum_spring === 0) { // Autumn Dataset selected
+        // Combine the two arrays for sorting
         combined = y_autumn.map((value, index) => ({
             value,
             formatted_xvals: formatted_xvals[index]
         }));
-        
+
+        // Sort
         combined.sort((a, b) => b.value - a.value);
-        
+
+        // Separate into useable arrays again
         y_autumn = combined.map(data => data.value);
         formatted_xvals = combined.map(data => data.formatted_xvals);
     }
     else {
+        // Combine the two arrays for sorting
         combined = y_spring.map((value, index) => ({
             value,
             formatted_xvals: formatted_xvals[index],
             y_autumn: y_autumn[index]
         }));
-        
+
+        // Sort
         combined.sort((a, b) => b.value - a.value);
-        
+
+        // Separate into useable arrays again
         y_spring = combined.map(data => data.value);
         formatted_xvals = combined.map(data => data.formatted_xvals);
         y_autumn = combined.map(data => data.y_autumn);
@@ -127,25 +136,22 @@ function create_bar(feature, metadata_data, activities_data, plot_div) {
     // Create a list of the traces
     console.log("traces", y_spring, y_autumn);
 
+    // Check which dataset was chosen
     let checksum_autumn = _.sum(y_autumn);
     let checksum_spring = _.sum(y_spring);
 
     let bar_data;
-    if (checksum_autumn === 0) {
+    if (checksum_autumn === 0) { // Spring Dataset selected
         bar_data = [spring_trace];
         bar_layout.title = `Squirrel ${_.capitalize(feature)} - Spring`;
     }
-    else if (checksum_spring === 0) {
+    else if (checksum_spring === 0) { // Autumn Dataset selected
         bar_data = [autumn_trace];
         bar_layout.title = `Squirrel ${_.capitalize(feature)} - Autumn`;
     }
     else {
         bar_data = [spring_trace, autumn_trace];
     }
-
-    // let bar_data = [spring_trace, autumn_trace];
-
-
 
     // Create the plot
     Plotly.newPlot(plot_div, bar_data, bar_layout);

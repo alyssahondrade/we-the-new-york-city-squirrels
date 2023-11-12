@@ -28,8 +28,6 @@ function databuild_radar(metadata_data, interactions_data) {
     // Convert the y-values to a percentage of the season total
     let r_spring = percentRound(Object.values(spring_interactions));
     let r_autumn = percentRound(Object.values(autumn_interactions));
-    console.log("SPRING", spring_interactions, r_spring);
-    console.log("AUTUMN", autumn_interactions, r_autumn);
 
     return [formatted_interactions, r_spring, r_autumn];
 };
@@ -71,28 +69,22 @@ function create_radar(feature, metadata_data, interactions_data, plot_div) {
         margin: {t: 120}
     };
 
-    // Create a list of the traces
+    // Create a list of the traces based on selected dataset
     let checksum_autumn = _.sum(r_autumn);
     let checksum_spring = _.sum(r_spring);
 
     let radar_data;
-    if (checksum_autumn === 0) {
+    if (checksum_autumn === 0) { // Spring Dataset selected
         radar_data = [spring_trace];
         radar_layout.title = `Squirrel ${_.capitalize(feature)} - Spring<br>(Percentage of Season Total)`;
     }
-    else if (checksum_spring === 0) {
+    else if (checksum_spring === 0) { // Autumn Dataset selected
         radar_data = [autumn_trace];
         radar_layout.title = `Squirrel ${_.capitalize(feature)} - Autumn<br>(Percentage of Season Total)`;
     }
     else {
         radar_data = [spring_trace, autumn_trace];
-    }
-    
-    // let radar_data = [spring_trace, autumn_trace];
-
-
-
-    
+    }   
 
     // Create the plot
     Plotly.newPlot(plot_div, radar_data, radar_layout);

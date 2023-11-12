@@ -76,14 +76,6 @@ CORS(app)
 #################################################
 @app.route("/")
 def homepage():
-    # return(
-    #     f"Welcome to the NYC Squirrels Dashboard<br>"
-    #     f"Available routes:<br>"
-    #     f"/metadata<br>"
-    #     f"/appearance<br>"
-    #     f"/activities<br>"
-    #     f"/interactions<br>"
-    # )
     return render_template("index.html")
 
 @app.route("/metadata")

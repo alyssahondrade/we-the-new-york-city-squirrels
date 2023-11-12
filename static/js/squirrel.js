@@ -102,6 +102,8 @@ function build_interactive_map(layer_array, layer_labels) {
         }
         return(common_markers);
     }
+
+
     
     // Event listener to identify which boxes have been selected
     let selected_checkboxes = [];
@@ -130,17 +132,7 @@ function build_interactive_map(layer_array, layer_labels) {
             };
             let common = find_common_markers(compare_layers);
             filter_markers(common);
-            
-            // for (let item in selected_checkboxes) {
-            //     console.log(layer_array[item]);
-            // }
-            
         }
-
-        // console.log("selected_checkboxes", selected_checkboxes);
-        // console.log(layer_arrays);
-
-
     });
 
     return my_map;
