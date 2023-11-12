@@ -20,20 +20,20 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
         metadata_output[item] = filter_rows(metadata_data, item);
     });
 
-    let test_date = "8-10-2018";
-    let squirrel_ids = metadata_output[test_date].map(row => row.squirrel_id);
+    // let test_date = "8-10-2018";
+    // let squirrel_ids = metadata_output[test_date].map(row => row.squirrel_id);
 
     function filter_squirrels(data, squirrels) {
         return data.filter(row => squirrels.includes(row.squirrel_id));
     };
     
     // console.log(squirrel_ids);
-    let interactions_output = filter_squirrels(interactions_data, squirrel_ids);
+    // let interactions_output = filter_squirrels(interactions_data, squirrel_ids);
 
     // NEED TO FILTER THE METADATA_OUTPUT FOR THE SQUIRREL_ID AND USE THAT!
     
     // console.log(interactions_output);
-    create_radar(metadata_output[test_date], interactions_output, "test_radar");
+    // create_radar(metadata_output[test_date], interactions_output, "test_radar");
 
     // console.log(metadata_output);
     
@@ -93,12 +93,14 @@ function slider(metadata_data, activities_data, appearance_data, interactions_da
     let total_sightings = _.map(output_arrays, array => _.sum(array));
 
 
-    let testbar_data = [{
+    let radar_trace = {
         r: output_arrays[0],
         theta: labels,
         fill: 'toself',
         type: 'scatterpolar'
-    }];
+    };
+    
+    let testbar_data = [radar_trace];
    
     let testbar_layout = {
         title: "Squirrel Activities",

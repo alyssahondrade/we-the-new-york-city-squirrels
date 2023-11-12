@@ -216,6 +216,11 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
     let autumn_markers = [];
     let both_markers = [];
 
+    // Define the seasonal heat arrays
+    let spring_heat = [];
+    let autumn_heat = [];
+    let both_heat = [];
+
     //-------- DEFINE THE SEASONAL vs FEATURE DATASETS --------//
     // Define the seasonal vs feature datasets
     let season_feature = {};
@@ -248,33 +253,51 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
         };
     };
     
-    for (let i=0; i<unique_activities.length; i++) {
-        for (let j=0; j<metadata_data.length; j++) {
-            let latitude = metadata_data[j].latitude;
-            let longitude = metadata_data[j].longitude;
-            let month = metadata_data[j].month;
+    // for (let i=0; i<unique_activities.length; i++) {
+    //     for (let j=0; j<metadata_data.length; j++) {
+    //         let latitude = metadata_data[j].latitude;
+    //         let longitude = metadata_data[j].longitude;
+    //         let month = metadata_data[j].month;
 
-            //-------- CREATE MARKER --------//
-            let marker = L.circleMarker([latitude, longitude], {
-                radius: 10
-            });
+    //         //-------- CREATE MARKER --------//
+    //         let marker = L.circleMarker([latitude, longitude], {
+    //             radius: 10
+    //         });
 
-            //-------- SEPARATE BY SEASON --------//
-            if (metadata_data[j].month === 3) { // Spring
-                spring_markers.push(marker);
-            }
-            else if (metadata_data[j].month === 10) { // Autumn
-                autumn_markers.push(marker);
-            }
+    //         //-------- SEPARATE BY SEASON --------//
+    //         if (metadata_data[j].month === 3) { // Spring
+    //             spring_markers.push(marker);
+    //             spring_heat.push([latitude, longitude]);
+    //         }
+    //         else if (metadata_data[j].month === 10) { // Autumn
+    //             autumn_markers.push(marker);
+    //             autumn_heat.push([latitude, longitude]);
+    //         }
 
-            both_markers.push(marker);
-        };
-    };
+    //         both_markers.push(marker);
+    //         both_heat.push([latitude, longitude]);
+    //     };
+    // };
 
-    //-------- CREATE LAYERS --------//
-    let spring_layer = L.layerGroup(spring_markers);
-    let autumn_layer = L.layerGroup(autumn_markers);
-    let both_layer = L.layerGroup(both_markers);
+    // //-------- CREATE LAYERS --------//
+    // let spring_layer = L.layerGroup(spring_markers);
+    // let autumn_layer = L.layerGroup(autumn_markers);
+    // let both_layer = L.layerGroup(both_markers);
+
+    // let autumn_heatlayer = L.heatLayer(autumn_heat, {
+    //     radius: 10,
+    //     blur: 5
+    // });
+    
+    // let spring_heatlayer = L.heatLayer(spring_heat, {
+    //     radius: 10,
+    //     blur: 5
+    // });
+    
+    // let both_heatlayer = L.heatLayer(both_heat, {
+    //     radius: 10,
+    //     blur: 5
+    // });
 
     //-------- CHECK USER SELECTION --------//
     let chosen_dataset;
@@ -540,10 +563,10 @@ d3.json(metadata_url).then(function(metadata_data) {
                 // create_heatmap(metadata_data, appearance_data);
                 
                 // create_pie(interactions_data);
-                // create_radar(metadata_data, interactions_data, "interaction_radar");
+                create_radar(metadata_data, interactions_data, "interaction_radar");
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
                 sighting_metadata(metadata_data, activities_data, appearance_data, interactions_data);
-                // slider(metadata_data, activities_data, appearance_data, interactions_data);
+                slider(metadata_data, activities_data, appearance_data, interactions_data);
             });
         });
     });
