@@ -313,7 +313,13 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                     season_feature[chosen_dataset]["appearance"]);
 
                 console.log(chosen_dataset, chosen_feature);
-                create_bar(chosen_dataset, chosen_feature, "index_bar");
+                if (chosen_feature === "appearance") {
+                    console.log("Need to parse primary colour first");
+                    create_heatmap(metadata_data, appearance_data, "index_colour_heatmap");
+                }
+                else {
+                    create_bar(chosen_feature, season_feature[chosen_dataset]["metadata"], season_feature[chosen_dataset][chosen_feature], "index_bar");
+                }
             };
         };
         // Remove the bootstrap "btn-primary"
@@ -530,7 +536,7 @@ d3.json(metadata_url).then(function(metadata_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 // create_map_markers(metadata_data, appearance_data, activities_data);
                 create_bar(metadata_data, activities_data, "overview_bar");
-                create_heatmap(metadata_data, appearance_data);
+                create_heatmap(metadata_data, appearance_data, "colour_heatmap");
                 create_pie(interactions_data);
                 create_radar(metadata_data, interactions_data, "interaction_radar");
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);

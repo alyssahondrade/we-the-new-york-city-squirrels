@@ -28,8 +28,24 @@
         </div>
     </div>
 
+    <div class="panel panel-default panel-autowidth">
+        <div class="panel-heading panel-autowidth">
+            <h3 class="panel-title">Datasets</h3>
+        </div>
+        <div class="panel-body panel-autowidth">
+            <div class="btn-group" role="group" aria-label="Datasets" style="margin-bottom: 10px;">
+                <ul>
+                    <li><a href="/metadata" class="btn btn-primary">Metadata</a></li>
+                    <li><a href="/appearance" class="btn btn-primary">Appearance</a></li>
+                    <li><a href="/activities" class="btn btn-primary">Activities</a></li>
+                    <li><a href="/interactions" class="btn btn-primary">Interactions</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
     <!-- Image -->
-    <div class="text-center">
+    <!-- <div class="text-center">
         <img
             src="https://thumbs.dreamstime.com/b/two-red-squirrels-play-tree-111435713.jpg"
             alt="Squirrels playing"
@@ -39,40 +55,74 @@
                 <h1>Overview of the data</h1>
             </div>
         </div> -->
-    </div>
+    <!-- </div> -->
     
     <!-- Available routes -->
     <h1>Welcome to the NYC Squirrels Dashboard</h1>
     <p><a href="/overview">Overview</a></p>
-    <p>Datasets:</p>
-    <ul>
+    <!-- <ul>
         <li><a href="/metadata">Metadata</a></li>
         <li><a href="/appearance">Appearance</a></li>
         <li><a href="/activities">Activities</a></li>
         <li><a href="/interactions">Interactions</a></li>
     </ul>
-
-    <div class="text-center">
-        <div id="data_options" class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 10px;">
-            <button id="data_spring" type="button" class="btn btn-primary">Spring Dataset</button>
-            <button id="data_autumn" type="button" class="btn btn-primary">Autumn Dataset</button>
-            <button id="data_both" type="button" class="btn btn-primary">Both Datasets</button>
-        </div>
-    </div>
-
-    <div class="text-center">
-        <div id="feature_options" class="btn-group" data-toggle="buttons-radio" style="margin-bottom: 10px;">
-            <button id="activities" type="button" class="btn btn-primary">Activities</button>
-            <button id="appearance" type="button" class="btn btn-primary">Appearance</button>
-            <button id="interactions" type="button" class="btn btn-primary">Interactions</button>
-        </div>
-    </div>
+ -->
 
     <div class="container-fluid" style="margin-bottom: 20px;">
         <div class="row">
-            <div class="col">
+            
+            <div class="col-md-6">
                 <div id="interactive_map" style="height: 60vh;"></div>
             </div>
+            
+            <div class="col-md-6 map-container">
+                
+                <div id="data_options" class="btn-group text-center" data-toggle="buttons-radio" style="margin-bottom: 10px; margin-left: 20%;">
+                    <button id="data_spring" type="button" class="btn btn-primary">Spring Dataset</button>
+                    <button id="data_autumn" type="button" class="btn btn-primary">Autumn Dataset</button>
+                    <button id="data_both" type="button" class="btn btn-primary">Both Datasets</button>
+                </div>
+        
+                <div id="feature_options" class="btn-group text-center" data-toggle="buttons-radio" style="margin-bottom: 10px; margin-left: 20%;">
+                    <button id="activities" type="button" class="btn btn-primary">Activities</button>
+                    <button id="appearance" type="button" class="btn btn-primary">Appearance</button>
+                    <button id="interactions" type="button" class="btn btn-primary">Interactions</button>
+                </div>
+
+                <div class="text-center">
+                    <table class="table table-striped" style="width: 350px; border: 1px solid #dee2e6; margin-left: 20%;">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Key</th>
+                                <th scope="col" style="text-align: center;">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr>
+                                <td>Squirrel ID</td>
+                                <td id="meta_id">-</td>
+                            </tr>
+                            <tr>
+                                <td>Date</td>
+                                <td id="meta_date">-</td>
+                            </tr>
+                            <tr>
+                                <td>Coordinates</td>
+                                <td id="meta_coords">-</td>
+                            </tr>
+                            <tr>
+                                <td>Primary Colour</td>
+                                <td id="meta_primary">-</td>
+                            </tr>
+                            <tr>
+                                <td>Highlights</td>
+                                <td id="meta_highlights">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
         </div>
     </div>
 
@@ -80,44 +130,13 @@
 
     <div id="index_bar"></div>
 
-    <div id="colour_heatmap"></div>
+    <div id="index_colour_heatmap"></div>
 
     <div id="interaction_radar"></div>
 
 
 
-    <div class="col-md-6 map-container">
-        <table class="table table-striped" style="width: 350px; border: 1px solid #dee2e6;">
-            <thead>
-                <tr>
-                    <th scope="col" style="text-align: center;">Key</th>
-                    <th scope="col" style="text-align: center;">Value</th>
-                </tr>
-            </thead>
-            <tbody style="text-align: center;">
-                <tr>
-                    <td>Squirrel ID</td>
-                    <td id="meta_id">-</td>
-                </tr>
-                <tr>
-                    <td>Date</td>
-                    <td id="meta_date">-</td>
-                </tr>
-                <tr>
-                    <td>Coordinates</td>
-                    <td id="meta_coords">-</td>
-                </tr>
-                <tr>
-                    <td>Primary Colour</td>
-                    <td id="meta_primary">-</td>
-                </tr>
-                <tr>
-                    <td>Highlights</td>
-                    <td id="meta_highlights">-</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 
     <div id="test_radar"></div>
     <div id="test_violin"></div>

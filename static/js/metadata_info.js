@@ -38,7 +38,7 @@ function sighting_metadata(dataset, metadata, squirrel_id, appearance_data) {
         let info_primary = d3.select("#meta_primary").text(`${squirrel_appearance.primary_colour}`);
 
         let info_highlights = d3.select("#meta_highlights").text(formatted_highlights.join(", "));
-
+        console.log(info_highlights);
     };
     
 };

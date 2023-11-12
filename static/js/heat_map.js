@@ -96,7 +96,7 @@ function databuild_heatmap(metadata_data, appearance_data) {
 };
 
 //---------------- CREATE THE HEAT MAP ----------------//
-function create_heatmap(metadata_data, appearance_data) {
+function create_heatmap(metadata_data, appearance_data, plot_div) {
     // Call the data build function
     let data = databuild_heatmap(metadata_data, appearance_data);
 
@@ -141,5 +141,5 @@ function create_heatmap(metadata_data, appearance_data) {
     };
 
     // Create the plot
-    Plotly.newPlot("colour_heatmap", heat_data, heat_layout);
+    Plotly.newPlot(plot_div, heat_data, heat_layout);
 };

@@ -6,7 +6,7 @@ const interactions_url = "http://127.0.0.1:5000/interactions";
 
 // Define the map parameters
 let map_centre = [40.769361, -73.977655]; // Central Park. https://latitude.to/articles-by-country/us/united-states/605/central-park
-let map_zoom = 11;
+let map_zoom = 12;
 
 
 
@@ -315,6 +315,7 @@ function interactive_markers(metadata_data, activities_data, appearance_data, in
                 console.log(chosen_dataset, chosen_feature);
                 if (chosen_feature === "appearance") {
                     console.log("Need to parse primary colour first");
+                    create_heatmap(metadata_data, appearance_data, "index_colour_heatmap");
                 }
                 else {
                     create_bar(chosen_feature, season_feature[chosen_dataset]["metadata"], season_feature[chosen_dataset][chosen_feature], "index_bar");
@@ -536,12 +537,13 @@ d3.json(metadata_url).then(function(metadata_data) {
                 // create_plots(location_data, appearance_data, activities_data, interactions_data);
                 // create_map_markers(metadata_data, appearance_data, activities_data);
                 // create_bar(metadata_data, activities_data, "overview_bar");
-                create_heatmap(metadata_data, appearance_data);
-                create_pie(interactions_data);
-                create_radar(metadata_data, interactions_data, "interaction_radar");
+                // create_heatmap(metadata_data, appearance_data);
+                
+                // create_pie(interactions_data);
+                // create_radar(metadata_data, interactions_data, "interaction_radar");
                 interactive_markers(metadata_data, activities_data, appearance_data, interactions_data);
                 sighting_metadata(metadata_data, activities_data, appearance_data, interactions_data);
-                slider(metadata_data, activities_data, appearance_data, interactions_data);
+                // slider(metadata_data, activities_data, appearance_data, interactions_data);
             });
         });
     });
