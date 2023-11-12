@@ -87,7 +87,8 @@ function databuild_heatmap(metadata_data, appearance_data) {
     // Define the values to use in the plot
     let colourmap_xval = unique_highlights;
     let colourmap_yval = Object.keys(condense_values);
-    let colourmap_zval = Object.values(condense_values);    
+    let colourmap_zval = Object.values(condense_values);
+    console.log(colourmap_zval);
 
     // Capitalise the x-values
     let formatted_xvals = colourmap_xval.map(word => _.capitalize(word));
