@@ -52,9 +52,34 @@ __Dataset Limitations__
 - The 2018 dataset was limited to “Central Park”, whereas the 2020 data was collected over multiple smaller parks.
 
 ## Scope
+The project will focus on the following data attributes:
+- Latitude and longitude, to plot the sightings on a map.
+- Squirrels identified using unique IDs.
+- Squirrel sightings have the following recorded:
+    - Primary Fur Colour
+    - Highlight Fur Colour
+    - Activities (running, chasing, climbing, eating, foraging, etc.)
+    - Interactions with humans (approaches, indifferent, runs from)
+- The weather on the day of the sighting
+- The age of the squirrel (2018 dataset only)
+
+|![project_workflow](https://github.com/alyssahondrade/Project3/blob/main/images/project_workflow.png)|
+|:---:|
+|Project Workflow|
+
+|![coding_approach](https://github.com/alyssahondrade/Project3/blob/main/images/coding_approach.png)|
+|:---:|
+|Coding Approach|
 
 ## Analysis
+1. How does the squirrel frequency and range of activities and behaviours compare between autumn and spring?
+![squirrel_activities](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_activities_bar_chart.png)
 
+2. How does the squirrel population diversity (colours, age, location) compare between autumn and spring?
+![squirrel_appearance](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_appearance_heat_map.png)
+
+3. How do squirrels, in a park setting, interact with humans and other wildlife?
+![squirrel_interactions](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_interactions_radar_plot.png)
 
 ## Future Research
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
