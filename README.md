@@ -11,15 +11,16 @@ GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://g
     2. [Repository Structure](https://github.com/alyssahondrade/Project3#repository-structure)
     3. [Dataset](https://github.com/alyssahondrade/Project3#dataset)
 2. [Scope](https://github.com/alyssahondrade/Project3#scope)
+    1. [Architecture]()
 3. [Analysis](https://github.com/alyssahondrade/Project3/tree/main#analysis)
 4. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
 5. [References](https://github.com/alyssahondrade/Project3#references)
 
 
 ## Introduction
-The project will create an interactive visualisation of a squirrel’s day-to-day life in New York City. The project is based on the 2018 and 2020 Squirrel Census, where the data from 2018 was collected over a two-week period and the data for 2020 was collected on a single day (01 March 2020) but simplified for the project as autumn and spring.[`Weather in New York`](https://www.newyork.com.au/travel-season-new-york/)
+The project will create an interactive visualisation of a squirrel’s day-to-day life in New York City. The project is based on the 2018 and 2020 Squirrel Census, where the data from 2018 was collected over a two-week period and the data for 2020 was collected on a single day (01 March 2020) but simplified for the project as autumn and spring.
 
-The project singles in on a specific animal but can be scaled to any wildlife and its interactions/ behaviours in similar metropolitan areas.
+The project singles in on a specific animal but can be scaled to any wildlife and its interactions / behaviours in similar metropolitan areas.
 
 ### Research Questions
 1. How does the squirrel frequency and range of activities and behaviours compare between autumn and spring?
@@ -73,7 +74,10 @@ The project workflow demonstrates the early planning of the project. From this, 
 |:---:|
 |Project Workflow|
 
-![data_wrangling_1]
+The data wrangling diagrams are shown below.
+|![data_wrangling_1](https://github.com/alyssahondrade/Project3/blob/main/images/2018%20Dataset.png)|![data_wrangling_2](https://github.com/alyssahondrade/Project3/blob/main/images/2020%20Dataset.png)|![data_wrangling_3](https://github.com/alyssahondrade/Project3/blob/main/images/Both%20Datasets.png)|
+|:---:|:---:|:---:|
+|2018 Dataset|2020 Dataset|Both Datasets|
 
 The ERD of the cleaned dataset is shown below, this was used to inform the SQLite database build.
 |![squirrels_erd](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_erd.png)|
@@ -111,6 +115,10 @@ In conclusion, the project could be applied to any wildlife species within the m
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
 - Map filtering such that selecting checkboxes will filter relevant markers (AND logic, as opposed to OR).
 - Additional visualisations for the longitudinal (slider) plot.
+
+__Future Amendments__
+- Add numbers to the heatmap.
+- Tidy the overview page and convert to an "About" section.
 
 ## References
 The full reference list utilised in the project is available at: [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md)
