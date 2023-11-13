@@ -1,8 +1,9 @@
 # We, The New York Squirrels
 Project 3 - Data Analytics Bootcamp
+
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
 
-GitHub repository at [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
+GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
 ## Table of Contents
 1. [Introduction](https://github.com/alyssahondrade/Project3#introduction)
@@ -47,9 +48,9 @@ Retrieved data from the following two websites:
 ### Results
 
 ### Limitation
-- Squirrels were not counted more than once, the scientific advisor onsite.
-- 2020 data was limited to one day, whereas 2018 data was collected over a period
-- 2018 data is limited to “Central Park”
+- The squirrels were not counted more than once, a scientific advisor was onsite providing guidance.
+- The 2020 dataset was limited to one day, 01 March 2020, whereas the 2018 data was collected over a two-week period.
+- The 2018 dataset was limited to “Central Park”, whereas the 2020 data was collected over multiple smaller parks.
 
 ## Future Research
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
