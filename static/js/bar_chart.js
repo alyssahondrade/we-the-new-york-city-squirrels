@@ -132,14 +132,12 @@ function create_bar(feature, metadata_data, activities_data, plot_div) {
             automargin: true
         }
     };
-    
-    // Create a list of the traces
-    console.log("traces", y_spring, y_autumn);
 
     // Check which dataset was chosen
     let checksum_autumn = _.sum(y_autumn);
     let checksum_spring = _.sum(y_spring);
 
+    // Create a list of the traces
     let bar_data;
     if (checksum_autumn === 0) { // Spring Dataset selected
         bar_data = [spring_trace];
