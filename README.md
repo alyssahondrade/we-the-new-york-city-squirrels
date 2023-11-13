@@ -63,16 +63,31 @@ The project will focus on the following data attributes:
 - The weather on the day of the sighting
 - The age of the squirrel (2018 dataset only)
 
+### Architecture
+The project workflow demonstrates the early planning of the project. From this, the following components were utilised in the project:
+- Track: A dashboard page with multiple charts that update from the same data.
+- Databse: SQLite
+- Additional JS Library: Chroma.js and Lodash
+
 |![project_workflow](https://github.com/alyssahondrade/Project3/blob/main/images/project_workflow.png)|
 |:---:|
 |Project Workflow|
 
+The ERD of the cleaned dataset is shown below, this was used to inform the SQLite database build.
+|![squirrels_erd](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_erd.png)|
+|:---:|
+|Database ERD|
+
+The coding approach diagram demonstrates the final architecture state of the project.
 |![coding_approach](https://github.com/alyssahondrade/Project3/blob/main/images/coding_approach.png)|
 |:---:|
 |Coding Approach|
 
 ## Analysis
 1. How does the squirrel frequency and range of activities and behaviours compare between autumn and spring?
+- In autumn, squirrels are more likely
+- Squirrels are more likely to forage, climb, and eat during spring, likely due to the availability of food sources.
+
 ![squirrel_activities](https://github.com/alyssahondrade/Project3/blob/main/images/squirrel_activities_bar_chart.png)
 
 2. How does the squirrel population diversity (colours, age, location) compare between autumn and spring?
