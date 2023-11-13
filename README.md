@@ -1,5 +1,5 @@
 # We, The New York Squirrels
-Project 3 - Data Analytics Bootcamp
+Project 3 - UWA/edX Data Analytics Bootcamp
 
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
 
@@ -16,9 +16,6 @@ GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://g
     2. [Limitation](https://github.com/alyssahondrade/Project3#limitation)
 5. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
 6. [References](https://github.com/alyssahondrade/Project3#references)
-    1. [Data Cleaning](https://github.com/alyssahondrade/Project3#data-cleaning)
-    2. [Data Visualisation](https://github.com/alyssahondrade/Project3#data-visualisation)
-    3. [Interactivity](https://github.com/alyssahondrade/Project3#interactivity)
 
 
 ## Introduction
@@ -35,7 +32,17 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 
 ### Repository Structure
+The root directory contains:
+- [`app.py`](), the Flask script used to serve both the data and the dashboard.
+- [`squirrels.sqlite`](), the SQLite database.
 
+The [`admin`]() directory contains the team project management files, including [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md).
+
+The [`erd`]() directory contains all documents relevant to the ERD and schema.
+
+The [`resources`]() directory contains:
+- [`clean`](), the subdirectory containing clean data (4 CSV files).
+- [`raw`]() the subdirectory containing the raw data (3 CSV files).
 
 ### Dataset
 Retrieved data from the following two websites:
@@ -57,4 +64,4 @@ Retrieved data from the following two websites:
 
 
 ## References
-
+The full reference list utilised in the project is available at: [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md)
