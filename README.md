@@ -1,7 +1,7 @@
 # We, The New York Squirrels
-Project 3 - UWA/edX Data Analytics Bootcamp
-
 ![image](https://github.com/alyssahondrade/Project3/assets/138610916/f0185984-d1bb-473f-b932-c6cb5d841353)
+
+Project 3 - UWA/edX Data Analytics Bootcamp
 
 GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
@@ -11,11 +11,9 @@ GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://g
     2. [Repository Structure](https://github.com/alyssahondrade/Project3#repository-structure)
     3. [Dataset](https://github.com/alyssahondrade/Project3#dataset)
 2. [Scope](https://github.com/alyssahondrade/Project3#scope)
-3. [Analysis]
-    1. [Reuslts](https://github.com/alyssahondrade/Project3#reuslts)
-    2. [Limitation](https://github.com/alyssahondrade/Project3#limitation)
-5. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
-6. [References](https://github.com/alyssahondrade/Project3#references)
+3. [Analysis](https://github.com/alyssahondrade/Project3/tree/main#analysis)
+4. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
+5. [References](https://github.com/alyssahondrade/Project3#references)
 
 
 ## Introduction
@@ -33,35 +31,35 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 ### Repository Structure
 The root directory contains:
-- [`app.py`](), the Flask script used to serve both the data and the dashboard.
-- [`squirrels.sqlite`](), the SQLite database.
+- `app.py`, the Flask script used to serve both the data and the dashboard.
+- `squirrels.sqlite`, the SQLite database.
 
-The [`admin`]() directory contains the team project management files, including [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md).
-
-The [`erd`]() directory contains all documents relevant to the ERD and schema.
-
-The [`resources`]() directory contains:
-- [`clean`](), the subdirectory containing clean data (4 CSV files).
-- [`raw`]() the subdirectory containing the raw data (3 CSV files).
+Other directories:
+- `admin` contains team project management files, including [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md).
+- `erd` contains all documents relevant to the ERD and schema.
+- `resources` contains subdirectories: `clean` data (4 CSV files) and `raw` data (3 CSV files).
+- `static/js` contains the dashboard JavaScript files.
+- `templates` contains the HTML files.
 
 ### Dataset
 Retrieved data from the following two websites:
 - [`The Squirrel Census`](https://www.thesquirrelcensus.com/data)
 - [`2018 Central Park Squirrel Census - Squirrel Data`](https://data.cityofnewyork.us/Environment/2018-Central-Park-Squirrel-Census-Squirrel-Data/vfnx-vebw)
 
-## Scope
-
-## Analysis
-### Results
-
-### Limitation
+__Dataset Limitations__
 - The squirrels were not counted more than once, a scientific advisor was onsite providing guidance.
 - The 2020 dataset was limited to one day, 01 March 2020, whereas the 2018 data was collected over a two-week period.
 - The 2018 dataset was limited to “Central Park”, whereas the 2020 data was collected over multiple smaller parks.
 
+## Scope
+
+## Analysis
+
+
 ## Future Research
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
-
+- Map filtering such that selecting checkboxes will filter relevant markers (AND logic, as opposed to OR).
+- Additional visualisations for the longitudinal (slider) plot.
 
 ## References
 The full reference list utilised in the project is available at: [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md)
