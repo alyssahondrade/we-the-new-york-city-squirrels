@@ -7,6 +7,11 @@ GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://g
 
 Presentation slides at: [We, The New York City Squirrels](https://www.canva.com/design/DAFzenMw14o/LYJVAZa6CBkn-DByMrmZUg/edit?utm_content=DAFzenMw14o&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
+## Usage
+Step 1: Clone the repository to your local machine.
+Step 2: Open a terminal at the repository.
+Step 3: Run `flask run`.
+Step 4: Enjoy the dashboard!
 
 ## Table of Contents
 1. [Introduction](https://github.com/alyssahondrade/Project3#introduction)
