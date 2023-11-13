@@ -5,13 +5,16 @@ Project 3 - UWA/edX Data Analytics Bootcamp
 
 GitHub repository at: [https://github.com/alyssahondrade/Project3.git](https://github.com/alyssahondrade/Project3.git)
 
+Presentation slides at: [We, The New York City Squirrels](https://www.canva.com/design/DAFzenMw14o/LYJVAZa6CBkn-DByMrmZUg/edit?utm_content=DAFzenMw14o&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+
 ## Table of Contents
 1. [Introduction](https://github.com/alyssahondrade/Project3#introduction)
     1. [Research Questions](https://github.com/alyssahondrade/Project3#research-questions)
     2. [Repository Structure](https://github.com/alyssahondrade/Project3#repository-structure)
     3. [Dataset](https://github.com/alyssahondrade/Project3#dataset)
 2. [Scope](https://github.com/alyssahondrade/Project3#scope)
-    1. [Architecture]()
+    1. [Architecture](https://github.com/alyssahondrade/Project3/blob/main/README.md#architecture)
 3. [Analysis](https://github.com/alyssahondrade/Project3/tree/main#analysis)
 4. [Future Research](https://github.com/alyssahondrade/Project3#future-research)
 5. [References](https://github.com/alyssahondrade/Project3#references)
@@ -29,7 +32,6 @@ The project singles in on a specific animal but can be scaled to any wildlife an
 
 3. How do squirrels, in a park setting, interact with humans and other wildlife?
 
-
 ### Repository Structure
 The root directory contains:
 - `app.py`, the Flask script used to serve both the data and the dashboard.
@@ -38,6 +40,8 @@ The root directory contains:
 Other directories:
 - `admin` contains team project management files, including [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md).
 - `erd` contains all documents relevant to the ERD and schema.
+- `images` contains all images used in the README.
+- `presentation` contains slides and squirrel story.
 - `resources` contains subdirectories: `clean` data (4 CSV files) and `raw` data (3 CSV files).
 - `static/js` contains the dashboard JavaScript files.
 - `templates` contains the HTML files.
@@ -51,6 +55,7 @@ __Dataset Limitations__
 - The squirrels were not counted more than once, a scientific advisor was onsite providing guidance.
 - The 2020 dataset was limited to one day, 01 March 2020, whereas the 2018 data was collected over a two-week period.
 - The 2018 dataset was limited to “Central Park”, whereas the 2020 data was collected over multiple smaller parks.
+
 
 ## Scope
 The project will focus on the following data attributes:
@@ -89,6 +94,7 @@ The coding approach diagram demonstrates the final architecture state of the pro
 |:---:|
 |Coding Approach|
 
+
 ## Analysis
 1. How does the squirrel frequency and range of activities and behaviours compare between autumn and spring?
 - In autumn, squirrels are more likely to dig, run, and sit, which could be attributed to the coming of winter. Squirrels could be preparing their food vaults and are wary of predators during this time.
@@ -111,6 +117,7 @@ The coding approach diagram demonstrates the final architecture state of the pro
 
 In conclusion, the project could be applied to any wildlife species within the metro area if the dataset was available.
 
+
 ## Future Research
 - Locations: Map squirrel locations (location, specific location) and track squirrel vertical movements (above ground, etc).
 - Map filtering such that selecting checkboxes will filter relevant markers (AND logic, as opposed to OR).
@@ -119,6 +126,7 @@ In conclusion, the project could be applied to any wildlife species within the m
 __Future Amendments__
 - Add numbers to the heatmap.
 - Tidy the overview page and convert to an "About" section.
+- Clean up the "squirrel_story.md".
 
 ## References
 The full reference list utilised in the project is available at: [`references.md`](https://github.com/alyssahondrade/Project3/blob/main/admin/references.md)
