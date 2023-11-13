@@ -76,9 +76,9 @@ The project will focus on the following data attributes:
 
 ### Architecture
 The project workflow demonstrates the early planning of the project. From this, the following components were utilised in the project:
-- Track: A dashboard page with multiple charts that update from the same data.
-- Databse: SQLite
-- Additional JS Library: Chroma.js and Lodash
+- __Track__: A dashboard page with multiple charts that update from the same data.
+- __Database__: SQLite
+- __Additional JS Library__: Chroma.js and Lodash
 
 |![project_workflow](https://github.com/alyssahondrade/Project3/blob/main/images/project_workflow.png)|
 |:---:|
